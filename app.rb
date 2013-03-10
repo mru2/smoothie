@@ -12,6 +12,7 @@ module Smoothie
         'css/normalize.css',
         'css/bootstrap.css',
         'css/bootstrap-responsive.css',
+        'css/font-awesome.css',
         'css/flat-ui.css',
         'css/smoothie.css'
       ]

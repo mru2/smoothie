@@ -1,9 +1,9 @@
-/* Layout */
+// Layout
 .heading
   margin-top: 20px
 
 
-/* Landing page */
+// Landing page
 .landing
   margin: 60px 0px
   text-align: center
@@ -15,3 +15,114 @@
   .btn
     font-size: 21px
     padding: 14px 24px
+
+// Player
+#radio
+  
+  #controls
+    text-align: center
+
+    ul.nav
+      float: none
+      display: inline-block
+      vertical-align: bottom
+
+      // Icons
+      i
+        cursor: pointer
+        padding: 0em 0.5em
+        color: #ECF0F1
+        line-height: 40px
+        font-size: 1.5em
+        text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.25)
+
+        &:hover
+          color: #2ECC71
+
+
+  #tracks
+
+    // The typo
+    #current, #prev, #next
+      span
+        color: white
+        background-color: rgba(0, 0, 0, 0.5)
+        padding: 0em 0.25em
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25)
+
+    #current span
+      font-size: 3em
+
+    #prev, #next
+      span
+        font-size: 1.5em
+
+
+    // Makes them responsivly squared
+    #current, #prev, #next
+      position: relative
+      width: 100%
+      height: 0
+      padding-bottom: 100% /* % of width, defines aspect ratio*/
+      
+      background-repeat: no-repeat
+      background-position: center center
+      background-size: cover
+
+      // The like overlay
+      .overlay
+        visibility: hidden
+
+        position: absolute
+        width: 100%
+        height: 100%
+        background-color: rgba(0, 0, 0, 0.5)
+
+        .container
+          position: absolute
+          top: 50%
+          height: 6em
+          line-height: 6em
+          margin-top: -3em
+
+          width: 100%
+          text-align: center
+
+          // Actual like/unlike icons
+          .icon-liked, .icon-unliked
+            cursor: pointer
+            font-size: 6em
+
+
+          .icon-liked
+            &:before
+              content: "\f004"
+              color: #E74C3C
+
+            &:hover
+              &:before
+                color: #BDC3C7
+
+          .icon-unliked
+            &:before
+              color: #BDC3C7
+              content: "\f08a"
+
+            &:hover
+              &:before
+                color: #E74C3C
+
+
+      &:hover .overlay
+        visibility: visible
+
+
+    #current
+      background-image: url(https://i4.sndcdn.com/artworks-000006981797-k202a8-t500x500.jpg)
+
+    #prev
+      background-image: url(https://i1.sndcdn.com/artworks-000020208116-tw81u0-t500x500.jpg)
+
+    #next
+      background-image: url(https://a2.sndcdn.com/assets/images/default/cloudx120-1ec56ce9.png)
+
