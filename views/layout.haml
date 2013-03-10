@@ -10,13 +10,8 @@
     %meta{:content => "", :name => "description"}
     %meta{:content => "width=device-width", :name => "viewport"}
 
-    / Place favicon.ico and apple-touch-icon.png in the root directory
-    %link{:href => "css/normalize.css", :rel => "stylesheet"}
-    %link{:href => "css/bootstrap.css", :rel => "stylesheet"}
-    %link{:href => "css/flat-ui.css", :rel => "stylesheet"}
-    %link{:href => "css/smoothie.css", :rel => "stylesheet"}
-
-    %script{:src => "js/vendor/modernizr-2.6.2.min.js"}
+    = css :application, :media => :screen
+    = js  :app
 
   %body
     /[if lt IE 7]
@@ -25,14 +20,6 @@
     / Add your site or application content here
     .container
       = yield
-
-    %script{:src => "//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"}
-
-    :javascript
-      window.jQuery || document.write('<script src="js/vendor/jquery-1.9.0.min.js"><\/script>')
-
-    %script{:src => "js/plugins.js"}
-    %script{:src => "js/main.js"}
 
     / Google Analytics: change UA-XXXXX-X to be your site's ID.
     :javascript

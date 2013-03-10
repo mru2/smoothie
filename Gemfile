@@ -7,4 +7,8 @@ group :development do
   gem 'debugger'
 end
 
+gem 'sinatra-assetpack', :require => 'sinatra/assetpack'
+
 gem 'haml'
+gem 'sass'
+gem 'coffee-script'
