@@ -12,3 +12,5 @@ gem 'sinatra-assetpack', :require => 'sinatra/assetpack'
 gem 'haml'
 gem 'sass'
 gem 'coffee-script'
+
+gem 'soundcloud'

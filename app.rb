@@ -29,5 +29,10 @@ module Smoothie
       haml :landing
     end
 
+    # The player
+    get '/radio' do
+      haml :radio
+    end
+
   end
 end
