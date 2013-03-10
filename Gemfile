@@ -5,6 +5,7 @@ gem 'sinatra'
 group :development do
   gem 'shotgun'
   gem 'debugger'
+  gem 'rake'
 end
 
 gem 'sinatra-assetpack', :require => 'sinatra/assetpack'
