@@ -18,7 +18,6 @@
 
 // Player
 #radio
-  
   #controls
     text-align: center
 
@@ -69,14 +68,25 @@
       background-position: center center
       background-size: cover
 
+    #prev, #next
+      padding-bottom: 200% /* % of width, defines aspect ratio*/
+
+    #prev
+      background-position: center right
+
+    #next
+      background-position: center left
+
+    #current, #prev, #next
+
       // The like overlay
       .overlay
         visibility: hidden
 
-        position: absolute
-        width: 100%
-        height: 100%
-        background-color: rgba(0, 0, 0, 0.5)
+        // position: absolute
+        // width: 100%
+        // height: 100%
+        // background-color: rgba(0, 0, 0, 0.5)
 
         .container
           position: absolute
@@ -91,7 +101,10 @@
           // Actual like/unlike icons
           .icon-liked, .icon-unliked
             cursor: pointer
+            padding: 0.5em
             font-size: 6em
+            background-color: rgba(0, 0, 0, 0.5)
+            border-radius: 100%
 
 
           .icon-liked
