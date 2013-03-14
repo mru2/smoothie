@@ -1,6 +1,9 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    celluloid (0.12.4)
+      facter (>= 1.6.12)
+      timers (>= 1.0.0)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
@@ -13,8 +16,10 @@ GEM
     debugger-linecache (1.1.2)
       debugger-ruby_core_source (>= 1.1.1)
     debugger-ruby_core_source (1.2.0)
+    diff-lcs (1.2.1)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    facter (1.6.18)
     haml (4.0.0)
       tilt
     hashie (2.0.2)
@@ -34,6 +39,17 @@ GEM
     rack-test (0.6.2)
       rack (>= 1.0)
     rake (10.0.3)
+    redis (3.0.3)
+    redis-objects (0.7.0)
+      redis (>= 3.0.2)
+    rspec (2.13.0)
+      rspec-core (~> 2.13.0)
+      rspec-expectations (~> 2.13.0)
+      rspec-mocks (~> 2.13.0)
+    rspec-core (2.13.1)
+    rspec-expectations (2.13.0)
+      diff-lcs (>= 1.1.3, < 2.0)
+    rspec-mocks (2.13.0)
     sass (3.2.7)
     shotgun (0.9)
       rack (>= 1.0)
@@ -51,15 +67,19 @@ GEM
       httmultiparty (>= 0.3)
       httparty (>= 0.7.3)
     tilt (1.3.5)
+    timers (1.1.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  celluloid
   coffee-script
   debugger
   haml
   rake
+  redis-objects
+  rspec
   sass
   shotgun
   sinatra

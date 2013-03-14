@@ -1,0 +1,3 @@
+client_id: d082276d6bcf9390cb2b1dab9197ce0e
+client_secret: 9e3b3b3b5e3e83c73fd523a53433b2c7
+redirect_uri: "http://localhost:9393/login/callback"
