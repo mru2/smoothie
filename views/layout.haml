@@ -19,6 +19,11 @@
 
     .container
       .heading
+        - if session[:user]
+          %p.pull-right
+            = "Logged in as #{session[:user].username} - "
+            %a{:href => '/logout'} Logout
+
         %h3.muted Smoothie
 
       %hr

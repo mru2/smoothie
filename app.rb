@@ -6,6 +6,8 @@ require 'soundcloud_client'
 module Smoothie
   class Application < Sinatra::Base
 
+    UserSession = Struct.new(:username, :id, :access_token, :refresh_token)
+
     enable :sessions
 
     configure do
@@ -52,7 +54,15 @@ module Smoothie
       # Save the user access and refresh tokens in session
       soundcloud = Smoothie::SoundcloudClient.new
       user_token = soundcloud.client.exchange_token :code => params[:code]
-      session[:user] = {:access_token => user_token.access_token, :refresh_token => user_token.refresh_token}
+
+      current_user = Smoothie::SoundcloudClient.new(:access_token => user_token.access_token).client.get('/me')
+
+      session[:user] = UserSession.new(
+        current_user.username,
+        current_user.id,
+        user_token.access_token, 
+        user_token.refresh_token
+      )
 
       redirect '/radio'
     end
@@ -60,16 +70,14 @@ module Smoothie
     # Soundcloud logout
     get '/logout' do
       session[:user] = nil
+
+      redirect '/'
     end
 
     # The player
     get '/radio' do
       redirect '/login' unless session[:user]
 
-      # soundcloud = Smoothie::SoundcloudClient.new(:access_token => session[:user][:access_token])
-      # @current_user = soundcloud.client.get('/me')
-      # @tracks = soundcloud.client.get("/users/#{@current_user.id}/favorites", :limit => 10)
-      
       haml :radio
     end
 
