@@ -19,5 +19,9 @@ module Smoothie
       @uid
     end
 
+    def tracks
+      track_ids.map{|id|Track.new(id)}
+    end
+
   end
 end
