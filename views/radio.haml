@@ -1,51 +1,28 @@
 #radio
 
-  #controls.navbar.navbar-inverse
-    .navbar-inner
-      .container
-        %ul.nav
-          %li
-            %i.icon-step-backward
+  / #controls.navbar.navbar-inverse
+  /   .navbar-inner
+  /     .container
+  /       %ul.nav
+  /         %li
+  /           %i.icon-step-backward
 
-          %li
-            %i.icon-play
+  /         %li
+  /           %i.icon-play
 
-          %li
-            %i.icon-step-forward
+  /         %li
+  /           %i.icon-step-forward
 
-  #tracks.row
+  .row
+    .span6.offset3
+      #current-track
+        #controls
+          %a#prev.pull-left   <i class="icon-angle-left"></i>
+          %a#play             <i class="icon-play"></i>
+          %a#next.pull-right  <i class="icon-angle-right"></i>
 
-    .span4.hidden-phone
-      #prev
-        .overlay
-          .container
-            .icon-liked
-
-        %br
-        %span.title Zeds Dead - No Prayers
-        %br
-        %span.artist Thissongissick.com
-
-
-    .span4
-      #current
-        .overlay
-          .container
-            .icon-liked
-
-        %br
+        %br 
         %span.title Sir Sly - Gold
         %br
         %span.artist Sir Sly
 
-    .span4.hidden-phone
-      #next
-        .overlay
-          .container
-            .icon-unliked
-
-
-        %br
-        %span.title Ratatat - Loud Pipes
-        %br
-        %span.artist Fatlicious!
