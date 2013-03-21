@@ -40,7 +40,7 @@ module Smoothie
     private
 
     def default_client_params
-      params = YAML.load_file(File.join(ENV['APP_ROOT'], 'config', 'soundcloud.yml'))
+      params = YAML.load_file(File.join(ENV['APP_ROOT'], 'config', 'soundcloud.yml'))[ENV["RACK_ENV"]]
 
       # Symbolizing keys
       params.keys.each{|key|params[key.to_sym] = params.delete(key)}

@@ -1,3 +1,9 @@
-client_id: d082276d6bcf9390cb2b1dab9197ce0e
-client_secret: 9e3b3b3b5e3e83c73fd523a53433b2c7
-redirect_uri: "http://localhost:9393/login/callback"
+development: 
+  client_id: d082276d6bcf9390cb2b1dab9197ce0e
+  client_secret: 9e3b3b3b5e3e83c73fd523a53433b2c7
+  redirect_uri: "http://localhost:9393/login/callback"
+
+production:
+  client_id: a4143c0fc9973cbd2406fd41c6e8de8a
+  client_secret: aa112af81659fc182fc8081f16f422c3
+  redirect_uri: "http://smoothie.herokuapp.com/login/callback"
