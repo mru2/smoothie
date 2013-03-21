@@ -1,10 +1,109 @@
+// Turquoises
+$turquoise: #1ABC9C
+$green-sea: #16A085
+
+// Greens
+$emerald:   #2ECC71
+$nephritis: #27AE60
+
+// Blues
+$petermann-river: #3498DB
+$belize-hole: #2980B9
+
+// Violets
+$amethyst: #9B59B6
+$wisteria: #8E44AD
+
+// Blacks
+$wet-asphalt: #34495E
+$midnight-blue: #2C3E50
+
+// Yellows
+$sun-flower: #F1C40F
+$orange: #F39C12
+
+// Oranges
+$carrot: #E67E22
+$pumpkin: #D35400
+
+// Reds
+$alizarin: #E74C3C
+$pomegranate: #C0392B
+
+// Light Greys
+$clouds: #ECF0F1
+$silver: #BDC3C7
+
+// Dark Greys
+$concrete: #95A5A6
+$abestos: #7F8C8D
+
+
+
+// Variables and mixins
+$white: $clouds
+
+$gradient-start: rgba(52,73,94,0.7) 0%
+$gradient-end: rgba(52,73,94,0.9) 80%
+
+$transparent-bg: rgba(0, 0, 0, 0.5)
+$transparent-bg-hover: rgba(0, 0, 0, 0.8)
+
+@mixin player-control
+  display: inline-block
+  border: 3px solid $white
+  background-color: $transparent-bg
+  border-radius: 100%
+  width: 1em
+  height: 1em
+  padding: 0.5em
+  color: $white
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25) 
+  line-height: 1em  
+
+  &:hover
+    background: $transparent-bg-hover
+    color: $emerald
+    border-color: $emerald
+
+
+html,body
+  height: 100%
+
+body
+  background: url('/img/bg-pattern.png')
+
+#wrap
+  background: -moz-radial-gradient(circle, $gradient-start, $gradient-end)
+  background: -webkit-radial-gradient(circle, $gradient-start, $gradient-end)
+  background: radial-gradient(circle, $gradient-start, $gradient-end)
+
+  min-height: 100%
+  height: auto !important
+  height: 100%
+  /* Negative indent footer by it's height */
+  margin: 0 auto -3em
+
+footer
+  height: 3em
+  line-height: 3em
+  font-size: inherit
+
+
 // Layout
-.heading
-  margin-top: 20px
+#header-container
+  padding: 1em 0
+  border-bottom: 5px solid $wet-asphalt
+  background-color: $white
+
+  .session
+    line-height: 3.2em
+    margin: 0
 
 
 // Landing page
 .landing
+  color: $white
   margin: 60px 0px
   text-align: center
 
@@ -19,17 +118,31 @@
 // Player
 #radio
 
+  margin-top: 3em
+
   #current-track
+
+    // For the sliding effect
+    -webkit-transition: 0.25s
+    -moz-transition: 0.25s
+    transition: 0.25s
 
     background-image: url(https://i4.sndcdn.com/artworks-000006981797-k202a8-t500x500.jpg)
 
     // The typo
     span
-      color: #ECF0F1
-      background-color: rgba(0, 0, 0, 0.5)
+      color: $white
+      background-color: $transparent-bg
       padding: 0em 0.25em
       text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25)
-      font-size: 2em
+
+      &.title
+        font-size: 2em
+
+      &.artist
+        font-size: 1.5em
+        color: $silver
+
 
     // Makes them responsivly squared
     position: relative
@@ -46,92 +159,50 @@
     border-radius: 2em
     overflow: hidden
 
-    #controls
-      position: absolute
-      text-align: center
-      width: 100%
-      bottom: 20px
-      font-size: 6em
-      height: 1em
-      line-height: 1em
-      margin-top: -0.5em
-      background-color: rgba(0, 0, 0, 0.5)
+    // Position the controls for mobile
+    #prev, #next
+      margin-top: 1em
+
+  #controls
+    position: absolute
+    text-align: center
+    width: 100%
+    top: 50%
+    height: 6em
+    line-height: 6em
+    margin-top: -3em
 
 
+  .control-container
+    padding-top: 22.5% // To center the control vertically. A bit ugly but seems to work
 
-      a
-        text-decoration: none
+  .control
+    text-decoration: none
+    cursor: pointer
+    text-align: center
 
-      #prev, #next
-        color: #ECF0F1
-        text-decoration: none
-        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25) 
+    &#prev, &#next
+      font-size: 2em
+      @include player-control
 
-      #play
-        color: #ECF0F1
-        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25) 
+    &#prev
+      padding: 0.45em 0.55em 0.55em 0.45em
 
-    // // Glossy finish
-    // &:after
-    //   position: absolute
-    //   content: ' '
-    //   width: 100%
-    //   height: 50%
-    //   top: 0
-    //   left: 0
-    //   -webkit-border-radius: 20px
-    //   -moz-border-radius: 20px
-    //   border-radius: 20px
-    //   background: -moz-linear-gradient(top, rgba(255,255,255,0.7) 0%, rgba(255,255,255,.1) 100%)
-    //   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.7)), color-stop(100%,rgba(255,255,255,.1)))
-    //   background: linear-gradient(top, rgba(255,255,255,0.7) 0%,rgba(255,255,255,.1) 100%)
+    &#next
+      padding: 0.45em 0.45em 0.55em 0.55em
 
-    //// The like overlay
-    //.overlay
-    //  visibility: hidden
-//
-    //  // position: absolute
-    //  // width: 100%
-    //  // height: 100%
-    //  // background-color: rgba(0, 0, 0, 0.5)
-//
-    //  .container
-    //    position: absolute
-    //    top: 50%
-    //    height: 6em
-    //    line-height: 6em
-    //    margin-top: -3em
-//
-    //    width: 100%
-    //    text-align: center
-//
-    //    // Actual like/unlike icons
-    //    .icon-liked, .icon-unliked
-    //      cursor: pointer
-    //      padding: 0.5em
-    //      font-size: 6em
-    //      background-color: rgba(0, 0, 0, 0.5)
-    //      border-radius: 100%
-//
-//
-    //    .icon-liked
-    //      &:before
-    //        content: "\f004"
-    //        color: #E74C3C
-//
-    //      &:hover
-    //        &:before
-    //          color: #BDC3C7
-//
-    //    .icon-unliked
-    //      &:before
-    //        color: #BDC3C7
-    //        content: "\f08a"
-//
-    //      &:hover
-    //        &:before
-    //          color: #E74C3C
-//
-//
-    //&:hover .overlay
-    //  visibility: visible
+    &#play
+      font-size: 4em
+      @include player-control
+      padding: 0.5em 0.45em 0.5em 0.55em
+
+
+// Mobile: no padding on the body but on the containers
+@media (max-width: 767px)
+  body
+    padding-right: 0px
+    padding-left: 0px
+
+  .container
+    padding-right: 20px
+    padding-left: 20px

@@ -14,21 +14,29 @@
     = js  :app
 
   %body
-    /[if lt IE 7]
-      <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
 
-    .container
-      .heading
-        - if session[:user]
-          %p.pull-right
-            = "Logged in as #{session[:user].username} - "
-            %a{:href => '/logout'} Logout
+    #wrap
 
-        %h3.muted Smoothie
+      /[if lt IE 7]
+        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
 
-      %hr
+      #header-container
+        .container
+          - if session[:user]
+            %p.pull-right.session
+              = "Logged in as #{session[:user].username} - "
+              %a{:href => '/logout'} Logout
 
-      = yield
+          %h3.muted Smoothie
+
+      #main-container
+        .container
+          = yield
+
+    %footer
+      .container
+        © Smoothie
+        = Time.now.year
 
     :javascript
       var _gaq=[['_setAccount','UA-39182901-1'],['_trackPageview']];
