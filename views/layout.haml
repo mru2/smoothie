@@ -24,8 +24,7 @@
 
           - if session[:user]
             %p.pull-right.session
-              %span.hidden-phone=  "#{session[:user].username} - "
-              %a{:href => '/logout'} Log out  
+              %a.btn.btn-primary{:href => '/logout'} Log out  
 
           %h3.muted Smoothie
 

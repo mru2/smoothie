@@ -73,6 +73,7 @@ html,body
 body
   background: url('/img/bg-pattern.png')
 
+
 #wrap
   background: -moz-radial-gradient(circle, $gradient-start, $gradient-end)
   background: -webkit-radial-gradient(circle, $gradient-start, $gradient-end)
@@ -95,12 +96,13 @@ footer
   padding: 1em 0
   border-bottom: 5px solid $wet-asphalt
   background-color: white
+  line-height: 3em
 
   h3
     font-size: 1.7em
 
   .session
-    line-height: 3.2em
+    // line-height: 4em
     margin: 0
 
 
@@ -140,6 +142,7 @@ footer
       color: $white
       background-color: $transparent-bg
       padding: 0em 0.25em
+      line-height: 1.5em
       text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25)
 
       &.title
@@ -203,7 +206,7 @@ footer
       padding: 0.5em 0.45em 0.5em 0.55em
 
 
-// Mobile: no padding on the body but on the containers
+// Mobile styles
 @media (max-width: 767px)
   body
     padding-right: 0px
@@ -212,6 +215,22 @@ footer
   .container
     padding-right: 20px
     padding-left: 20px
+
+  #radio
+    margin-top: 0
+
+  #header-container
+    padding: 0
+    border-bottom: none
+    background-color: inherit
+    h3
+      color: $white
+    .session a
+      @extend .btn
+
+  footer
+    background-color: inherit
+
 
 // Responsive font sizes
 @media (max-width: 767px)
