@@ -94,7 +94,10 @@ footer
 #header-container
   padding: 1em 0
   border-bottom: 5px solid $wet-asphalt
-  background-color: $white
+  background-color: white
+
+  h3
+    font-size: 1.7em
 
   .session
     line-height: 3.2em
@@ -108,8 +111,11 @@ footer
   text-align: center
 
   h1
-    font-size: 72px
+    font-size: 5em
     line-height: 1
+
+  p.lead
+    font-size: 1.5em
 
   .btn
     font-size: 21px
@@ -206,3 +212,12 @@ footer
   .container
     padding-right: 20px
     padding-left: 20px
+
+// Responsive font sizes
+@media (max-width: 767px)
+  body
+    font-size: 0.8em
+
+@media (max-width: 480px)
+  body
+    font-size: 0.6em

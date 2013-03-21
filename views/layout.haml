@@ -16,16 +16,16 @@
   %body
 
     #wrap
-
-      /[if lt IE 7]
-        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-
       #header-container
         .container
+          /[if lt IE 7]
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+            %hr
+
           - if session[:user]
             %p.pull-right.session
-              = "Logged in as #{session[:user].username} - "
-              %a{:href => '/logout'} Logout
+              %span.hidden-phone=  "#{session[:user].username} - "
+              %a{:href => '/logout'} Log out  
 
           %h3.muted Smoothie
 
