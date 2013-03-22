@@ -101,8 +101,12 @@ footer
     font-size: 1.7em
 
   .session
-    // line-height: 4em
+    line-height: 4em
     margin: 0
+    .btn
+      font-size: 1.2em
+      padding: 0.25em 0.75em
+
 
 
 // Landing page
@@ -128,28 +132,60 @@ footer
   margin-top: 3em
 
   #current-track
+    z-index: 0
+
+    .background
+      z-index: -1
+      background-image: url(https://i4.sndcdn.com/artworks-000006981797-k202a8-t500x500.jpg)
+      width: 100%
+      height: 100%
+      position: absolute
+      background-repeat: no-repeat
+      background-position: center center
+      background-size: cover
+      box-shadow: inset 0 0 1px rgba(0,0,0,0.8),inset 0 2px 0 rgba(255,255,255,0.5),inset 0 -1px 0 rgba(0,0,0,0.4)
+      overflow: hidden
+
+      &:after
+        content: ""
+        width: 150%
+        height: 100%
+        position: absolute
+        top: -45%
+        left: -25%
+        display: block
+        background: rgba(255,255,255,0.1)
+        border-radius: 100%
+
 
     // For the sliding effect
     -webkit-transition: 0.25s
     -moz-transition: 0.25s
     transition: 0.25s
 
-    background-image: url(https://i4.sndcdn.com/artworks-000006981797-k202a8-t500x500.jpg)
+    a
+      text-decoration: none
+      cursor: pointer
 
     // The typo
-    span
+    .artist, .title
+      display: inline-block
       color: $white
       background-color: $transparent-bg
       padding: 0em 0.25em
-      line-height: 1.5em
+      margin: 0.25em 0em
       text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25)
 
-      &.title
-        font-size: 2em
+      &:hover
+        background-color: $transparent-bg-hover
+        color: $emerald
 
-      &.artist
-        font-size: 1.5em
-        color: $silver
+    .title
+      font-size: 2em
+
+    .artist
+      font-size: 1.5em
+      color: $silver
 
 
     // Makes them responsivly squared
@@ -158,18 +194,11 @@ footer
     height: 0
     padding-bottom: 100% /* % of width, defines aspect ratio*/
     
-    background-repeat: no-repeat
-    background-position: center center
-    background-size: cover
-
-    // Styling
-    box-shadow: inset 0 0 1px rgba(0,0,0,.8), inset 0 2px 0 rgba(255,255,255,.5), inset 0 -1px 0 rgba(0,0,0,.4)
-    border-radius: 2em
-    overflow: hidden
-
     // Position the controls for mobile
     #prev, #next
       margin-top: 1em
+
+
 
   #controls
     position: absolute
@@ -217,6 +246,9 @@ footer
 
   #radio
     margin-top: 0
+
+    #controls
+      top: 80%
 
   #header-container
     padding: 0
