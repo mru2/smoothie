@@ -43,8 +43,7 @@ $abestos: #7F8C8D
 // Variables and mixins
 $white: $clouds
 
-$gradient-start: rgba(52,73,94,0.7) 0%
-$gradient-end: rgba(52,73,94,0.9) 80%
+$bg-gradient: 50% 20%, circle, rgba(52,73,94,0.5) 30%, rgba(0,0,0,0.0) 100%
 
 $transparent-bg: rgba(0, 0, 0, 0.5)
 $transparent-bg-hover: rgba(0, 0, 0, 0.8)
@@ -75,9 +74,9 @@ body
 
 
 #wrap
-  background: -moz-radial-gradient(circle, $gradient-start, $gradient-end)
-  background: -webkit-radial-gradient(circle, $gradient-start, $gradient-end)
-  background: radial-gradient(circle, $gradient-start, $gradient-end)
+  background: -moz-radial-gradient($bg-gradient)
+  background: -webkit-radial-gradient($bg-gradient)
+  background: radial-gradient($bg-gradient)
 
   min-height: 100%
   height: auto !important
@@ -94,7 +93,7 @@ footer
 // Layout
 #header-container
   padding: 1em 0
-  border-bottom: 5px solid $wet-asphalt
+  border-bottom: 5px solid $turquoise
   background-color: white
   line-height: 3em
 
