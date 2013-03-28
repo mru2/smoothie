@@ -4,8 +4,6 @@ require 'soundcloud_client'
 module Smoothie
   class UserSyncer
 
-    include Celluloid
-
     def initialize(id)
       @user = Smoothie::User.new(id)
     end

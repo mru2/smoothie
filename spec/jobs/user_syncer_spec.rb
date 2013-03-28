@@ -12,11 +12,14 @@ describe Smoothie::UserSyncer do
     it "should work" do
       user = Smoothie::User.new(user_id)
 
-      user.synced_at.should be_nil
+      user.synced?.should be_false
 
       res = syncer.run
 
-      user.synced_at.should_not be_nil
+      user.synced?.should be_true
+
+      user.username.value.should  == "Johannes Wagener"
+      user.url.value.should       == "http://soundcloud.com/jwagener"
     end
 
   end

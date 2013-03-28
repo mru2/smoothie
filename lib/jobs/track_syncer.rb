@@ -5,8 +5,6 @@ require 'soundcloud_client'
 module Smoothie
   class TrackSyncer
 
-    include Celluloid
-
     def initialize(id)
       @track = Smoothie::Track.new(id)
     end
@@ -21,6 +19,8 @@ module Smoothie
 
     # Sync the track
     def perform!
+
+      # Core fetching
       soundcloud = Smoothie::SoundcloudClient.new
 
       # Get the track attributes
@@ -31,11 +31,12 @@ module Smoothie
         @track.send(:"#{attribute}=", track_data[attribute])
       end
 
-      # Sync the uploader if need be (synchronously)
+      # Uploader syncing
       Smoothie::UserSyncer.new(track_data[:uploader_id]).run
 
-      # Updated the synced_at time
+      # Updating synced_at time
       @track.synced_at = Time.now
+
     end
 
     # Check if the track is supposed to be synced

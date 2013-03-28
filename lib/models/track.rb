@@ -13,13 +13,40 @@ module Smoothie
 
     set :user_ids
 
+    # We want to guarantee that the uid is present
+    def self.new(*args)
+      (args == [nil]) ? nil : super
+    end
+
     def initialize(uid)
+      return nil unless uid
+
       @uid = uid
     end
 
     def id
       @uid
     end
+
+    def synced?
+      synced_at && !synced_at.value.nil? && uploader && uploader.synced?
+    end
+
+    def uploader_name
+      uploader && uploader.username
+    end
+
+    def uploader_url
+      uploader && uploader.url
+    end
+
+
+    private
+
+    def uploader
+      User.new(uploader_id.value)
+    end
+
 
   end
 end
