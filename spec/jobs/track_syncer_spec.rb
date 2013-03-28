@@ -5,7 +5,7 @@ require 'track_syncer'
 describe Smoothie::TrackSyncer do
 
   let(:track_id){293}
-  let(:syncer){Smoothie::TrackSyncer.new(track_id)}
+  let(:syncer){Smoothie::TrackSyncer.new("id" => track_id)}
 
   describe "#run" do
 
@@ -14,7 +14,7 @@ describe Smoothie::TrackSyncer do
 
       track.synced?.should          be_false
 
-      res = syncer.run
+      syncer.run
 
       track.synced?.should          be_true
 

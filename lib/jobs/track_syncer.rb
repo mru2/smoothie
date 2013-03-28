@@ -1,25 +1,26 @@
 require 'user_syncer'
 require 'track'
 require 'soundcloud_client'
+require 'chainable_job'
 
 module Smoothie
-  class TrackSyncer
+  class TrackSyncer < ChainableJob
 
-    def initialize(id)
+    def initialize(opts)
+      super
+
+      throw "argument 'id' must be defined" unless id = opts["id"]      
       @track = Smoothie::Track.new(id)
     end
 
-    # Run the syncing if need be, returns the track
-    def run
-      perform! unless syncing_done?
-      return @track
+    # Is the syncing needed?
+    def ready?
+      @track.synced?
     end
 
-    private
 
     # Sync the track
-    def perform!
-
+    def perform
       # Core fetching
       soundcloud = Smoothie::SoundcloudClient.new
 
@@ -32,17 +33,10 @@ module Smoothie
       end
 
       # Uploader syncing
-      Smoothie::UserSyncer.new(track_data[:uploader_id]).run
+      wait_for Smoothie::UserSyncer.new("id" => track_data[:uploader_id])
 
       # Updating synced_at time
       @track.synced_at = Time.now
-
-    end
-
-    # Check if the track is supposed to be synced
-    # In this case : no expiration
-    def syncing_done?
-      ! @track.synced_at.nil?
     end
 
   end

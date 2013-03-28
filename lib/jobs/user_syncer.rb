@@ -1,24 +1,24 @@
 require 'user'
 require 'soundcloud_client'
+require 'chainable_job'
 
 module Smoothie
-  class UserSyncer
+  class UserSyncer < ChainableJob
 
-    def initialize(id)
+    def initialize(opts)
+      super
+
+      throw "argument 'id' must be defined" unless id = opts["id"]
       @user = Smoothie::User.new(id)
     end
 
-    # Run the syncing if need be, returns the user
-    def run
-      perform! unless syncing_done?
-
-      return @user
+    # Does the syncing need to be done
+    def ready?
+      @user.synced?
     end
 
-    private
-
     # Sync the user
-    def perform!
+    def perform
       soundcloud = Smoothie::SoundcloudClient.new
 
       # Get the user attributes
@@ -31,12 +31,6 @@ module Smoothie
 
       # Updated the synced_at time
       @user.synced_at = Time.now
-    end
-
-    # Check if the track is supposed to be synced
-    # In this case : no expiration
-    def syncing_done?
-      ! @user.synced_at.nil?
     end
 
   end
