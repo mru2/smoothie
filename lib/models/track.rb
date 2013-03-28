@@ -28,16 +28,21 @@ module Smoothie
       @uid
     end
 
-    def synced?
-      synced_at && !synced_at.value.nil? && uploader && uploader.synced?
-    end
-
     def uploader_name
       uploader && uploader.username
     end
 
     def uploader_url
       uploader && uploader.url
+    end
+
+
+    def synced?
+      synced_at && !synced_at.value.nil? && uploader && uploader.synced?
+    end
+
+    def set_synced!
+      self.synced_at = Time.now
     end
 
 

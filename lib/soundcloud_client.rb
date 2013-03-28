@@ -35,6 +35,12 @@ module Smoothie
       }
     end
 
+    # Get a user favorites
+    def get_user_favorites(user_id, limit)
+      user_favorites_data = @client.get("/users/#{user_id}/favorites", :limit => limit)
+
+      return user_favorites_data.map(&:id)
+    end
 
 
     private

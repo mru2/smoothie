@@ -36,7 +36,7 @@ module Smoothie
       wait_for Smoothie::UserSyncer.new("id" => track_data[:uploader_id])
 
       # Updating synced_at time
-      @track.synced_at = Time.now
+      @track.set_synced!
     end
 
   end

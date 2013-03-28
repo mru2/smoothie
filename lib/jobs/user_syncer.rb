@@ -30,7 +30,7 @@ module Smoothie
       end
 
       # Updated the synced_at time
-      @user.synced_at = Time.now
+      @user.set_synced!
     end
 
   end

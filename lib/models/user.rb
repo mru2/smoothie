@@ -8,6 +8,7 @@ module Smoothie
     value :url
 
     value :synced_at
+    value :favorites_synced_at
 
     set :track_ids
 
@@ -28,8 +29,21 @@ module Smoothie
       track_ids.map{|id|Track.new(id)}
     end
 
+
     def synced?
       synced_at && !synced_at.value.nil?
+    end
+
+    def set_synced!
+      self.synced_at = Time.now
+    end
+
+    def favorites_synced?
+      favorites_synced_at && !favorites_synced_at.value.nil?
+    end
+
+    def set_favorites_synced!
+      self.favorites_synced_at = Time.now
     end
 
   end
