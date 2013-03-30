@@ -10,7 +10,7 @@ module Smoothie
     value :synced_at
     value :favorites_synced_at
 
-    set :track_ids
+    set   :track_ids
 
     # We want to guarantee that the uid is present
     def self.new(*args)
