@@ -4,26 +4,27 @@
 
     .span6.offset3
       #current-track
-        .track.previous{:style => "background-image:url(https://i4.sndcdn.com/artworks-000034170195-wb7buo-t500x500.jpg);"}
-          .overlay
+        #tracks
+          .track.previous{:style => "background-image:url(https://i4.sndcdn.com/artworks-000034170195-wb7buo-t500x500.jpg);"}
+            .overlay
 
-          %a.artist Flash Forest
-          %br
-          %a.title Mammals - Move Slower Feat. Flash Forest (FREE D/L in description)
+            %a.artist Flash Forest
+            %br
+            %a.title Mammals - Move Slower Feat. Flash Forest (FREE D/L in description)
 
-        .track.current{:style => "background-image:url(https://i4.sndcdn.com/artworks-000037931943-gkafnb-t500x500.jpg);"}
-          .overlay
+          .track.current{:style => "background-image:url(https://i4.sndcdn.com/artworks-000037931943-gkafnb-t500x500.jpg);"}
+            .overlay
 
-          %a.artist Sir Sly
-          %br
-          %a.title Sir Sly - Gold
+            %a.artist Sir Sly
+            %br
+            %a.title Sir Sly - Gold
 
-        .track.next{:style => "background-image:url(https://i1.sndcdn.com/artworks-000033642979-p06mxq-t500x500.jpg);"}
-          .overlay
+          .track.next{:style => "background-image:url(https://i1.sndcdn.com/artworks-000033642979-p06mxq-t500x500.jpg);"}
+            .overlay
 
-          %a.artist RAC
-          %br
-          %a.title The Temper Trap - Sweet Disposition (RAC Mix)
+            %a.artist RAC
+            %br
+            %a.title The Temper Trap - Sweet Disposition (RAC Mix)
 
         #controls
           %a#prev.control.pull-left{:onclick => "Player.previous();"}   <i class="icon-backward"></i>
@@ -31,3 +32,4 @@
           %a#next.control.pull-right{:onclick => "Player.next();"}      <i class="icon-forward"></i>
 
 
+= js :smoothie
