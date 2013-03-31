@@ -38,7 +38,15 @@ module Smoothie
         'js/vendor/json2.js',
         'js/vendor/backbone-1.0.0.min.js',
         'js/vendor/backbone.marionette-1.0.2.min.js',
+
         'js/smoothie.js',
+
+        'js/smoothie/models/track.js',
+
+        'js/smoothie/modules/playlist.js',
+
+        'js/smoothie/views/track_view.js',
+        'js/smoothie/views/controls_view.js',
         'js/smoothie/views/player_view.js'
       ]
     end

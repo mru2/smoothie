@@ -4,7 +4,7 @@ window.Smoothie = _.extend Backbone.Events, {
   Modules: {},
 
   init: () ->
-    this.trigger('smoothie:init')
+    this.trigger('application:init')
 }
 
 
