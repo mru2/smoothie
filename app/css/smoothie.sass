@@ -101,7 +101,8 @@ footer
   line-height: 3em
 
   h3
-    font-size: 1.7em
+    font-size: 2em
+    line-height: 2em
 
   .session
     line-height: 4em
@@ -140,7 +141,7 @@ footer
     overflow: hidden
 
     .track
-      z-index: -1
+      // z-index: -1
       width: 100%
       height: 100%
       position: absolute
@@ -149,6 +150,11 @@ footer
       background-size: cover
       overflow: hidden
       box-shadow: inset 0 0 1px rgba(0,0,0,0.8),inset 0 2px 0 rgba(255,255,255,0.5),inset 0 -1px 0 rgba(0,0,0,0.4)
+
+      -webkit-transition: 0.25s
+      -moz-transition: 0.25s
+      -o-transition: 0.25s
+      transition: 0.25s
 
       &.previous
         right: 100%

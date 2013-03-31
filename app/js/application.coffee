@@ -1,6 +1,5 @@
 # For testing
 window.Player = {
-
   next: () ->
     $('.track.previous').remove()
     $('.track.current').removeClass('current').addClass('previous')
@@ -10,5 +9,46 @@ window.Player = {
     $('.track.next').remove()
     $('.track.current').removeClass('current').addClass('next')
     $('.track.previous').removeClass('previous').addClass('current')
-
 }
+
+
+
+# class Playlist
+#   -> nextTrack
+#   -> previousTrack
+#   (-> shuffle)
+#   (-> liked)
+ 
+#   currentTrackChanged ->
+#   previousTrackChanged ->
+#   nextTrackChanged ->
+
+#   getCurrentTrack
+#   getNextTrack
+#   getPreviousTrack    
+
+# class PlayerView
+
+#   class ControlsView
+#     play ->
+#     pause ->
+#     nextTrack ->
+#     previousTrack ->
+#     (shuffle ->)
+#     (like ->)
+
+#     -> playing
+#     -> paused
+
+#   class TrackView
+#     -> trackChanged
+
+# class MusicPlayer
+#   -> play 
+#   -> pause
+#   -> currentTrackChanged
+
+#   playing ->
+#   paused ->
+
+# class Track
