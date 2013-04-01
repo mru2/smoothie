@@ -5,8 +5,6 @@ PlayerView = Backbone.View.extend {
   tracks_container: '#tracks'
 
   bootstrap: () ->
-    console.log 'Initializing PlayerView'
-
     @buildPreviousTrack()
     @buildCurrentTrack()
     @buildNextTrack()
@@ -16,8 +14,6 @@ PlayerView = Backbone.View.extend {
 
   # Move the tracks
   moveTracksForward: () ->
-    console.log 'Moving tracks forward'
-
     @previousTrack.unbind().remove()
 
     @previousTrack = @currentTrack
@@ -29,8 +25,6 @@ PlayerView = Backbone.View.extend {
     @buildNextTrack()
 
   moveTracksBackward: () ->
-    console.log 'moving tracks backward'
-
     @nextTrack.unbind().remove()
 
     @nextTrack = @currentTrack

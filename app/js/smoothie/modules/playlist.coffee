@@ -29,12 +29,10 @@ Smoothie.Modules.Playlist = {
 
   # Change tracks
   next: () ->
-    console.log "Playlist#next"
     @index += 1
     Smoothie.Views.PlayerView.moveTracksForward()
 
   previous: () ->
-    console.log "Playlist#previous"
     @index -= 1
     Smoothie.Views.PlayerView.moveTracksBackward()
 

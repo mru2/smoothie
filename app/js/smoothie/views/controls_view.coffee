@@ -34,7 +34,6 @@ Smoothie.Views.ControlsView = Backbone.View.extend {
 
   # Render
   render: () ->
-    console.log 'Rendering ControlsView'
     @$el.html( _.template @template, { playing: Smoothie.Modules.Player.playing } )
 
 }
