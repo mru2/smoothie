@@ -1,14 +1,6 @@
 Smoothie.Views.ControlsView = Backbone.View.extend {
 
-  template: '
-    <a class="control pull-left" id="prev"><i class="icon-backward"></i></a>
-    <% if (playing) { %>
-      <a class="control" id="pause"><i class="icon-pause"></i></a>
-    <% } else { %>
-      <a class="control" id="play"><i class="icon-play"></i></a>
-    <% } %>
-    <a class="control pull-right" id="next"><i class="icon-forward"></i></a>
-  '
+  template_id: '#controls-template'
 
   events: {
     "click #play":    "onPlay",
@@ -34,6 +26,7 @@ Smoothie.Views.ControlsView = Backbone.View.extend {
 
   # Render
   render: () ->
-    @$el.html( _.template @template, { playing: Smoothie.Modules.Player.playing } )
+    template = $(@template_id).html()
+    @$el.html( _.template template, { playing: Smoothie.Modules.Player.playing } )
 
 }
