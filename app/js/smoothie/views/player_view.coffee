@@ -12,7 +12,7 @@ PlayerView = Backbone.View.extend {
     @buildNextTrack()
 
     @controls = new Smoothie.Views.ControlsView({el: "#controls"})
-    @controls.render()
+    @render()
 
   # Move the tracks
   moveTracksForward: () ->
@@ -63,6 +63,11 @@ PlayerView = Backbone.View.extend {
       model: Smoothie.Modules.Playlist.getNextTrack()
     }
     @$el.find(@tracks_container).append(@nextTrack.render().el)
+
+
+  # Render (updating controls)
+  render: () ->
+    @controls.render()
 
 }
 

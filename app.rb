@@ -43,6 +43,7 @@ module Smoothie
 
         'js/smoothie/models/track.js',
 
+        'js/smoothie/modules/player.js',
         'js/smoothie/modules/playlist.js',
 
         'js/smoothie/views/track_view.js',
