@@ -50,6 +50,8 @@ module Smoothie
         'js/smoothie/views/controls_view.js',
         'js/smoothie/views/player_view.js'
       ]
+
+      js_compression :closure
     end
 
     # Landing page
