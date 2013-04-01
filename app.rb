@@ -37,7 +37,6 @@ module Smoothie
         'js/vendor/underscore-1.4.4.min.js',
         'js/vendor/json2.js',
         'js/vendor/backbone-1.0.0.min.js',
-        'js/vendor/backbone.marionette-1.0.2.min.js',
 
         'js/smoothie.js',
 
