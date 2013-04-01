@@ -11,6 +11,10 @@ Smoothie.Views.TrackView = Backbone.View.extend {
     console.log 'Initializing TrackView'
 
   render: () ->
-    console.log 'Rendering TrackView'
-    @$el.html( _.template @template, { track: @model } )
+    if @model
+      console.log 'Rendering TrackView'
+      @$el.html( _.template @template, { track: @model } )
+      @$el.css( 'background-image', "url(#{@model.artwork})" )
+
+    return this
 }

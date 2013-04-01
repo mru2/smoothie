@@ -12,9 +12,19 @@ Smoothie.Views.ControlsView = Backbone.View.extend {
     <a class="control pull-right" id="next"><i class="icon-forward"></i></a>
   '
 
-  initialize: () ->
-    console.log 'Initializing ControlsView'
+  events: {
+    "click #play":    "Smoothie.Modules.Player.play",
+    "click #next":    "onNext",
+    "click #prev":    "onPrevious"
+  }
 
+  onPrevious: () ->
+   Smoothie.Modules.Playlist.previous() 
+
+  onNext: () ->
+   Smoothie.Modules.Playlist.next() 
+
+  # Render
   render: () ->
     console.log 'Rendering ControlsView'
     @$el.html( _.template @template, { playing: @playing } )

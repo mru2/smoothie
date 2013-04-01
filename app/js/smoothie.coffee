@@ -1,16 +1,13 @@
-window.Smoothie = _.extend Backbone.Events, {
+window.Smoothie = {
   Models: {},
   Views: {},
   Modules: {},
-
-  init: () ->
-    this.trigger('application:init')
 }
 
 
 # Initializing
 $ () ->
-  Smoothie.init()
+  Smoothie.Views.PlayerView.bootstrap()
 
 
 # Smoothie.start()

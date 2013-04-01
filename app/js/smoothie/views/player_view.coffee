@@ -1,59 +1,70 @@
 PlayerView = Backbone.View.extend {
   
   el: '#current-track'
+
   tracks_container: '#tracks'
 
-  initialize: (TrackView, ControlsView, Playlist, PubSub) ->
+  bootstrap: () ->
     console.log 'Initializing PlayerView'
 
-    # Creating subviews
-    @previousTrack  = new TrackView {
-      className: 'track previous', 
-      model: Playlist.getPreviousTrack()
-    }
+    @buildPreviousTrack()
+    @buildCurrentTrack()
+    @buildNextTrack()
 
-    @currentTrack = new TrackView {
-      className: 'track current',
-      model: Playlist.getCurrentTrack()
-    }
-
-    @nextTrack = new TrackView {
-      className: 'track next',
-      model: Playlist.getNextTrack()
-    }
-
-    @controls = new ControlsView({el: "#controls"})
-
-
-    # Binding events
-    @listenTo PubSub, 'application:init', @onInit
-
-
-  # Callbacks
-  onInit: () ->
-    console.log 'PlayerView received onInit message'
-    @render()
-
-
-  # Rendering
-  render: () ->
-    console.log 'Rendering PlayerView'
-    tracksContainer = @$el.find(@tracks_container)
-
-    # tracksContainer.html('')
-    # tracksContainer.append @previousTrack.render()
-    # tracksContainer.append @currentTrack.render()
-    # tracksContainer.append @nextTrack.render()
-
+    @controls = new Smoothie.Views.ControlsView({el: "#controls"})
     @controls.render()
 
-    this
+  # Move the tracks
+  moveTracksForward: () ->
+    console.log 'Moving tracks forward'
+
+    @previousTrack.unbind().remove()
+
+    @previousTrack = @currentTrack
+    @previousTrack.$el.removeClass('current').addClass('previous')
+
+    @currentTrack = @nextTrack
+    @currentTrack.$el.removeClass('next').addClass('current')
+
+    @buildNextTrack()
+
+  moveTracksBackward: () ->
+    console.log 'moving tracks backward'
+
+    @nextTrack.unbind().remove()
+
+    @nextTrack = @currentTrack
+    @nextTrack.$el.removeClass('current').addClass('next')
+
+    @currentTrack = @previousTrack
+    @currentTrack.$el.removeClass('previous').addClass('current')
+
+    @buildPreviousTrack()
+
+
+  # Building tracks
+  buildPreviousTrack: () ->
+    @previousTrack  = new Smoothie.Views.TrackView {
+      className: 'track previous', 
+      model: Smoothie.Modules.Playlist.getPreviousTrack()
+    }
+    @$el.find(@tracks_container).append(@previousTrack.render().el)
+
+  buildCurrentTrack: () ->
+    @currentTrack = new Smoothie.Views.TrackView {
+      className: 'track current',
+      model: Smoothie.Modules.Playlist.getCurrentTrack()
+    }
+    @$el.find(@tracks_container).append(@currentTrack.render().el)
+
+  buildNextTrack: () ->
+    @nextTrack = new Smoothie.Views.TrackView {
+      className: 'track next',
+      model: Smoothie.Modules.Playlist.getNextTrack()
+    }
+    @$el.find(@tracks_container).append(@nextTrack.render().el)
+
 }
 
 
-Smoothie.Views.PlayerView = new PlayerView(
-  Smoothie.Views.TrackView, 
-  Smoothie.Views.ControlsView, 
-  Smoothie.Modules.Playlist,
-  Smoothie
-)
+Smoothie.Views.PlayerView = new PlayerView
