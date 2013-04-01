@@ -1,0 +1,176 @@
+html, body {
+  height: 100%; }
+
+body {
+  background: url(/img/bg-pattern.png); }
+
+#wrap {
+  background: -moz-radial-gradient(50% 20%, circle, rgba(52, 73, 94, 0.5) 30%, rgba(0, 0, 0, 0) 100%);
+  background: -webkit-radial-gradient(50% 20%, circle, rgba(52, 73, 94, 0.5) 30%, rgba(0, 0, 0, 0) 100%);
+  background: radial-gradient(50% 20%, circle, rgba(52, 73, 94, 0.5) 30%, rgba(0, 0, 0, 0) 100%);
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by it's height */
+  margin: 0 auto -3em; }
+
+footer {
+  height: 3em;
+  line-height: 3em;
+  font-size: inherit; }
+  footer .soundcloud-referal {
+    float: right;
+    margin-top: -0.3em; }
+
+#header-container {
+  padding: 1em 0;
+  border-bottom: 5px solid #1abc9c;
+  background-color: white;
+  line-height: 3em; }
+  #header-container h3 {
+    font-size: 2em;
+    line-height: 2em; }
+  #header-container .session {
+    line-height: 4em;
+    margin: 0; }
+    #header-container .session .btn {
+      font-size: 1.2em;
+      padding: 0.25em 0.75em; }
+
+.landing {
+  color: #ecf0f1;
+  margin: 60px 0px;
+  text-align: center; }
+  .landing h1 {
+    font-size: 5em;
+    line-height: 1; }
+  .landing p.lead {
+    font-size: 1.5em; }
+  .landing .btn {
+    font-size: 21px;
+    padding: 14px 24px; }
+
+#radio {
+  margin-top: 3em; }
+  #radio #current-track {
+    z-index: 0;
+    background: #f2f2f2 url(/img/default-track-bg.png) center center no-repeat;
+    overflow: hidden;
+    -webkit-transition: 0.25s;
+    -moz-transition: 0.25s;
+    transition: 0.25s;
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    height: 0;
+    padding-bottom: 100%; }
+    #radio #current-track .track {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      overflow: hidden;
+      box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.8), inset 0 2px 0 rgba(255, 255, 255, 0.5), inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+      -webkit-transition: 0.25s;
+      -moz-transition: 0.25s;
+      -o-transition: 0.25s;
+      transition: 0.25s; }
+      #radio #current-track .track.previous {
+        right: 100%; }
+      #radio #current-track .track.next {
+        left: 100%; }
+      #radio #current-track .track .overlay {
+        content: "";
+        width: 150%;
+        height: 100%;
+        position: absolute;
+        top: -45%;
+        left: -25%;
+        display: block;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 100%; }
+    #radio #current-track a {
+      text-decoration: none;
+      cursor: pointer; }
+    #radio #current-track .artist, #radio #current-track .title {
+      display: inline-block;
+      color: #ecf0f1;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 0em 0.25em;
+      margin: 0.25em 0em;
+      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25); }
+      #radio #current-track .artist:hover, #radio #current-track .title:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+        color: #2ecc71; }
+    #radio #current-track .title {
+      font-size: 2em; }
+    #radio #current-track .artist {
+      font-size: 1.5em;
+      color: #bdc3c7; }
+  #radio #controls {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 1em;
+    box-sizing: border-box;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 0px 1em rgba(0, 0, 0, 0.25);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; }
+  #radio .control {
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+    color: #ecf0f1;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; }
+    #radio .control:hover {
+      color: #2ecc71; }
+    #radio .control i {
+      text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.25); }
+    #radio .control#next, #radio .control#prev {
+      font-size: 3em;
+      line-height: 1.3em; }
+    #radio .control#play, #radio .control#pause {
+      font-size: 4em;
+      line-height: 1em; }
+
+@media (max-width: 767px) {
+  body {
+    padding-right: 0px;
+    padding-left: 0px; }
+
+  .container {
+    padding-right: 20px;
+    padding-left: 20px; }
+
+  #radio {
+    margin-top: 0; }
+
+  #header-container {
+    padding: 0;
+    border-bottom: none;
+    background-color: inherit; }
+    #header-container h3 {
+      color: #ecf0f1; }
+
+  footer {
+    background-color: inherit; } }
+@media (max-width: 767px) {
+  body {
+    font-size: 0.8em; } }
+@media (max-width: 480px) {
+  body {
+    font-size: 0.6em; } }
