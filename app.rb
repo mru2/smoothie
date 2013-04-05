@@ -38,6 +38,8 @@ module Smoothie
         'js/vendor/json2.js',
         'js/vendor/backbone-1.0.0.min.js',
 
+        'js/vendor/soundcloud-sdk.js',
+
         'js/smoothie.js',
 
         'js/smoothie/models/track.js',

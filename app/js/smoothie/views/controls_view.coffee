@@ -15,9 +15,6 @@ Smoothie.Views.ControlsView = Backbone.View.extend {
   onPause: () ->
     Smoothie.Modules.Player.pause()
 
-  onPause: () ->
-    Smoothie.Modules.Player.pause()
-
   onPrevious: () ->
     Smoothie.Modules.Playlist.previous() 
 
@@ -27,6 +24,6 @@ Smoothie.Views.ControlsView = Backbone.View.extend {
   # Render
   render: () ->
     template = $(@template_id).html()
-    @$el.html( _.template template, { playing: Smoothie.Modules.Player.playing } )
+    @$el.html( _.template template, { playing: Smoothie.Modules.Player.playing() } )
 
 }
