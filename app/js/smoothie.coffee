@@ -7,7 +7,8 @@ window.Smoothie = {
 
 # Initializing
 $ () ->
-  Smoothie.Views.PlayerView.bootstrap()
+  Smoothie.Modules.Playlist.init () -> 
+    Smoothie.Views.PlayerView.bootstrap()
 
 
 # Smoothie.start()

@@ -22,3 +22,5 @@ gem 'coffee-script'
 gem 'soundcloud'
 
 gem 'redis-objects'
+
+gem 'resque'

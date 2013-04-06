@@ -6,8 +6,13 @@ Smoothie.Modules.Player = ( () ->
   }
 
 
-  {
+  {    
     player: null
+
+    init: (track_id) ->
+      @fetch_player track_id, (player) =>
+        @player = player
+        @player.load()      
 
     playing: () ->
       @player && !@player.paused

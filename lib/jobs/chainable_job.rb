@@ -4,7 +4,7 @@ module Smoothie
     attr_accessor :callbacks
     attr_accessor :arguments
 
-    def initialize(opts)
+    def initialize(opts = {})
       self.arguments = opts
       initialize_callbacks
     end

@@ -99,5 +99,10 @@ module Smoothie
       haml :radio
     end
 
+    # The waiting page
+    get '/processing' do
+      haml :processing
+    end
+
   end
 end
