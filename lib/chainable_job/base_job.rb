@@ -5,6 +5,9 @@ module Smoothie
 
     class BaseJob
 
+      # The exception used to halt a worker
+      StopJob = Class.new(Interrupt) 
+
       attr_accessor :arguments
 
       def initialize(opts = {})
@@ -13,7 +16,17 @@ module Smoothie
 
       def run
         return if ready?
-        perform
+
+        begin
+          perform 
+        rescue StopJob
+          return # A waiting_for has been encountered, the job will be run again when its confitions are met
+        end
+      end
+
+      def async_run
+        @async = true
+        run
       end
 
       def ready?
@@ -25,23 +38,35 @@ module Smoothie
       end
 
       def wait_for(jobs)
-        if async?
-          throw "To handle"
-        else
-          [*jobs].each(&:run)
+        unready_jobs = [*jobs].select{|job|!job.ready?}
+
+        unless unready_jobs.empty?
+          if @async
+            unready_jobs.each do |job|
+              Manager.enqueue(job, self)
+            end
+
+            raise StopJob # Halt the execution of the current worker
+          else
+            unready_jobs.each(&:run)
+          end
         end
       end
 
 
       # Resque
       def self.perform(opts = {})
-        new(opts).run
+        new(opts).async_run
       end
 
-      def enqueue
-        Resque.enqueue(self.class, self.arguments.merge('async' => true))
+      def serialize
+        [self.class.name, self.arguments].to_json
       end
 
+      def self.unserialize(dump)
+        a = JSON.load(dump)
+        return a[0].constantize.new(a[1])
+      end
 
       private
 

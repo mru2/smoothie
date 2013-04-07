@@ -13,7 +13,7 @@ describe Smoothie::ChainableJob::BaseJob do
 
     def perform
       # Simulate timeout
-      wait(2)
+      sleep(2)
 
       @ready = true
     end
@@ -74,9 +74,7 @@ describe Smoothie::ChainableJob::BaseJob do
         job1.ready = true
 
         job2.should_receive(:do_stuff_before).ordered
-
         job1.should_not_receive(:perform)
-
         job2.should_receive(:do_stuff_after).ordered
 
         job2.run
@@ -93,14 +91,18 @@ describe Smoothie::ChainableJob::BaseJob do
     describe "#wait_for" do
 
       it "should call the manager" do
-        # The job in itself
-        Smoothie::ChainableJob::Manager.should_receive(:enqueue).with(job2).ordered
+
+        # The job beginning
         job2.should_receive(:do_stuff_before).ordered
 
         # Waiting for the other
         Smoothie::ChainableJob::Manager.should_receive(:enqueue).with(job1, job2).ordered
 
-        job2.run(true)
+        # Returning now
+        job2.should_not_receive(:do_stuff_after).ordered
+
+        job2.async_run
+
       end
 
     end
