@@ -23,4 +23,4 @@ gem 'soundcloud'
 
 gem 'redis-objects'
 
-gem 'resque'
+gem 'resque', '~> 1.0'

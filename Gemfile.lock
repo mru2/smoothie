@@ -84,7 +84,7 @@ DEPENDENCIES
   haml
   rake
   redis-objects
-  resque
+  resque (~> 1.0)
   rspec
   sass
   shotgun

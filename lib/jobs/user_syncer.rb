@@ -1,15 +1,16 @@
 require 'user'
 require 'soundcloud_client'
-require 'chainable_job'
+require 'chainable_job/base_job'
 
 module Smoothie
-  class UserSyncer < ChainableJob
+  class UserSyncer < Smoothie::ChainableJob::BaseJob
 
-    def initialize(opts)
+    def initialize(opts = {})
       super
 
-      throw "argument 'id' must be defined" unless id = opts["id"]
-      @user = Smoothie::User.new(id)
+      throw "id must be defined" unless @arguments['id']
+
+      @user = Smoothie::User.new(@arguments['id'])
     end
 
     # Does the syncing need to be done

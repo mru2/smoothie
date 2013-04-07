@@ -5,7 +5,7 @@ require 'user_syncer'
 describe Smoothie::UserSyncer do
 
   let(:user_id){3207}
-  let(:syncer){Smoothie::UserSyncer.new("id" => user_id)}
+  let(:syncer){Smoothie::UserSyncer.new('id' => user_id)}
 
   describe "#run" do
 

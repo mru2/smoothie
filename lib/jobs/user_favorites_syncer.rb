@@ -1,18 +1,18 @@
 require 'user'
 require 'soundcloud_client'
 require 'track_syncer'
-require 'chainable_job'
+require 'chainable_job/base_job'
 
 module Smoothie
-  class UserFavoritesSyncer < ChainableJob
+  class UserFavoritesSyncer < Smoothie::ChainableJob::BaseJob
 
-    def initialize(opts)
+    def initialize(opts = {})
       super
 
-      throw "argument 'id' must be defined" unless id = opts["id"]
-      @limit = opts["limit"] || 20
+      throw "id must be defined" unless @arguments['id']
 
-      @user = Smoothie::User.new(id)
+      @limit = @arguments['limit'] || 20
+      @user = Smoothie::User.new(@arguments['id'])
     end
 
     # Does the syncing need to be done
@@ -25,13 +25,13 @@ module Smoothie
       soundcloud = Smoothie::SoundcloudClient.new
 
       # Ensure the user is synced
-      wait_for UserSyncer.new("id" => @user.id)
+      wait_for UserSyncer.new('id' => @user.id)
 
       # Get the favorites
       favorite_ids = soundcloud.get_user_favorites(@user.id, @limit)
 
       # Ensure they are synced
-      wait_for favorite_ids.map{|track_id| TrackSyncer.new("id" => track_id)}
+      wait_for favorite_ids.map{|track_id| TrackSyncer.new('id' => track_id)}
 
       # Add them to the user favorites
       @user.track_ids << favorite_ids

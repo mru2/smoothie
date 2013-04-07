@@ -1,10 +1,10 @@
 require 'spec_helper'
-require 'chainable_job'
+require 'chainable_job/base_job'
 
-describe Smoothie::ChainableJob do
+describe Smoothie::ChainableJob::BaseJob do
  
   # The jobs the testing is going to be on
-  class Job1 < Smoothie::ChainableJob
+  class Job1 < Smoothie::ChainableJob::BaseJob
     attr_accessor :ready
 
     def ready?
@@ -20,12 +20,11 @@ describe Smoothie::ChainableJob do
   end
 
 
-  class Job2 < Smoothie::ChainableJob
+  class Job2 < Smoothie::ChainableJob::BaseJob
     attr_accessor :ready
 
     def initialize(opts)
       @job = opts[:job_to_wait_for]
-      super
     end
 
     def ready?
@@ -44,6 +43,7 @@ describe Smoothie::ChainableJob do
     end
 
     private
+
     def do_stuff_before
     end
 
@@ -90,15 +90,18 @@ describe Smoothie::ChainableJob do
 
   describe "asynchronously" do
 
-    describe "#run" do
-
-      pending
-
-    end
-
     describe "#wait_for" do
 
-      pending
+      it "should call the manager" do
+        # The job in itself
+        Smoothie::ChainableJob::Manager.should_receive(:enqueue).with(job2).ordered
+        job2.should_receive(:do_stuff_before).ordered
+
+        # Waiting for the other
+        Smoothie::ChainableJob::Manager.should_receive(:enqueue).with(job1, job2).ordered
+
+        job2.run(true)
+      end
 
     end
 

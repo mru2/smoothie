@@ -5,7 +5,7 @@ require 'user_favorites_syncer'
 describe Smoothie::UserFavoritesSyncer do
 
   let(:user_id){3207}
-  let(:syncer){Smoothie::UserFavoritesSyncer.new("id" => user_id, "limit" => 2)}
+  let(:syncer){Smoothie::UserFavoritesSyncer.new('id' => user_id, 'limit' => 2)}
 
   describe "#run" do
 
