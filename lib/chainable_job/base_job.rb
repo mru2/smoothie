@@ -43,8 +43,11 @@ module Smoothie
         unless unready_jobs.empty?
           if @async
             unready_jobs.each do |job|
-              Manager.enqueue(job, self)
+              Manager.new(job).enqueue(self)
             end
+
+            # Remove self from the queue (keep its callbacks and dependencies though)
+            Manager.new(self).dequeue
 
             raise StopJob # Halt the execution of the current worker
           else
@@ -59,14 +62,6 @@ module Smoothie
         new(opts).async_run
       end
 
-      def serialize
-        [self.class.name, self.arguments].to_json
-      end
-
-      def self.unserialize(dump)
-        a = JSON.load(dump)
-        return Object.const_get(a[0]).new(a[1])
-      end
 
       private
 

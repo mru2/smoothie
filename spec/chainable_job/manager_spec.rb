@@ -5,8 +5,6 @@ describe Smoothie::ChainableJob::Manager do
 
   class JobClass ; end
 
-  let(:manager){Smoothie::ChainableJob::Manager}
-
   let(:job_class){JobClass}
 
   let(:job_arguments){ {'arg1' => 'val1', 'arg2' => 'val2'} }
@@ -27,12 +25,14 @@ describe Smoothie::ChainableJob::Manager do
     job
   }
 
+  let(:manager){Smoothie::ChainableJob::Manager.new(job)}
+
   describe "#enqueue" do
 
     it "should enqueue the job" do
 
       Resque.should_receive(:enqueue).with(job_class, job_arguments)
-      manager.enqueue(job)
+      manager.enqueue()
 
     end
 
@@ -41,7 +41,7 @@ describe Smoothie::ChainableJob::Manager do
       Resque.should_receive(:enqueue).once.with(job_class, job_arguments)
 
       3.times do
-        manager.enqueue(job)
+        manager.enqueue()
       end
 
     end
@@ -51,27 +51,27 @@ describe Smoothie::ChainableJob::Manager do
       Resque.should_receive(:enqueue).once.with(job_class, job_arguments)
       Resque.should_not_receive(:enqueue).with(job_class, another_job_arguments)
 
-      manager.enqueue(job, another_job)
+      manager.enqueue(another_job)
 
-      manager.callbacks_for(job).should             == [another_job.serialize]
-      manager.dependencies_for(another_job).should  == [job.serialize]
+      manager.callbacks.should                      == [another_job.serialize]
+      Smoothie::ChainableJob::Manager.new(another_job).dependencies.should  == [job.serialize]
 
     end
 
     it "should run the jobs whose dependencies are satisfied on finish" do
 
       Resque.should_receive(:enqueue).with(job_class, job_arguments)
-      manager.enqueue(job, another_job)
+      manager.enqueue(another_job)
 
-      manager.enqueued?(job).should be_true
+      manager.enqueued?.should be_true
 
       # manager.should_receive(:enqueue).once.with([job_class, another_job_arguments].to_json)
       JobClass.stub!(:new).and_return(another_job)
       Resque.should_receive(:enqueue).with(job_class, another_job_arguments)
-      manager.finished(job)
+      manager.finished
 
-      manager.enqueued?(job).should be_false
-      manager.enqueued?(another_job).should be_true
+      manager.enqueued?.should be_false
+      Smoothie::ChainableJob::Manager.new(another_job).enqueued?.should be_true
 
     end
 

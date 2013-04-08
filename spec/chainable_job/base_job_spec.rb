@@ -95,10 +95,7 @@ describe Smoothie::ChainableJob::BaseJob do
         # The job beginning
         job2.should_receive(:do_stuff_before).ordered
 
-        # Waiting for the other
-        Smoothie::ChainableJob::Manager.should_receive(:enqueue).with(job1, job2).ordered
-
-        # Returning now
+        # Returning before
         job2.should_not_receive(:do_stuff_after).ordered
 
         job2.async_run
