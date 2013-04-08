@@ -65,7 +65,7 @@ module Smoothie
 
       def self.unserialize(dump)
         a = JSON.load(dump)
-        return a[0].constantize.new(a[1])
+        return Object.const_get(a[0]).new(a[1])
       end
 
       private
