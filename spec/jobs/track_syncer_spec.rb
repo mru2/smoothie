@@ -19,7 +19,7 @@ describe Smoothie::TrackSyncer do
       track.synced?.should          be_true
 
       track.title.value.should==          "Flickermood"
-      track.artwork.value.should ==       "http://i1.sndcdn.com/artworks-000000001720-91c40a-large.jpg?ca77017"
+      track.artwork.value.should ==       "http://i1.sndcdn.com/artworks-000000001720-91c40a-t500x500.jpg"
       track.url.value.should ==           "http://soundcloud.com/forss/flickermood"
       track.uploader_name.value.should==  "Forss"
       track.uploader_url.value.should==   "http://soundcloud.com/forss"

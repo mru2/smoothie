@@ -5,6 +5,8 @@ describe Smoothie::ChainableJob::BaseJob do
  
   # The jobs the testing is going to be on
   class Job1 < Smoothie::ChainableJob::BaseJob
+    @queue = :default
+
     attr_accessor :ready
 
     def ready?
@@ -21,6 +23,8 @@ describe Smoothie::ChainableJob::BaseJob do
 
 
   class Job2 < Smoothie::ChainableJob::BaseJob
+    @queue = :default
+
     attr_accessor :ready
 
     def initialize(opts)

@@ -21,7 +21,7 @@ module Smoothie
         :uploader_id  => track_data.user_id,
         :title        => track_data.title,
         :url          => track_data.permalink_url,
-        :artwork      => track_data.artwork_url
+        :artwork      => track_data.artwork_url.gsub(/-large.jpg?.*$/, '-t500x500.jpg')
       }
     end
 
