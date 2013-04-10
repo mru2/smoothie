@@ -5,9 +5,6 @@ module Smoothie
 
     class BaseJob
 
-      # The exception used to halt a worker
-      StopJob = Class.new(Interrupt) 
-
       attr_accessor :arguments
 
       def initialize(opts = {})
@@ -17,10 +14,8 @@ module Smoothie
       def run
         return if ready?
 
-        begin
-          perform 
-        rescue StopJob
-          return # A waiting_for has been encountered, the job will be run again when its confitions are met
+        catch(:stop_job) do
+          perform
         end
       end
 
@@ -30,11 +25,11 @@ module Smoothie
       end
 
       def ready?
-        throw "#{self.class.name}#ready? must be defined"
+        raise "#{self.class.name}#ready? must be defined"
       end
 
       def perform
-        throw "#{self.class.name}#perform must be defined"
+        raise "#{self.class.name}#perform must be defined"
       end
 
       def wait_for(jobs)
@@ -49,7 +44,7 @@ module Smoothie
             # Remove self from the queue (keep its callbacks and dependencies though)
             Manager.new(self).dequeue
 
-            raise StopJob # Halt the execution of the current worker
+            throw :stop_job # Halt the execution of the current worker
           else
             unready_jobs.each(&:run)
           end
