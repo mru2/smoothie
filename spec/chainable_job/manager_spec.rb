@@ -63,15 +63,15 @@ describe Smoothie::ChainableJob::Manager do
       Resque.should_receive(:enqueue).with(job_class, job_arguments)
       manager.enqueue(another_job)
 
-      manager.enqueued?.should be_true
+      manager.send(:enqueued?).should be_true
 
       # manager.should_receive(:enqueue).once.with([job_class, another_job_arguments].to_json)
       JobClass.stub!(:new).and_return(another_job)
       Resque.should_receive(:enqueue).with(job_class, another_job_arguments)
       manager.finished
 
-      manager.enqueued?.should be_false
-      Smoothie::ChainableJob::Manager.new(another_job).enqueued?.should be_true
+      manager.send(:enqueued?).should be_false
+      Smoothie::ChainableJob::Manager.new(another_job).send(:enqueued?).should be_true
 
     end
 

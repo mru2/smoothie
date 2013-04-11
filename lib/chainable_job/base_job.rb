@@ -42,7 +42,7 @@ module Smoothie
             end
 
             # Remove self from the queue (keep its callbacks and dependencies though)
-            Manager.new(self).dequeue
+            Manager.new(self).waiting
 
             throw :stop_job # Halt the execution of the current worker
           else

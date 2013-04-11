@@ -51,6 +51,10 @@ module Smoothie
 
       end
 
+      # The job is waiting : remove it from the queue but keep its dependencies
+      def waiting
+        dequeue
+      end
 
       # Get a job's stored serialized callbacks
       def callbacks
@@ -60,23 +64,6 @@ module Smoothie
       # Get a job's stored serialized dependencies
       def dependencies
         @dependencies ||= Redis::Set.new("chainable_job:manager:dependencies:#{@job_uid}")
-      end
-
-      def enqueued?
-        Manager.queued_jobs.member?(@job_uid)
-      end
-
-      def dequeue
-        # Remove itself from the queue
-        Manager.queued_jobs.delete(@job_uid)
-      end
-
-      def destroy
-        dequeue
-
-        # Destroys its callbacks and dependencies sets
-        callbacks.clear
-        dependencies.clear
       end
 
 
@@ -90,12 +77,32 @@ module Smoothie
         end
       end
 
+      # Is a job currently enqueued?
+      def enqueued?
+        Manager.queued_jobs.member?(@job_uid)
+      end
+
       # Stores the symetric relationship between a job and its callback
       def set_callback(callback)
         callback_manager = Manager.new(callback)
 
         callbacks                     << callback_manager.job_uid
         callback_manager.dependencies << @job_uid
+      end
+
+      # Remove the job from the queue
+      def dequeue
+        # Remove itself from the queue
+        Manager.queued_jobs.delete(@job_uid)
+      end
+
+      # Destroy the job's traces
+      def destroy
+        dequeue
+
+        # Destroys its callbacks and dependencies sets
+        callbacks.clear
+        dependencies.clear
       end
 
 
