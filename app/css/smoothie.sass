@@ -164,8 +164,8 @@ footer
 
   #current-track
     z-index: 0
-    background: #F2F2F2 url(/img/default-track-bg.png) center center no-repeat
-    overflow: hidden
+    // background: #F2F2F2 url(/img/default-track-bg.png) center center no-repeat
+    -webkit-perspective: 1000
 
     .track
       // z-index: -1
@@ -183,11 +183,21 @@ footer
       -o-transition: 0.25s
       transition: 0.25s
 
+      &.previous, &.next
+        width: 80%
+        height: 80%
+        top: 10%
+        opacity: 0.4
+        .title, .artist
+          opacity: 0
+
       &.previous
-        right: 100%
+        right: 110%
+        -webkit-transform: rotateY(30deg)
 
       &.next
-        left: 100%
+        left: 110%
+        -webkit-transform: rotateY(-30deg)
 
       .overlay
         content: ""
@@ -314,6 +324,10 @@ footer
   #email-input
     width: auto
     display: inline-block
+
+  #current-track
+    overflow: hidden
+    -webkit-perspective: none
 
 
 // Responsive font sizes
