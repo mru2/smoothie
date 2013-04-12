@@ -94,7 +94,7 @@ module Smoothie
 
     # The player
     get '/radio' do
-      redirect '/login' unless session[:user]
+      # redirect '/login' unless session[:user]
 
       haml :radio
     end
