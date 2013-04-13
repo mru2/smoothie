@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-require 'user_favorites_syncer'
+require 'playlist_syncer'
 
-describe Smoothie::UserFavoritesSyncer do
+describe Smoothie::PlaylistSyncer do
 
   let(:user_id){3207}
-  let(:syncer){Smoothie::UserFavoritesSyncer.new('id' => user_id, 'limit' => 2)}
+  let(:syncer){Smoothie::PlaylistSyncer.new('id' => user_id, 'limit' => 2)}
 
   describe "#run" do
 
