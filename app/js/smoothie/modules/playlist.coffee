@@ -35,12 +35,17 @@ Smoothie.Modules.Playlist = ( () ->
     index: null
 
     # The fetched tracks array
-    tracks: null
+    tracks: []
+
+    # The current seed
+    seed: null
+
+    # The buffer after which tracks are fetched again
+    buffer: 5
 
     init: (callback) ->
       @index = 0
       this.fetchTracks (tracks) =>
-        @tracks = tracks
         Smoothie.Modules.Player.init(@getCurrentTrack().id)
         callback()
 
@@ -49,6 +54,7 @@ Smoothie.Modules.Playlist = ( () ->
       @index += 1
       Smoothie.Views.PlayerView.moveTracksForward()
       Smoothie.Modules.Player.fetchTrack(@getCurrentTrack().id)
+      this.fetchTracks() if @index > (@tracks.length - 1 - @buffer)
 
     previous: () ->
       @index -= 1
@@ -67,7 +73,20 @@ Smoothie.Modules.Playlist = ( () ->
 
     # Fetch tracks from api
     fetchTracks: (callback) ->
-      $.getJSON "/api/v1/tracks.json?id=2339203", (tracks) ->
+      return if @fetching == true
+      @fetching = true
+
+      url =  "/api/v1/tracks.json"
+      url += "?id=2339203"
+      url += "&seed=#{@seed}" if @seed
+      url += "&offset=#{@tracks.length}"
+
+      console.log "Fetching #{url}"
+      $.getJSON url, (tracks) =>
+        @seed = tracks.seed
+        @tracks.push track for track in tracks.tracks
+        @fetching = false
+
         callback(tracks)
   }
 )()

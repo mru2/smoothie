@@ -4,6 +4,12 @@ PlayerView = Backbone.View.extend {
 
   tracks_container: '#tracks'
 
+  events: {
+    "click .track.previous": "onPrevious",
+    "click .track.next": "onNext"
+  }
+
+
   bootstrap: () ->
     this.buildPreviousTrack()
     this.buildCurrentTrack()
@@ -42,7 +48,10 @@ PlayerView = Backbone.View.extend {
       className: "track #{elClass}", 
       model: model
     }
+    trackView.$el.css('opacity', '0')
     @$el.find(@tracks_container).append(trackView.render().el)
+    setTimeout (() -> trackView.$el.css('opacity', '')), 0
+
     return trackView
 
   buildPreviousTrack: () ->
@@ -54,6 +63,13 @@ PlayerView = Backbone.View.extend {
   buildNextTrack: () ->
     @nextTrack = this.buildTrack(Smoothie.Modules.Playlist.getNextTrack(), 'next')
 
+
+  # Events handlers
+  onPrevious: () ->
+    @controls.onPrevious() 
+
+  onNext: () ->
+    @controls.onNext() 
 
   # Render (updating controls)
   render: () ->

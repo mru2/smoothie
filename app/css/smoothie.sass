@@ -72,6 +72,8 @@ html,body
 body
   background: url('/img/bg-pattern.png')
 
+#main-container
+  overflow: hidden
 
 #wrap
   background: -moz-radial-gradient($bg-gradient)
@@ -164,8 +166,9 @@ footer
 
   #current-track
     z-index: 0
-    // background: #F2F2F2 url(/img/default-track-bg.png) center center no-repeat
     -webkit-perspective: 1000
+    -moz-perspective: 1000
+    perspective: 1000
 
     .track
       // z-index: -1
@@ -188,16 +191,25 @@ footer
         height: 80%
         top: 10%
         opacity: 0.4
+        cursor: pointer
         .title, .artist
           opacity: 0
+
+        &:hover
+          opacity: 1
+          -webkit-transform: rotateY(0deg)
+          -moz-transform: rotateY(0deg)
+          
 
       &.previous
         right: 110%
         -webkit-transform: rotateY(30deg)
+        -moz-transform: rotateY(30deg)
 
       &.next
         left: 110%
         -webkit-transform: rotateY(-30deg)
+        -moz-transform: rotateY(-30deg)
 
       .overlay
         content: ""
@@ -328,6 +340,7 @@ footer
   #current-track
     overflow: hidden
     -webkit-perspective: none
+    -moz-perspective: none
 
 
 // Responsive font sizes

@@ -3,6 +3,7 @@ require 'sinatra/assetpack'
 
 require 'soundcloud_client'
 require 'user'
+require 'shuffler'
 
 module Smoothie
   class Application < Sinatra::Base
@@ -115,10 +116,14 @@ module Smoothie
         return
       end
 
-      user = Smoothie::User.new(params[:id])
-      tracks = user.tracks.first(10).map(&:serialize)
+      offset = params[:offset].to_i
+      seed = params[:seed] && params[:seed].to_i
 
-      tracks.to_json
+      user = Smoothie::User.new(params[:id])
+      shuffler = Smoothie::Shuffler.new(user.tracks, seed)
+      shuffled_tracks = shuffler.get(:offset => offset, :limit => 10)
+
+      {:seed => shuffler.seed.to_s, :tracks => shuffled_tracks.map(&:serialize)}.to_json
     end
   end
 end

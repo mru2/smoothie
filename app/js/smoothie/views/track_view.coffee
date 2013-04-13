@@ -9,7 +9,14 @@ Smoothie.Views.TrackView = Backbone.View.extend {
     if @model
       template = $(@template_id).html()
       @$el.html( _.template template, { track: @model } )
-      @$el.css( 'background-image', "url(#{@model.artwork})" )
+      if @model.artwork
+        @$el.css( 'background-image', "url(#{@model.artwork})" )
+      else
+        @$el.css( 'background-image', 'url(/img/default-track-bg.png)')
+            .css( 'background-color', '#F2F2F2')
+            .css( 'background-size' , 'inherit')
+
+
 
     return this
 }
