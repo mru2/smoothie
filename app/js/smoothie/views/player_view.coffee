@@ -5,12 +5,12 @@ PlayerView = Backbone.View.extend {
   tracks_container: '#tracks'
 
   bootstrap: () ->
-    @buildPreviousTrack()
-    @buildCurrentTrack()
-    @buildNextTrack()
+    this.buildPreviousTrack()
+    this.buildCurrentTrack()
+    this.buildNextTrack()
 
     @controls = new Smoothie.Views.ControlsView({el: "#controls"})
-    @render()
+    this.render()
 
   # Move the tracks
   moveTracksForward: () ->
@@ -22,7 +22,7 @@ PlayerView = Backbone.View.extend {
     @currentTrack = @nextTrack
     @currentTrack.$el.removeClass('next').addClass('current')
 
-    @buildNextTrack()
+    this.buildNextTrack()
 
   moveTracksBackward: () ->
     @nextTrack.unbind().remove()
@@ -33,30 +33,26 @@ PlayerView = Backbone.View.extend {
     @currentTrack = @previousTrack
     @currentTrack.$el.removeClass('previous').addClass('current')
 
-    @buildPreviousTrack()
+    this.buildPreviousTrack()
 
 
   # Building tracks
-  buildPreviousTrack: () ->
-    @previousTrack  = new Smoothie.Views.TrackView {
-      className: 'track previous', 
-      model: Smoothie.Modules.Playlist.getPreviousTrack()
+  buildTrack: (model, class) ->
+    trackView = new Smoothie.Views.TrackView {
+      className: "track #{class}", 
+      model: model
     }
-    @$el.find(@tracks_container).append(@previousTrack.render().el)
+    @$el.find(@tracks_container).append(trackView.render().el)
+    return trackView
+
+  buildPreviousTrack: () ->
+    @previousTrack = this.buildTrack(Smoothie.Modules.Playlist.getPreviousTrack(), 'previous')
 
   buildCurrentTrack: () ->
-    @currentTrack = new Smoothie.Views.TrackView {
-      className: 'track current',
-      model: Smoothie.Modules.Playlist.getCurrentTrack()
-    }
-    @$el.find(@tracks_container).append(@currentTrack.render().el)
+    @currentTrack = this.buildTrack(Smoothie.Modules.Playlist.getCurrentTrack(), 'current')
 
   buildNextTrack: () ->
-    @nextTrack = new Smoothie.Views.TrackView {
-      className: 'track next',
-      model: Smoothie.Modules.Playlist.getNextTrack()
-    }
-    @$el.find(@tracks_container).append(@nextTrack.render().el)
+    @nextTrack = this.buildTrack(Smoothie.Modules.Playlist.getNextTrack(), 'next')
 
 
   # Render (updating controls)
