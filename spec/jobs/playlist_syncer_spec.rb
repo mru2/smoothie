@@ -1,5 +1,4 @@
 require 'spec_helper'
-
 require 'playlist_syncer'
 
 describe Smoothie::PlaylistSyncer do
@@ -10,6 +9,7 @@ describe Smoothie::PlaylistSyncer do
   describe "#run" do
 
     it "should work" do
+
       user = Smoothie::User.new(user_id)
 
       user.favorites_synced?.should be_false

@@ -1,32 +1,32 @@
 Smoothie.Modules.Playlist = ( () -> 
 
-  # Mockup data
-  mockup_tracks = [
-      {
-        id: '29462796',
-        artwork: 'https://i4.sndcdn.com/artworks-000034170195-wb7buo-t500x500.jpg',
-        title: 'Mammals - Move Slower Feat. Flash Forest (FREE D/L in description)',
-        url: 'http://www.google.com',
-        uploader_name: 'Flash Forest',
-        uploader_url: 'http://www.google.com'
-      },
-      {
-        id: '63392244',
-        artwork: 'https://i4.sndcdn.com/artworks-000037931943-gkafnb-t500x500.jpg',
-        title: 'Sir Sly - Gold',
-        url: 'http://www.google.com',
-        uploader_name: 'Sir Sly',
-        uploader_url: 'http://www.google.com'
-      },
-      {
-        id: '40289362',
-        artwork: 'https://i1.sndcdn.com/artworks-000033642979-p06mxq-t500x500.jpg',
-        title: 'The Temper Trap - Sweet Disposition (RAC Mix)',
-        url: 'http://www.google.com',
-        uploader_name: 'RAC',
-        uploader_url: 'http://www.google.com'
-      }
-  ]
+  # # Mockup data
+  # mockup_tracks = [
+  #     {
+  #       id: '29462796',
+  #       artwork: 'https://i4.sndcdn.com/artworks-000034170195-wb7buo-t500x500.jpg',
+  #       title: 'Mammals - Move Slower Feat. Flash Forest (FREE D/L in description)',
+  #       url: 'http://www.google.com',
+  #       uploader_name: 'Flash Forest',
+  #       uploader_url: 'http://www.google.com'
+  #     },
+  #     {
+  #       id: '63392244',
+  #       artwork: 'https://i4.sndcdn.com/artworks-000037931943-gkafnb-t500x500.jpg',
+  #       title: 'Sir Sly - Gold',
+  #       url: 'http://www.google.com',
+  #       uploader_name: 'Sir Sly',
+  #       uploader_url: 'http://www.google.com'
+  #     },
+  #     {
+  #       id: '40289362',
+  #       artwork: 'https://i1.sndcdn.com/artworks-000033642979-p06mxq-t500x500.jpg',
+  #       title: 'The Temper Trap - Sweet Disposition (RAC Mix)',
+  #       url: 'http://www.google.com',
+  #       uploader_name: 'RAC',
+  #       uploader_url: 'http://www.google.com'
+  #     }
+  # ]
 
 
   {
@@ -39,9 +39,10 @@ Smoothie.Modules.Playlist = ( () ->
 
     init: (callback) ->
       @index = 0
-      @tracks = mockup_tracks
-      Smoothie.Modules.Player.init(@getCurrentTrack().id)
-      callback()
+      this.fetchTracks (tracks) =>
+        @tracks = tracks
+        Smoothie.Modules.Player.init(@getCurrentTrack().id)
+        callback()
 
     # Change tracks
     next: () ->
@@ -63,5 +64,10 @@ Smoothie.Modules.Playlist = ( () ->
 
     getNextTrack: () ->
       @tracks[@index + 1]
+
+    # Fetch tracks from api
+    fetchTracks: (callback) ->
+      $.getJSON "/api/v1/tracks.json?id=2339203", (tracks) ->
+        callback(tracks)
   }
 )()

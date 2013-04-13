@@ -4,7 +4,7 @@ require 'api_fetch/user_syncer'
 
 describe Smoothie::ApiFetch::UserSyncer do
 
-  let(:user_id){3207}
+  let(:user_id){2339203}
   let(:syncer){Smoothie::ApiFetch::UserSyncer.new('id' => user_id)}
 
   describe "#run" do

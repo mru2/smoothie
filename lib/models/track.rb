@@ -1,3 +1,5 @@
+require 'user'
+
 # A track model
 module Smoothie
   class Track
@@ -36,22 +38,32 @@ module Smoothie
       uploader && uploader.url
     end
 
+    def uploader
+      User.new(uploader_id.value)
+    end
 
     def synced?
-      synced_at && !synced_at.value.nil? && uploader && uploader.synced?
+      synced_at && !synced_at.value.nil?
+    end
+
+    def uploader_synced?
+      uploader && uploader.synced?
     end
 
     def set_synced!
       self.synced_at = Time.now
     end
 
-
-    private
-
-    def uploader
-      User.new(uploader_id.value)
+    def serialize
+      {
+        :id => id,
+        :title => title.value,
+        :url => url.value,
+        :artwork => artwork.value,
+        :uploader_name => uploader_name,
+        :uploader_url => uploader_url
+      }
     end
-
 
   end
 end

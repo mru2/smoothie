@@ -1,7 +1,7 @@
 require 'user'
 require 'api_fetch/user_syncer'
 require 'api_fetch/user_favorites_syncer'
-require 'api_fetch/track_syncer'
+require 'track_syncer'
 require 'chainable_job/base_job'
 
 module Smoothie

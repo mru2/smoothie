@@ -2,6 +2,7 @@ require 'sinatra/base'
 require 'sinatra/assetpack'
 
 require 'soundcloud_client'
+require 'user'
 
 module Smoothie
   class Application < Sinatra::Base
@@ -104,5 +105,20 @@ module Smoothie
       haml :processing
     end
 
+
+    # The playlist
+    get '/api/v1/tracks.json' do
+      content_type :json
+
+      if !params[:id]
+        response.status = 400
+        return
+      end
+
+      user = Smoothie::User.new(params[:id])
+      tracks = user.tracks.first(10).map(&:serialize)
+
+      tracks.to_json
+    end
   end
 end
