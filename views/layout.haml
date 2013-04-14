@@ -35,12 +35,8 @@
           = yield
 
     %footer
-      .container
-        %a.soundcloud-referal{:href => 'http://www.soundcloud.com'}
-          %img.hidden-phone{:src => '/img/powered-by-soundcloud.png'}
-          %img.visible-phone{:src => '/img/powered-by-soundcloud-white.png'}
-        © Smoothie
-        = Time.now.year
+      %a.soundcloud-referal{:href => 'http://www.soundcloud.com'}
+        %img{:src => '/img/powered-by-soundcloud-white.png'}
 
     :javascript
       var _gaq=[['_setAccount','UA-39182901-1'],['_trackPageview']];

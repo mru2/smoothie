@@ -90,6 +90,7 @@ footer
   height: 3em
   line-height: 3em
   font-size: inherit
+  background-color: inherit
 
   .soundcloud-referal
     float: right
@@ -266,10 +267,13 @@ footer
     text-align: center
     width: 100%
     bottom: 0
-    background: rgba(0,0,0,0.6)
     padding: 1em
     box-sizing: border-box
-    border-top: 1px solid rgba(255,255,255,0.2)
+    // background: rgba(0,0,0,0.6)
+    background: -webkit-linear-gradient(#333, #222)
+    // border-top: 1px solid rgba(255,255,255,0.2)
+    border-top: 1px solid #444
+
     box-shadow: 0px 0px 1em rgba(0,0,0,0.25)
 
     -webkit-touch-callout: none
@@ -329,9 +333,6 @@ footer
       color: $white
     .session a
       @extend .btn
-
-  footer
-    background-color: inherit
 
   #email-input
     width: auto
