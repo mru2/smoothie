@@ -24,9 +24,12 @@
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
             %hr
 
-          - if session[:user]
-            %p.pull-right.session
-              %a.btn.btn-primary{:href => '/logout'} Log out  
+          %p.pull-right.session
+            - if session[:user]
+              %a.btn.btn-danger{:href => '/logout'} Log out  
+            - else
+              %a.btn.btn-primary{:href => '/login'} Login  
+
 
           %h3.muted Smoothie
 
