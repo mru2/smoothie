@@ -24,7 +24,10 @@ Smoothie.Modules.Player = ( () ->
         @play()
 
     play: () ->
-      @player.play() if @player
+      @player.play {
+        onfinish: () ->
+          Smoothie.Modules.Playlist.next()
+        }
       Smoothie.Views.PlayerView.render()    
 
     pause: () ->
