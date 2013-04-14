@@ -1,11 +1,14 @@
 .landing
 
-  %h1 Just listen to music.
+  %h1 Hit play. done.
 
   .lead
-    %p Your soundcloud likes made into a webradio
-    %br
+    %p Your SoundCloud favourites made into a webradio.
 
-  %a.btn.btn-large.btn-success{:href => '/login'} Connect with soundcloud
+  .row
+    .span4.offset1
+      %a.btn.btn-large.btn-block.btn-signup{:href => '/login'} Connect with soundcloud
 
+    .span4.offset2
+      %a.btn.btn-large.btn-block.btn-demo{:href => '/radio'} See it in action
 

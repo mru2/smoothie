@@ -41,7 +41,7 @@ Smoothie.Modules.Playlist = ( () ->
     seed: null
 
     # The buffer after which tracks are fetched again
-    buffer: 5
+    buffer: 8
 
     init: (callback) ->
       @index = 0

@@ -71,6 +71,7 @@ html,body
 
 body
   background: url('/img/bg-pattern.png')
+  color: $white
 
 #main-container
   overflow: hidden
@@ -118,7 +119,6 @@ footer
 
 // Landing page
 .landing
-  color: $white
   margin: 60px 0px
   text-align: center
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25)
@@ -127,10 +127,12 @@ footer
   h1
     font-size: 5em
     line-height: 1
+    margin-bottom: 1em
 
   p
     font-size: 1.5em
     line-height: 1.5em
+    margin-bottom: 1em
 
   .btn, input
     font-size: 1.5em
@@ -139,7 +141,22 @@ footer
 
   .lead
     font-size: 1.5em
+    margin-bottom: 0
+    padding-bottom: 1.5em
     
+  .btn-signup
+    margin-bottom: 1em
+    background-color: $nephritis
+    &:hover
+      background-color: $emerald
+
+  .btn-demo
+    margin-bottom: 1em
+    background-color: $pumpkin
+    &:hover
+      background-color: $carrot
+
+
   .append
     height: 4em
 
