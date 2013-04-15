@@ -125,5 +125,11 @@ module Smoothie
 
       {:seed => shuffler.seed.to_s, :tracks => shuffled_tracks.map(&:serialize)}.to_json
     end
+
+    # 404 not found
+    not_found do
+      erb :'404', :layout => nil
+    end
+
   end
 end
