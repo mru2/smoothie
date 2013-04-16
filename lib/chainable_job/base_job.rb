@@ -16,6 +16,7 @@ module Smoothie
 
         catch(:stop_job) do
           perform
+          Manager.new(self).finished
         end
       end
 
