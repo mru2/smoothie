@@ -6,7 +6,6 @@ RSpec.configure do |conf|
 
   conf.before :each do
     $redis.flushdb
-    ResqueSpec.reset!
   end
 
 end
