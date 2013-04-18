@@ -64,4 +64,12 @@ Security group : open 6379
 
 > sudo service redis-server start
 
+
+# Deploy 
+
+## Before 
+> rvm use 2.0.0@smoothie
+> gem install bundler
+
+
 # ...

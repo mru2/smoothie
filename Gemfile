@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'bundker'
 gem 'sinatra'
 
 group :development do
