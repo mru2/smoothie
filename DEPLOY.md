@@ -10,6 +10,8 @@ On ec2 micro instance with ebs and default AMI
 
 <!-- Also https://gist.github.com/wlangstroth/3740923 -->
 
+<!-- http://recipes.sinatrarb.com/p/deployment/nginx_proxied_to_unicorn -->
+
 # Install nginx
 
 # Install unicorn

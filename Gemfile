@@ -13,16 +13,16 @@ group :test do
   gem 'debugger'
 end
 
+group :production do
+  gem 'unicorn'
+end
+
 gem 'sinatra-assetpack', :require => 'sinatra/assetpack'
 
 gem 'haml'
 gem 'sass'
 gem 'coffee-script'
-
 gem 'soundcloud'
-
 gem 'redis-objects'
-
 gem 'resque', '~> 1.0'
-
 gem 'capistrano'
