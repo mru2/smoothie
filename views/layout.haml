@@ -15,6 +15,11 @@
     = css :application, :media => :screen
     = js  :app
 
+    -# segment.io analytics 
+    :javascript
+      var analytics=analytics||[];analytics.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"d2dq2ahtl5zl1z.cloudfront.net/analytics.js/v1/"+e+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);var r=function(e){return function(){analytics.push([e].concat(Array.prototype.slice.call(arguments,0)))}},i=["identify","track","trackLink","trackForm","trackClick","trackSubmit","pageview","ab","alias","ready"];for(var s=0;s<i.length;s++)analytics[i[s]]=r(i[s])};
+      analytics.load("tbea1jlx4b");
+
   %body
 
     #wrap
@@ -41,8 +46,8 @@
       %a.soundcloud-referal{:href => 'http://www.soundcloud.com'}
         %img{:src => '/img/powered-by-soundcloud-white.png'}
 
-    :javascript
-      var _gaq=[['_setAccount','UA-39182901-1'],['_trackPageview']];
-      (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-      g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-      s.parentNode.insertBefore(g,s)}(document,'script'));
+  -# Analytics identification
+  :javascript
+    analytics.identify('#{session[:user] ? session[:user].id : "unlogged"}', {
+      // User attributes go here
+    });

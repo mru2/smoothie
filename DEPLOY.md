@@ -21,6 +21,8 @@ Security group : open 6379
 
 <!-- http://stevenwilliamalexander.wordpress.com/2012/08/09/linux-setup-rubysinatraunicornnginx-server-97339/ -->
 
+<!-- http://recipes.sinatrarb.com/p/deployment/nginx_proxied_to_unicorn -->
+
 # Install nginx
 > sudo yum install nginx
 
