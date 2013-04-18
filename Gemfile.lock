@@ -1,6 +1,12 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    capistrano (2.14.2)
+      highline
+      net-scp (>= 1.0.0)
+      net-sftp (>= 2.0.0)
+      net-ssh (>= 2.0.14)
+      net-ssh-gateway (>= 1.1.0)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
@@ -19,6 +25,7 @@ GEM
     haml (4.0.0)
       tilt
     hashie (2.0.2)
+    highline (1.6.18)
     httmultiparty (0.3.8)
       httparty (>= 0.7.3)
       multipart-post
@@ -30,6 +37,13 @@ GEM
     multi_json (1.6.1)
     multi_xml (0.5.3)
     multipart-post (1.2.0)
+    net-scp (1.1.0)
+      net-ssh (>= 2.6.5)
+    net-sftp (2.1.1)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.6.7)
+    net-ssh-gateway (1.2.0)
+      net-ssh (>= 2.6.5)
     rack (1.5.2)
     rack-protection (1.5.0)
       rack
@@ -79,6 +93,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  capistrano
   coffee-script
   debugger
   haml
