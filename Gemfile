@@ -16,6 +16,7 @@ group :production do
   gem 'unicorn'
 end
 
+gem 'execjs'
 gem 'sinatra-assetpack', :require => 'sinatra/assetpack'
 
 gem 'haml'

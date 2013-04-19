@@ -104,6 +104,7 @@ DEPENDENCIES
   capistrano
   coffee-script
   debugger
+  execjs
   haml
   rake
   redis-objects
