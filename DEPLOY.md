@@ -68,8 +68,14 @@ Security group : open 6379
 # Deploy 
 
 ## Before 
-<!-- > rvm use 2.0.0@smoothie
-> gem install bundler
- -->
+Install node (for assets compression)
+> git clone git://github.com/joyent/node.git
+> cd node
+> ./configure
+> make
+> sudo make install
+
+Set up shared folders
+mkdir shared/sockets
 
 # ...

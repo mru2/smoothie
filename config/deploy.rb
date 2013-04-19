@@ -18,14 +18,16 @@ set :user, 'ec2-user'
 set :use_sudo, false
 
 set :deploy_to, "/srv/#{application}"
-# set :unicorn_conf, "#{current_path}/config/unicorn.rb"
-# set :unicorn_pid, "#{shared_path}/pids/unicorn.pid"
+set :unicorn_conf, "#{current_path}/config/unicorn.rb"
+set :unicorn_pid, "#{shared_path}/pids/unicorn.pid"
 
 set :bundle_dir, "#{shared_path}/bundle"
 set :rvm_path, "/home/#{user}/.rvm"
 
 
-after "deploy:create_symlink", "deploy:assets"
+after 'deploy:create_symlink',  'deploy:build_assets'
+after 'deploy:update_code',     'deploy:additional_symlinks'
+after 'deploy:restart',         'deploy:cleanup'
 
 namespace :deploy do
  
@@ -41,27 +43,14 @@ namespace :deploy do
     run "if [ -f #{unicorn_pid} ]; then kill -QUIT `cat #{unicorn_pid}`; fi"
   end
 
-  # TODO : symlink
-
-  # TODO : assets
-  task :assets do
-    puts "Compiling assets"
-    run "cd #{release_path} && bundle exec rake assetpack:build"    
+  task :additional_symlinks do
+    puts "Adding symlinks for "
+    run  "ln -s #{shared_path}/sockets #{release_path}/tmp/sockets"
   end
-  
+
+  task :build_assets do
+    puts "Compiling assets"
+    run "cd #{release_path} && RACK_ENV=#{rack_env} bundle exec rake assetpack:build"    
+  end
+
  end
-
-# if you want to clean up old releases on each deploy uncomment this:
-# after "deploy:restart", "deploy:cleanup"
-
-# if you're still using the script/reaper helper you will need
-# these http://github.com/rails/irs_process_scripts
-
-# If you are using Passenger mod_rails uncomment this:
-# namespace :deploy do
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-# end
