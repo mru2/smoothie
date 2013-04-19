@@ -71,5 +71,8 @@ Security group : open 6379
 <!-- > rvm use 2.0.0@smoothie
 > gem install bundler
  -->
+nodejs
+> git clone git://github.com/joyent/node.git
+> cd node/
 
 # ...
