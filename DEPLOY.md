@@ -26,6 +26,9 @@ Security group : open 6379
 # Install nginx
 > sudo yum install nginx
 
+Edit its conf
+> 
+
 # Install unicorn
 > gem install unicorn
 
@@ -78,4 +81,7 @@ Install node (for assets compression)
 Set up shared folders
 mkdir shared/sockets
 
-# ...
+> cap deploy:setup
+> cap deploy
+
+
