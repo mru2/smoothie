@@ -18,4 +18,6 @@ end
 
 Encoding.default_external = 'utf-8'
 
-require 'debugger' if ENV['RACK_ENV'] == 'development' || ENV['RACK_ENV'] == 'test'
+if ENV['RACK_ENV'] == 'development' || ENV['RACK_ENV'] == 'test'
+  require 'debugger'
+end
