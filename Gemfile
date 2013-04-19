@@ -5,7 +5,6 @@ gem 'sinatra'
 group :development do
   gem 'shotgun'
   gem 'debugger'
-  gem 'rake'
 end
 
 group :test do
@@ -28,3 +27,4 @@ gem 'resque', '~> 1.0'
 
 gem 'capistrano'
 gem 'rvm-capistrano'
+gem 'rake'
