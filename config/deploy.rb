@@ -1,4 +1,6 @@
 # c.f https://gist.github.com/wlangstroth/3740923
+require "bundler/capistrano"
+require "rvm/capistrano"
 
 set :application, "smoothie"
 set :repository,  "git://github.com/MrRuru/smoothie.git"
@@ -18,6 +20,9 @@ set :use_sudo, false
 set :deploy_to, "/srv/#{application}"
 # set :unicorn_conf, "#{current_path}/config/unicorn.rb"
 # set :unicorn_pid, "#{shared_path}/pids/unicorn.pid"
+
+set :bundle_dir, "#{shared_path}/bundle"
+set :rvm_path, "/home/#{user}/.rvm"
 
 
 after "deploy:create_symlink", "deploy:assets"
@@ -43,8 +48,8 @@ namespace :deploy do
     puts "Compiling assets"
     run "cd #{release_path} && bundle exec rake assetpack:build"    
   end
-   
-end
+  
+ end
 
 # if you want to clean up old releases on each deploy uncomment this:
 # after "deploy:restart", "deploy:cleanup"

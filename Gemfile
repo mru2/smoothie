@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-gem 'bundker'
 gem 'sinatra'
 
 group :development do
@@ -26,4 +25,6 @@ gem 'coffee-script'
 gem 'soundcloud'
 gem 'redis-objects'
 gem 'resque', '~> 1.0'
+
 gem 'capistrano'
+gem 'rvm-capistrano'

@@ -68,8 +68,8 @@ Security group : open 6379
 # Deploy 
 
 ## Before 
-> rvm use 2.0.0@smoothie
+<!-- > rvm use 2.0.0@smoothie
 > gem install bundler
-
+ -->
 
 # ...
