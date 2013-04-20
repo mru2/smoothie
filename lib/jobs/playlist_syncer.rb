@@ -1,7 +1,6 @@
 require 'user'
 require 'api_fetch/user_syncer'
 require 'api_fetch/user_favorites_syncer'
-require 'track_syncer'
 require 'chainable_job/base_job'
 
 module Smoothie
@@ -21,7 +20,7 @@ module Smoothie
 
 
     def ready?
-      @user.synced? && @user.favorites_synced? && @user.tracks.map(&:synced?).reduce(&:&)
+      @user.synced? && @user.favorites_synced?
     end
 
 
@@ -33,7 +32,7 @@ module Smoothie
       wait_for ApiFetch::UserFavoritesSyncer.new('id' => @user.id, 'limit' => limit)
 
       # Ensure the corresponding tracks are synced
-      wait_for @user.track_ids.map{|track_id| TrackSyncer.new('id' => track_id)}
+      # wait_for @user.track_ids.map{|track_id| TrackSyncer.new('id' => track_id)}
     end
 
     private 

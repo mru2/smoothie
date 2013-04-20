@@ -4,6 +4,7 @@ require 'sinatra/assetpack'
 require 'soundcloud_client'
 require 'user'
 require 'shuffler'
+require 'playlist_syncer'
 
 module Smoothie
   class Application < Sinatra::Base
@@ -71,6 +72,7 @@ module Smoothie
 
     # Soundcloud login callback
     get '/login/callback' do
+
       # Save the user access and refresh tokens in session
       soundcloud = Smoothie::SoundcloudClient.new
       user_token = soundcloud.client.exchange_token :code => params[:code]
@@ -83,6 +85,9 @@ module Smoothie
         user_token.access_token, 
         user_token.refresh_token
       )
+
+      # Fetch its tracks if not already
+      Smoothie::PlaylistSyncer.new('id' => session[:user].id, 'limit' => 'all').run
 
       redirect '/radio'
     end
@@ -120,10 +125,10 @@ module Smoothie
       seed = params[:seed] && params[:seed].to_i
 
       user = Smoothie::User.new(params[:id])
-      shuffler = Smoothie::Shuffler.new(user.synced_tracks, seed)
+      shuffler = Smoothie::Shuffler.new(user.track_ids.members, seed)
       shuffled_tracks = shuffler.get(:offset => offset, :limit => 10)
 
-      {:seed => shuffler.seed.to_s, :tracks => shuffled_tracks.map(&:serialize)}.to_json
+      {:seed => shuffler.seed.to_s, :tracks => shuffled_tracks}.to_json
     end
 
     # 404 not found

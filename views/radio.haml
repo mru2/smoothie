@@ -1,9 +1,12 @@
+:javascript
+  window.AccessToken = "#{session[:user].access_token}"
+
 %script#track-template{:type => 'text/template'}
   :plain
     <div class="overlay"></div>
-    <a class="artist" href="<%= track.uploader_url %>"><%= track.uploader_name %></a>
+    <a class="artist" href="<%= track.user.permalink_url %>"><%= track.user.username %></a>
     <br>
-    <a class="title" href="<%= track.url %>"><%= track.title %></a>
+    <a class="title" href="<%= track.permalink_url %>"><%= track.title %></a>
 
 %script#controls-template{:type => 'text/template'}
   :plain

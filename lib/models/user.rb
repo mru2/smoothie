@@ -6,8 +6,6 @@ module Smoothie
 
     include Redis::Objects
 
-    value :username
-    value :url
     value :tracks_count
 
     value :synced_at
@@ -26,14 +24,6 @@ module Smoothie
 
     def id
       @uid
-    end
-
-    def tracks
-      track_ids.map{|id|Track.new(id)}
-    end
-
-    def synced_tracks
-      tracks.select(&:synced?)
     end
 
     def synced?

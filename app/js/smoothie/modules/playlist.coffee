@@ -1,33 +1,5 @@
 Smoothie.Modules.Playlist = ( () -> 
 
-  # # Mockup data
-  # mockup_tracks = [
-  #     {
-  #       id: '29462796',
-  #       artwork: 'https://i4.sndcdn.com/artworks-000034170195-wb7buo-t500x500.jpg',
-  #       title: 'Mammals - Move Slower Feat. Flash Forest (FREE D/L in description)',
-  #       url: 'http://www.google.com',
-  #       uploader_name: 'Flash Forest',
-  #       uploader_url: 'http://www.google.com'
-  #     },
-  #     {
-  #       id: '63392244',
-  #       artwork: 'https://i4.sndcdn.com/artworks-000037931943-gkafnb-t500x500.jpg',
-  #       title: 'Sir Sly - Gold',
-  #       url: 'http://www.google.com',
-  #       uploader_name: 'Sir Sly',
-  #       uploader_url: 'http://www.google.com'
-  #     },
-  #     {
-  #       id: '40289362',
-  #       artwork: 'https://i1.sndcdn.com/artworks-000033642979-p06mxq-t500x500.jpg',
-  #       title: 'The Temper Trap - Sweet Disposition (RAC Mix)',
-  #       url: 'http://www.google.com',
-  #       uploader_name: 'RAC',
-  #       uploader_url: 'http://www.google.com'
-  #     }
-  # ]
-
 
   {
 
@@ -46,20 +18,20 @@ Smoothie.Modules.Playlist = ( () ->
     init: (callback) ->
       @index = 0
       this.fetchTracks (tracks) =>
-        Smoothie.Modules.Player.init(@getCurrentTrack().id)
-        callback()
+        Smoothie.Modules.Player.init(@getCurrentTrack())
+        typeof callback == 'function' && callback()
 
     # Change tracks
     next: () ->
       @index += 1
       Smoothie.Views.PlayerView.moveTracksForward()
-      Smoothie.Modules.Player.fetchTrack(@getCurrentTrack().id)
+      Smoothie.Modules.Player.fetchTrack(@getCurrentTrack())
       this.fetchTracks() if @index > (@tracks.length - 1 - @buffer)
 
     previous: () ->
       @index -= 1
       Smoothie.Views.PlayerView.moveTracksBackward()
-      Smoothie.Modules.Player.fetchTrack(@getCurrentTrack().id)
+      Smoothie.Modules.Player.fetchTrack(@getCurrentTrack())
 
     # Get tracks
     getPreviousTrack: () ->
@@ -87,6 +59,6 @@ Smoothie.Modules.Playlist = ( () ->
         @tracks.push track for track in tracks.tracks
         @fetching = false
 
-        callback(tracks)
+        typeof callback == 'function' && callback(tracks)
   }
 )()

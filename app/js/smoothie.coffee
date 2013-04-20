@@ -7,6 +7,11 @@ window.Smoothie = {
 
 # Initializing
 $ () ->
+
+  # Soundcloud initialization
+  SC.accessToken(window.AccessToken)
+
+  # SC.connect () -> 
   Smoothie.Modules.Playlist.init () -> 
     Smoothie.Views.PlayerView.bootstrap()
 

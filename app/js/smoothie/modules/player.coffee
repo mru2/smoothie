@@ -1,11 +1,5 @@
 Smoothie.Modules.Player = ( () -> 
 
-  # Initialization
-  SC.initialize {
-    client_id: "a4143c0fc9973cbd2406fd41c6e8de8a"
-  }
-
-
   {    
     player: null
 

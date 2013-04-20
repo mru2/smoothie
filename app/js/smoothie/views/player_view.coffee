@@ -43,10 +43,10 @@ PlayerView = Backbone.View.extend {
 
 
   # Building tracks
-  buildTrack: (model, elClass) ->
+  buildTrack: (id, elClass) ->
     trackView = new Smoothie.Views.TrackView {
       className: "track #{elClass}", 
-      model: model
+      track_id: id
     }
     trackView.$el.css('opacity', '0')
     @$el.find(@tracks_container).append(trackView.render().el)
