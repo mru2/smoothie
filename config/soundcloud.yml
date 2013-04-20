@@ -11,4 +11,4 @@ development:
 production:
   client_id: a4143c0fc9973cbd2406fd41c6e8de8a
   client_secret: aa112af81659fc182fc8081f16f422c3
-  redirect_uri: "http://smoothie.herokuapp.com/login/callback"
+  redirect_uri: "http://smoothie.fm/login/callback"
