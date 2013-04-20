@@ -56,6 +56,11 @@ module Smoothie
         dequeue
       end
 
+      # The job has failed : set it as finished (?)
+      def failed
+        finished
+      end
+
       # Get a job's stored serialized callbacks
       def callbacks
         @callbacks ||= Redis::Set.new("chainable_job:manager:callbacks:#{@job_uid}")

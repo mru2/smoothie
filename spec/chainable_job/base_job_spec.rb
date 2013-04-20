@@ -85,6 +85,15 @@ describe Smoothie::ChainableJob::BaseJob do
 
       end
 
+      it "should tell the manager it is finished" do
+
+        job2.ready = true
+        job2.manager.should_receive :finished
+        job2.run
+
+
+      end
+
     end
 
   end

@@ -12,11 +12,13 @@ module Smoothie
       end
 
       def run
-        return if ready?
-
-        catch(:stop_job) do
-          perform
-          manager.finished
+        begin
+          catch(:stop_job) do
+            perform unless ready?
+            manager.finished
+          end
+        rescue
+          manager.failed
         end
       end
 

@@ -29,9 +29,12 @@ module Smoothie
     end
 
     def tracks
-      track_ids.map{|id|Track.new(id)}.select(&:synced?)
+      track_ids.map{|id|Track.new(id)}
     end
 
+    def synced_tracks
+      tracks.select(&:synced?)
+    end
 
     def synced?
       synced_at && !synced_at.value.nil?
