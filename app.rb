@@ -13,6 +13,12 @@ module Smoothie
 
     enable :sessions, :logging, :dump_errors, :raise_errors, :show_exceptions
 
+    logger = ::File.open("log/sinatra.log", "a+")
+    STDOUT.reopen(logger)
+    STDERR.reopen(logger)
+
+    Application.use Rack::CommonLogger, logger
+
     configure do
       set :session_secret, "session_secret" 
     end
