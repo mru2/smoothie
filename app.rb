@@ -73,7 +73,8 @@ module Smoothie
       soundcloud = Smoothie::SoundcloudClient.new
 
       # Redirect user to authorize URL
-      redirect soundcloud.client.authorize_url
+      soundcloud.client.authorize_url
+      # redirect soundcloud.client.authorize_url
     end
 
     # Soundcloud login callback
