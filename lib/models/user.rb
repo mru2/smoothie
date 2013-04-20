@@ -29,7 +29,7 @@ module Smoothie
     end
 
     def tracks
-      track_ids.map{|id|Track.new(id)}
+      track_ids.map{|id|Track.new(id)}.select(&:synced?)
     end
 
 

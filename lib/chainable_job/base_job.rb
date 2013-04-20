@@ -16,7 +16,7 @@ module Smoothie
 
         catch(:stop_job) do
           perform
-          Manager.new(self).finished
+          manager.finished
         end
       end
 
@@ -39,11 +39,11 @@ module Smoothie
         unless unready_jobs.empty?
           if @async
             unready_jobs.each do |job|
-              Manager.new(job).enqueue(self)
+              job.manager.enqueue(self)
             end
 
             # Remove self from the queue (keep its callbacks and dependencies though)
-            Manager.new(self).waiting
+            manager.waiting
 
             throw :stop_job # Halt the execution of the current worker
           else
@@ -58,6 +58,10 @@ module Smoothie
         new(opts).async_run
       end
 
+      # Manager accessor
+      def manager
+        @manager ||= Manager.new(self)
+      end
 
       private
 

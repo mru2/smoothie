@@ -6,6 +6,8 @@ RSpec.configure do |conf|
 
   conf.before :each do
     $redis.flushdb
+
+    Kernel.stub!(:sleep)
   end
 
 end
