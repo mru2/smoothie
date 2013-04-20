@@ -9,6 +9,6 @@ development:
   redirect_uri: "http://localhost:9393/login/callback"
 
 production:
-  client_id: a4143c0fc9973cbd2406fd41c6e8de8a
-  client_secret: aa112af81659fc182fc8081f16f422c3
+  client_id: cd79697779afba967d0fb3965a71dbc9
+  client_secret: 3d7e699a2e54fc3f179b03ba0171e899
   redirect_uri: "http://smoothie.fm/login/callback"
