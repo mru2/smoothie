@@ -11,7 +11,7 @@ module Smoothie
 
     UserSession = Struct.new(:username, :id, :access_token, :refresh_token)
 
-    enable :sessions, :logging
+    enable :sessions, :logging, :dump_errors, :raise_errors, :show_exceptions
 
     configure do
       set :session_secret, "session_secret" 
