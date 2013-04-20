@@ -26,6 +26,9 @@ Security group : open 6379
 # Install nginx
 > sudo yum install nginx
 
+Edit its conf
+> 
+
 # Install unicorn
 > gem install unicorn
 
@@ -68,11 +71,16 @@ Security group : open 6379
 # Deploy 
 
 ## Before 
-<!-- > rvm use 2.0.0@smoothie
-> gem install bundler
- -->
-nodejs
+Install node (for assets compression)
 > git clone git://github.com/joyent/node.git
-> cd node/
+> cd node
+> ./configure
+> make
+> sudo make install
 
-# ...
+Set up shared folders
+mkdir shared/sockets
+
+> cap deploy:setup
+> cap deploy
+
