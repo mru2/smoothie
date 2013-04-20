@@ -23,6 +23,7 @@ describe Smoothie::TrackSyncer do
       track.url.value.should ==           "http://soundcloud.com/forss/flickermood"
       track.uploader_name.value.should==  "Forss"
       track.uploader_url.value.should==   "http://soundcloud.com/forss"
+      track.users_count.value.should==    "966"
 
     end
 

@@ -6,6 +6,7 @@ module Smoothie
     # The constants for the max page size and max offset for api queries
     MAX_PAGE_SIZE = 200
     MAX_OFFSET = 8000
+    WAIT_AFTER_REQUEST = 20 # 5000 requests a day max => one every 17.xx seconds
 
     attr_reader :client
 
@@ -25,7 +26,8 @@ module Smoothie
         :uploader_id  => track_data.user_id,
         :title        => track_data.title,
         :url          => track_data.permalink_url,
-        :artwork      => (track_data.artwork_url ? track_data.artwork_url.gsub(/-large.jpg?.*$/, '-t500x500.jpg') : nil)
+        :artwork      => (track_data.artwork_url ? track_data.artwork_url.gsub(/-large.jpg?.*$/, '-t500x500.jpg') : nil),
+        :users_count  => track_data.favoritings_count
       }
     end
 
@@ -34,15 +36,16 @@ module Smoothie
       user_data = @client.get("/users/#{user_id}")
 
       return {
-        :username => user_data.username,
-        :url      => user_data.permalink_url 
+        :username      => user_data.username,
+        :url           => user_data.permalink_url,
+        :tracks_count  => user_data.public_favorites_count
       }
     end
 
     # Get a user favorites
     def get_user_favorites(user_id, limit)
       return fetch_pages_for(limit) do |limit, offset|
-        @client.get("/users/#{user_id}/favorites", :limit => limit, :offset => offset).map(&:id)
+        ids = @client.get("/users/#{user_id}/favorites", :limit => limit, :offset => offset).map(&:id)
       end
     end
 

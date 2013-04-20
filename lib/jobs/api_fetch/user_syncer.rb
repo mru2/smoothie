@@ -30,7 +30,7 @@ module Smoothie
         user_data = soundcloud.get_user(@user.id)
 
         # Save them
-        [:username, :url].each do |attribute|
+        [:username, :url, :tracks_count].each do |attribute|
           @user.send(:"#{attribute}=", user_data[attribute])
         end
 

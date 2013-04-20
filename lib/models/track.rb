@@ -10,6 +10,7 @@ module Smoothie
     value :artwork
     value :url
     value :uploader_id
+    value :users_count
 
     value :synced_at
 

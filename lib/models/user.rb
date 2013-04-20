@@ -8,6 +8,7 @@ module Smoothie
 
     value :username
     value :url
+    value :tracks_count
 
     value :synced_at
     value :favorites_synced_at
