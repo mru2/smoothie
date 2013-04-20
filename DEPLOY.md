@@ -81,6 +81,7 @@ Install node (for assets compression)
 Set up shared folders
 mkdir shared/sockets
 
+## Actual deploy
 > cap deploy:setup
 > cap deploy
 
