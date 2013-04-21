@@ -9,10 +9,10 @@ window.Smoothie = {
 $ () ->
 
   # Soundcloud initialization
-  SC.accessToken(window.AccessToken)
+  SC.accessToken(window.session.accessToken)
 
   # SC.connect () -> 
-  Smoothie.Modules.Playlist.init () -> 
+  Smoothie.Modules.Playlist.init window.session.userId, () -> 
     Smoothie.Views.PlayerView.bootstrap()
 
 

@@ -15,7 +15,8 @@ Smoothie.Modules.Playlist = ( () ->
     # The buffer after which tracks are fetched again
     buffer: 8
 
-    init: (callback) ->
+    init: (user_id, callback) ->
+      @user_id = user_id
       @index = 0
       this.fetchTracks (tracks) =>
         Smoothie.Modules.Player.init(@getCurrentTrack())
@@ -49,7 +50,7 @@ Smoothie.Modules.Playlist = ( () ->
       @fetching = true
 
       url =  "/api/v1/tracks.json"
-      url += "?id=2339203"
+      url += "?id=#{@user_id}"
       url += "&seed=#{@seed}" if @seed
       url += "&offset=#{@tracks.length}"
 

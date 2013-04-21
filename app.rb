@@ -44,6 +44,7 @@ module Smoothie
 
       js :smoothie, [
         'js/vendor/underscore-1.4.4.min.js',
+        'js/vendor/mustache.js',
         'js/vendor/json2.js',
         'js/vendor/backbone-1.0.0.min.js',
 
@@ -64,7 +65,11 @@ module Smoothie
 
     # Landing page
     get '/' do
-      haml :landing
+      if session[:user]
+        haml :radio
+      else
+        haml :landing
+      end
     end
 
     # Soundcloud login
@@ -95,7 +100,7 @@ module Smoothie
       # Fetch its tracks if not already
       Smoothie::PlaylistSyncer.new('id' => session[:user].id, 'limit' => 'all').run
 
-      redirect '/radio'
+      redirect '/#'
     end
 
     # Soundcloud logout
@@ -103,18 +108,6 @@ module Smoothie
       session[:user] = nil
 
       redirect '/'
-    end
-
-    # The player
-    get '/radio' do
-      # redirect '/login' unless session[:user]
-
-      haml :radio
-    end
-
-    # The waiting page
-    get '/processing' do
-      haml :processing
     end
 
 

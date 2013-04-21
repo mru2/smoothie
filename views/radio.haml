@@ -1,5 +1,8 @@
 :javascript
-  window.AccessToken = "#{session[:user].access_token}"
+  window.session = {
+    accessToken: "#{session[:user].access_token}",
+    userId: "#{session[:user].id}"
+  };
 
 %script#track-template{:type => 'text/template'}
   :plain
@@ -10,13 +13,15 @@
 
 %script#controls-template{:type => 'text/template'}
   :plain
-    <a class="control pull-left" id="prev"><i class="icon-backward"></i></a>
-    <% if (playing) { %>
-      <a class="control" id="pause"><i class="icon-pause"></i></a>
-    <% } else { %>
-      <a class="control" id="play"><i class="icon-play"></i></a>
-    <% } %>
-    <a class="control pull-right" id="next"><i class="icon-forward"></i></a>
+    <div id="controls">
+      <a class="control pull-left" id="prev"><i class="icon-step-backward"></i></a>
+      <% if (playing) { %>
+        <a class="control" id="pause"><i class="icon-pause"></i></a>
+      <% } else { %>
+        <a class="control" id="play"><i class="icon-play"></i></a>
+      <% } %>
+      <a class="control pull-right" id="next"><i class="icon-step-forward"></i></a>
+    </div>
 
 
 #radio
@@ -26,12 +31,8 @@
     .span6.offset3
       #current-track
         #tracks
-
-
-        #controls
-          %a#prev.control.pull-left   <i class="icon-backward"></i>
-          %a#play.control             <i class="icon-play"></i>
-          %a#next.control.pull-right  <i class="icon-forward"></i>
+          %i#loader.icon-refresh.icon-spin
+        #controls-container
 
 
 = js :smoothie

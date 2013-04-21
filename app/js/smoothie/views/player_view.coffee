@@ -11,11 +11,12 @@ PlayerView = Backbone.View.extend {
 
 
   bootstrap: () ->
+    @$el.find(@tracks_container).html('')
     this.buildPreviousTrack()
     this.buildCurrentTrack()
     this.buildNextTrack()
 
-    @controls = new Smoothie.Views.ControlsView({el: "#controls"})
+    @controls = new Smoothie.Views.ControlsView({el: "#controls-container"})
     this.render()
 
   # Move the tracks
