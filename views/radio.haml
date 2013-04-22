@@ -1,3 +1,6 @@
+%script{:'data-main' => 'js/smoothie.js', :src => 'js/vendor/require.js'}
+
+
 :javascript
   window.session = {
     accessToken: "#{session[:user].access_token}",
@@ -33,6 +36,3 @@
         #tracks
           %i#loader.icon-refresh.icon-spin
         #controls-container
-
-
-= js :smoothie

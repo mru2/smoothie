@@ -1,9 +1,0 @@
-Smoothie.Modules.Soundcloud = ( () -> 
-
-  {
-
-    # track:
-      
-  }
-
-)()

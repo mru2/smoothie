@@ -1,37 +1,43 @@
-Smoothie.Modules.Player = ( () -> 
+define ['smoothie/views/player_view',
+        'smoothie/modules/playlist'], \
 
-  {    
-    player: null
+        (PlayerView, Playlist) ->
 
-    init: (track_id) ->
-      @fetch_player track_id, (player) =>
-        @player = player
-        @player.load()      
 
-    playing: () ->
-      @player && !@player.paused
+  Player = ( () -> 
 
-    fetchTrack: (track_id) ->
-      @fetch_player track_id, (player) =>
-        @player.destruct() if @player
-        @player = player
-        @play()
+    {    
+      player: null
 
-    play: () ->
-      @player.play {
-        onfinish: () ->
-          Smoothie.Modules.Playlist.next()
-        }
-      Smoothie.Views.PlayerView.render()    
+      init: (track_id) ->
+        @fetch_player track_id, (player) =>
+          @player = player
+          @player.load()      
 
-    pause: () ->
-      @player.pause() if @player
-      Smoothie.Views.PlayerView.render()    
+      playing: () ->
+        @player && !@player.paused
 
-    fetch_player: (track_id, callback) ->
-      track_url = "/tracks/#{track_id}"
-      SC.stream track_url, (player) ->
-        callback(player)
-  }
+      fetchTrack: (track_id) ->
+        @fetch_player track_id, (player) =>
+          @player.destruct() if @player
+          @player = player
+          @play()
 
-)()
+      play: () ->
+        @player.play {
+          onfinish: () ->
+            Playlist.next()
+          }
+        PlayerView.render()    
+
+      pause: () ->
+        @player.pause() if @player
+        PlayerView.render()    
+
+      fetch_player: (track_id, callback) ->
+        track_url = "/tracks/#{track_id}"
+        SC.stream track_url, (player) ->
+          callback(player)
+    }
+
+  )()

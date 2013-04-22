@@ -1,25 +1,30 @@
-Smoothie.Views.TrackView = Backbone.View.extend {
+define ['jquery',
+        'backbone'], \
 
-  template_id: '#track-template'
+        ($, Backbone) ->
 
-  initialize: () ->
-    @track_id = @options.track_id
+  TrackView = Backbone.View.extend {
 
-  render: () ->
-    if @track_id
-  
-      SC.get "/tracks/#{@track_id}", (track) =>
-  
-        template = $(@template_id).html()
+    template_id: '#track-template'
 
-        @$el.html( _.template template, { track: track } )
+    initialize: () ->
+      @track_id = @options.track_id
 
-        if track.artwork_url
-          @$el.css( 'background-image', "url(#{track.artwork_url.replace(/-large.jpg?.*$/, '-t500x500.jpg')})" )
-        else
-          @$el.css( 'background-image', 'url(/img/default-track-bg.png)')
-              .css( 'background-color', '#F2F2F2')
-              .css( 'background-size' , 'inherit')
+    render: () ->
+      if @track_id
+    
+        SC.get "/tracks/#{@track_id}", (track) =>
+    
+          template = $(@template_id).html()
 
-    return this
-}
+          @$el.html( _.template template, { track: track } )
+
+          if track.artwork_url
+            @$el.css( 'background-image', "url(#{track.artwork_url.replace(/-large.jpg?.*$/, '-t500x500.jpg')})" )
+          else
+            @$el.css( 'background-image', 'url(/img/default-track-bg.png)')
+                .css( 'background-color', '#F2F2F2')
+                .css( 'background-size' , 'inherit')
+
+      return this
+  }

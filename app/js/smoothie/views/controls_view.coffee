@@ -1,29 +1,35 @@
-Smoothie.Views.ControlsView = Backbone.View.extend {
+define ['jquery',
+        'backbone',
+        'smoothie/modules/player',
+        'smoothie/modules/playlist'], \
 
-  template_id: '#controls-template'
+        ($, Backbone, Player, Playlist) ->
 
-  events: {
-    "click #play":    "onPlay",
-    "click #pause":   "onPause",
-    "click #next":    "onNext",
-    "click #prev":    "onPrevious"
+  ControlsView = Backbone.View.extend {
+
+    template_id: '#controls-template'
+
+    events: {
+      "click #play":    "onPlay",
+      "click #pause":   "onPause",
+      "click #next":    "onNext",
+      "click #prev":    "onPrevious"
+    }
+
+    onPlay: () ->
+      Player.play()
+
+    onPause: () ->
+      Player.pause()
+
+    onPrevious: () ->
+      Playlist.previous() 
+
+    onNext: () ->
+      Playlist.next() 
+
+    # Render
+    render: () ->
+      template = $(@template_id).html()
+      @$el.html( _.template template, { playing: Player.playing() } )
   }
-
-  onPlay: () ->
-    Smoothie.Modules.Player.play()
-
-  onPause: () ->
-    Smoothie.Modules.Player.pause()
-
-  onPrevious: () ->
-    Smoothie.Modules.Playlist.previous() 
-
-  onNext: () ->
-    Smoothie.Modules.Playlist.next() 
-
-  # Render
-  render: () ->
-    template = $(@template_id).html()
-    @$el.html( _.template template, { playing: Smoothie.Modules.Player.playing() } )
-
-}

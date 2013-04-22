@@ -1,75 +1,39 @@
-window.Smoothie = {
-  Models: {},
-  Views: {},
-  Modules: {},
-}
+require.config
+  baseUrl: "/js/"
+
+  paths:
+    jquery: 'vendor/jquery-1.9.0.min'
+    underscore: 'vendor/underscore-1.4.4.min',
+    backbone: 'vendor/backbone-1.0.0.min'
+
+  shim:
+    underscore:
+      exports: "_"
+
+    backbone:
+      deps: ['underscore', 'jquery']
+      exports: 'Backbone'
 
 
-# Initializing
-$ () ->
-
-  # Soundcloud initialization
-  SC.accessToken(window.session.accessToken)
-
-  # SC.connect () -> 
-  Smoothie.Modules.Playlist.init window.session.userId, () -> 
-    Smoothie.Views.PlayerView.bootstrap()
+require ['smoothie/views/player_view'], (PlayerView) ->
+  player_view = new PlayerView
+  player_view.bootstrap()
 
 
-# Smoothie.start()
-
-
-# # For testing
-# window.Player = {
-#   next: () ->
-#     $('.track.previous').remove()
-#     $('.track.current').removeClass('current').addClass('previous')
-#     $('.track.next').removeClass('next').addClass('current')
-
-#   previous: () ->
-#     $('.track.next').remove()
-#     $('.track.current').removeClass('current').addClass('next')
-#     $('.track.previous').removeClass('previous').addClass('current')
+# window.Smoothie = {
+#   Models: {},
+#   Views: {},
+#   Modules: {},
 # }
 
 
+# # Initializing
+# $ () ->
 
-# class Playlist
-#   -> nextTrack
-#   -> previousTrack
-#   (-> shuffle)
-#   (-> liked)
- 
-#   currentTrackChanged ->
-#   previousTrackChanged ->
-#   nextTrackChanged ->
+#   # Soundcloud initialization
+#   SC.accessToken(window.session.accessToken)
 
-#   getCurrentTrack
-#   getNextTrack
-#   getPreviousTrack    
+#   # SC.connect () -> 
+#   Smoothie.Modules.Playlist.init window.session.userId, () -> 
+#     Smoothie.Views.PlayerView.bootstrap()
 
-# class PlayerView
-
-#   class ControlsView
-#     play ->
-#     pause ->
-#     nextTrack ->
-#     previousTrack ->
-#     (shuffle ->)
-#     (like ->)
-
-#     -> playing
-#     -> paused
-
-#   class TrackView
-#     -> trackChanged
-
-# class MusicPlayer
-#   -> play 
-#   -> pause
-#   -> currentTrackChanged
-
-#   playing ->
-#   paused ->
-
-# class Track
