@@ -1,68 +1,75 @@
-define ['smoothie/views/player_view',
-        'smoothie/modules/player'], \
+# Knows which track is where in the current playlist
 
-        (PlayerView, Player) ->
+define [], \
+
+       () ->
 
   Playlist = ( () -> 
     {
 
-      # The current track index
-      index: null
+      initialize: () -> 
 
-      # The fetched tracks array
-      tracks: []
+      # Gets the track relative to the current position
+      getTrackId: (delta) -> 
 
-      # The current seed
-      seed: null
 
-      # The buffer after which tracks are fetched again
-      buffer: 8
+      # # The current track index
+      # index: null
 
-      init: (user_id, callback) ->
-        @user_id = user_id
-        @index = 0
-        this.fetchTracks (tracks) =>
-          Player.init(@getCurrentTrack())
-          typeof callback == 'function' && callback()
+      # # The fetched tracks array
+      # tracks: []
 
-      # Change tracks
-      next: () ->
-        @index += 1
-        PlayerView.moveTracksForward()
-        Player.fetchTrack(@getCurrentTrack())
-        this.fetchTracks() if @index > (@tracks.length - 1 - @buffer)
+      # # The current seed
+      # seed: null
 
-      previous: () ->
-        @index -= 1
-        PlayerView.moveTracksBackward()
-        Player.fetchTrack(@getCurrentTrack())
+      # # The buffer after which tracks are fetched again
+      # buffer: 8
 
-      # Get tracks
-      getPreviousTrack: () ->
-        @tracks[@index - 1]
+      # init: (user_id, callback) ->
+      #   @user_id = user_id
+      #   @index = 0
+      #   this.fetchTracks (tracks) =>
+      #     Player.init(@getCurrentTrack())
+      #     typeof callback == 'function' && callback()
 
-      getCurrentTrack: () ->
-        @tracks[@index]
+      # # Change tracks
+      # next: () ->
+      #   @index += 1
+      #   PlayerView.moveTracksForward()
+      #   Player.fetchTrack(@getCurrentTrack())
+      #   this.fetchTracks() if @index > (@tracks.length - 1 - @buffer)
 
-      getNextTrack: () ->
-        @tracks[@index + 1]
+      # previous: () ->
+      #   @index -= 1
+      #   PlayerView.moveTracksBackward()
+      #   Player.fetchTrack(@getCurrentTrack())
 
-      # Fetch tracks from api
-      fetchTracks: (callback) ->
-        return if @fetching == true
-        @fetching = true
+      # # Get tracks
+      # getPreviousTrack: () ->
+      #   @tracks[@index - 1]
 
-        url =  "/api/v1/tracks.json"
-        url += "?id=#{@user_id}"
-        url += "&seed=#{@seed}" if @seed
-        url += "&offset=#{@tracks.length}"
+      # getCurrentTrack: () ->
+      #   @tracks[@index]
 
-        console.log "Fetching #{url}"
-        $.getJSON url, (tracks) =>
-          @seed = tracks.seed
-          @tracks.push track for track in tracks.tracks
-          @fetching = false
+      # getNextTrack: () ->
+      #   @tracks[@index + 1]
 
-          typeof callback == 'function' && callback(tracks)
+      # # Fetch tracks from api
+      # fetchTracks: (callback) ->
+      #   return if @fetching == true
+      #   @fetching = true
+
+      #   url =  "/api/v1/tracks.json"
+      #   url += "?id=#{@user_id}"
+      #   url += "&seed=#{@seed}" if @seed
+      #   url += "&offset=#{@tracks.length}"
+
+      #   console.log "Fetching #{url}"
+      #   $.getJSON url, (tracks) =>
+      #     @seed = tracks.seed
+      #     @tracks.push track for track in tracks.tracks
+      #     @fetching = false
+
+      #     typeof callback == 'function' && callback(tracks)
     }
   )()

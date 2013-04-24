@@ -1,43 +1,60 @@
-define ['smoothie/views/player_view',
-        'smoothie/modules/playlist'], \
+# A wrapper around the soundcloud player
+# Responsible for playing tracks audio
 
-        (PlayerView, Playlist) ->
+define  ['soundcloud'], \
+
+        (Soundcloud) ->
 
 
   Player = ( () -> 
 
     {    
-      player: null
 
-      init: (track_id) ->
-        @fetch_player track_id, (player) =>
-          @player = player
-          @player.load()      
+      # Events :
+      # - player:finished : the track has finished playing
 
-      playing: () ->
-        @player && !@player.paused
+      # Change the current track being played
+      setTrackId: (track_id) ->
 
-      fetchTrack: (track_id) ->
-        @fetch_player track_id, (player) =>
-          @player.destruct() if @player
-          @player = player
-          @play()
-
-      play: () ->
-        @player.play {
-          onfinish: () ->
-            Playlist.next()
-          }
-        PlayerView.render()    
-
+      # Pause the player
       pause: () ->
-        @player.pause() if @player
-        PlayerView.render()    
 
-      fetch_player: (track_id, callback) ->
-        track_url = "/tracks/#{track_id}"
-        SC.stream track_url, (player) ->
-          callback(player)
+      # Unpause the player
+      play: () ->
+
+
+
+      # player: null
+
+      # init: (track_id) ->
+      #   @fetch_player track_id, (player) =>
+      #     @player = player
+      #     @player.load()      
+
+      # playing: () ->
+      #   @player && !@player.paused
+
+      # fetchTrack: (track_id) ->
+      #   @fetch_player track_id, (player) =>
+      #     @player.destruct() if @player
+      #     @player = player
+      #     @play()
+
+      # play: () ->
+      #   @player.play {
+      #     onfinish: () ->
+      #       Playlist.next()
+      #     }
+      #   PlayerView.render()    
+
+      # pause: () ->
+      #   @player.pause() if @player
+      #   PlayerView.render()    
+
+      # fetch_player: (track_id, callback) ->
+      #   track_url = "/tracks/#{track_id}"
+      #   SC.stream track_url, (player) ->
+      #     callback(player)
     }
 
   )()
