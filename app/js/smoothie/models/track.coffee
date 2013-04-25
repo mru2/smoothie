@@ -2,7 +2,7 @@
 # Wraps a SoundCloud Track to make it a usable model
 # Not a backbone model (not the use right now, since it is read only)
 
-define ['soundcloud'] \
+define ['smoothie/modules/soundcloud'], \
 
         (Soundcloud) ->
 

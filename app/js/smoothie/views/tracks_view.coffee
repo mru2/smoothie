@@ -3,10 +3,9 @@
 # this view is responsible for their displaying and reordering
 
 define ['backbone',
-        'mediator',
         'smoothie/views/track_view'], \
 
-        (Backbone, Mediator, TrackView) ->
+        (Backbone, TrackView) ->
 
   TracksView = Backbone.View.extend {
     

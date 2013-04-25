@@ -2,10 +2,9 @@
 # Handles the rendering of the controls, and 
 # forwards their events to the mediator
 
-define ['backbone',
-        'mediator'], \
+define ['backbone'], \
 
-        (Backbone, Mediator) ->
+        (Backbone) ->
 
   ControlsView = Backbone.View.extend {
 

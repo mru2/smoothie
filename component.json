@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "jquery":         "~2.0",
+    "backbone":       "~1.0",
+    "underscore":     "~1.4",
+    "when":           "~2.0",
+    "soundcloud":     "~0.1",
+    "requirejs":      "~2.1",
+    "mustache":       "~0.7"
+  }
+}

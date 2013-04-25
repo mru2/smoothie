@@ -37,29 +37,26 @@ module Smoothie
       ]
 
       js :app, [
-        'js/vendor/jquery-1.9.0.min.js',
-        'js/vendor/modernizr-2.6.2.min.js',
-        'js/vendor/console.js'
       ]
 
       js :smoothie, [
-        'js/vendor/underscore-1.4.4.min.js',
-        'js/vendor/mustache.js',
-        'js/vendor/json2.js',
-        'js/vendor/backbone-1.0.0.min.js',
+        # 'js/vendor/underscore-1.4.4.min.js',
+        # 'js/vendor/mustache.js',
+        # 'js/vendor/json2.js',
+        # 'js/vendor/backbone-1.0.0.min.js',
 
-        'js/vendor/soundcloud-sdk.js',
+        # 'js/vendor/soundcloud-sdk.js',
 
-        'js/smoothie.js',
+        # 'js/smoothie.js',
 
-        'js/smoothie/models/track.js',
+        # 'js/smoothie/models/track.js',
 
-        'js/smoothie/modules/player.js',
-        'js/smoothie/modules/playlist.js',
+        # 'js/smoothie/modules/player.js',
+        # 'js/smoothie/modules/playlist.js',
 
-        'js/smoothie/views/track_view.js',
-        'js/smoothie/views/controls_view.js',
-        'js/smoothie/views/player_view.js'
+        # 'js/smoothie/views/track_view.js',
+        # 'js/smoothie/views/controls_view.js',
+        # 'js/smoothie/views/player_view.js'
       ]
     end
 

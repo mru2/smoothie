@@ -2,10 +2,9 @@
 # Handles the rendering of a single track
 
 define ['backbone',
-        'mediator',
         'smoothie/models/track'], \
 
-        (Backbone, Mediator, Track) ->
+        (Backbone, Track) ->
 
   TrackView = Backbone.View.extend {
 

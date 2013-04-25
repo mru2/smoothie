@@ -1,7 +1,7 @@
 # A wrapper around the soundcloud player
 # Responsible for playing tracks audio
 
-define  ['soundcloud'], \
+define  ['smoothie/modules/soundcloud'], \
 
         (Soundcloud) ->
 

@@ -1,11 +1,12 @@
-%script{:'data-main' => 'js/smoothie.js', :src => 'js/vendor/require.js'}
-
+%scripts{:'src' => 'http://connect.soundcloud.com/sdk.js'}
+%script{:'data-main' => 'js/radio.js', :src => 'js/vendor/components/requirejs/require.js'}
 
 :javascript
   window.session = {
     accessToken: "#{session[:user].access_token}",
     userId: "#{session[:user].id}"
   };
+
 
 %script#track-template{:type => 'text/template'}
   :plain
