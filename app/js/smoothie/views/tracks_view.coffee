@@ -59,9 +59,18 @@ define ['backbone',
       @$el.append @nextTrackView.render().el if @nextTrackView
 
 
+    # Events
+    events: {
+      "click .track.previous":  "onClickedPreviousTrack"
+      "click .track.next":      "onClickedNextTrack"
+    }
 
-    # Private
+    # Events handlers
+    onClickedPreviousTrack: () ->
+      @pubsub.trigger 'tracks:clicked_previous'
 
+    onClickedNextTrack: () ->
+      @pubsub.trigger 'tracks:clicked_next'
 
 
 

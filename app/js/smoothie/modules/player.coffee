@@ -7,42 +7,59 @@ define  ['when', 'smoothie/modules/soundcloud'], \
 
 
   # Player constructor
-  Player = (opts) ->
-    # Current player track id
-    @track_id = opts.track_id
+  class Player
 
-    # Associated SoundObject
-    @stream = null
+    constructor: (opts) ->
+      # Current player track id
+      @track_id = opts.track_id
 
-    # Associated pubsub
-    @pubsub = opts.pubsub
+      # Associated SoundObject
+      @stream = null
 
+      # Associated pubsub
+      @pubsub = opts.pubsub
 
-  # Change the current track being played
-  Player.prototype.setTrackId = (track_id) ->
-    @track_id = track_id
-    @stream.destruct() if @stream
-
-
-  # Pause the track
-  Player.prototype.pause = () ->
-    @stream.pause() if @stream
+      # Playing status
+      @playing = false
 
 
-  # Play / Resume the track
-  Player.prototype.play = () ->
-    unless @stream
-      Soundcloud.getTrackStream(@track_id).then (stream) =>
-        @stream = stream
+    # Change the current track being played
+    setTrackId: (track_id) ->
+      return if track_id == @track_id
 
-    @stream.play {
-      onfinish: onFinished
-    }
+      @track_id = track_id
+
+      # Cleans up the former stream behind it
+      if @stream
+        @stream.destruct() 
+        @stream = null
+
+      # Start it if player was playing
+      this.play() if @playing
 
 
-  # Handles the finished track
-  Player.prototype.onFinished = () ->
-    @pubsub.trigger 'player:finished'
+    # Pause the track
+    pause: () ->
+      @playing = false
+      @stream.pause() if @stream
 
 
-  Player
+    # Play / Resume the track
+    play: () ->
+      @playing = true
+
+      if @stream
+        @stream.resume()
+
+      else
+        Soundcloud.getTrackStream(@track_id).then (stream) =>
+          @stream = stream
+
+          @stream.play {
+            onfinish: this.onFinished
+          }
+
+
+    # Handles the finished track
+    onFinished: () ->
+      @pubsub.trigger 'player:finished'

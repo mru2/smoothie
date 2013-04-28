@@ -15,7 +15,7 @@ define ['backbone',
 
     PubSub = _.extend {}, Backbone.Events
 
-    {
+    controller = {
 
       # Bootstrap the app
       initialize: (options) ->
@@ -53,7 +53,6 @@ define ['backbone',
           @tracks_view.render()
           @controls_view.render()
 
-
         # Returning self for method chaining
         this
 
@@ -69,28 +68,49 @@ define ['backbone',
 
       # Controls play/pause : update the player track and/or playing status
       play: () ->
-        current_track_id = @playlist.getTrack(0).id
-        @player.setTrackId current_track_id if @player.track_id != current_track_id
-        @player.play()
-        this
+        this.updateTrack()
+        .then () =>
+          @player.play()
+        .then () =>
+          @controls_view.setPlaying(true)
 
       pause: () ->
         @player.pause()
-        this
+        @controls_view.setPlaying(false)
 
+  
       # Previous : move the playlist cursor and fetches the new previous track to be rendered
       playPrevious: () ->
         return if @playlist.current_index == 0
         @playlist.move(-1)
-        @playlist.getTrack(-1).then (firstTrack) =>
+        @playlist.getTrack(-1)
+        .then (firstTrack) =>
           @tracks_view.moveBackward(firstTrack)
+          this.updateTrack()
 
       # Next : move the playlist cursor and fetches the new next track to be rendered
       playNext: () ->
         @playlist.move(1)
         @playlist.getTrack(1).then (lastTrack) =>
           @tracks_view.moveForward(lastTrack)
+          this.updateTrack()
+
+      # Update the current player track, let the player handle playing status
+      updateTrack: () ->
+        @playlist.getTrack(0).then (track) =>
+          @player.setTrackId(track.id)
     }
+
+    # Events
+    PubSub.on 'tracks:clicked_next controls:next',          controller.playNext,        controller
+    PubSub.on 'tracks:clicked_previous controls:previous',  controller.playPrevious,    controller
+    PubSub.on 'controls:play',                              controller.play,            controller
+    PubSub.on 'controls:pause',                             controller.pause,           controller
+    PubSub.on 'player:stopped',                             controller.onPlayerStopped, controller
+    PubSub.on 'player:playing',                             controller.onPlayerPlaying, controller
+
+    # Returns the controller
+    controller
 
   )()
 

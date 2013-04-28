@@ -25,16 +25,24 @@ define ['backbone', 'underscore', 'jquery'], \
       @pubsub = @options.pubsub
       @playing = false
 
-    # Events
-    # - controls:play
-    # - controls:pause
-    # - controls:next
-    # - controls:previous
+    # Events and handlers
+    events: {
+      "click #play":  "onClickedPlay"
+      "click #pause": "onClickedPause"
+      "click #prev":  "onClickedPrev"
+      "click #next":  "onClickedNext"
+    }
+
+    onClickedPlay:  () -> @pubsub.trigger 'controls:play'
+    onClickedPause: () -> @pubsub.trigger 'controls:pause'
+    onClickedPrev:  () -> @pubsub.trigger 'controls:previous'
+    onClickedNext:  () -> @pubsub.trigger 'controls:next'
 
 
     # Updates the playing status (paused or playing)
     setPlaying: (playing) ->
       @playing = playing
+      this.render()
 
     # Render the controls
     render: () ->

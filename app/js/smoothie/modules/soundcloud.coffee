@@ -35,6 +35,15 @@ define  ['soundcloud_sdk', 'when'], \
 
         deferred.promise
 
+      # Gets the audio stream associated to a track
+      getTrackStream: (track_id) ->
+        deferred = When.defer()
+
+        SC.stream "/tracks/#{track_id}", (player) ->
+          deferred.resolve( player )
+
+        deferred.promise
+
     }
 
   )()

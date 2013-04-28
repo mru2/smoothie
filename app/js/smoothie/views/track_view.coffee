@@ -15,14 +15,10 @@ define ['backbone',
       '<br/>' +
       '<a class="title" href="<%= permalink_url %>"><%= title %></a>'
 
-    # Events
-    # track:clicked : the track has been clicked
-
 
     # Initialize with a track
     initialize: () ->
       @model = @options.model
-
 
     # Render the track
     render: () ->
@@ -38,7 +34,6 @@ define ['backbone',
             .css( 'background-size' , 'inherit')
 
       this
-
 
 
     # initialize: () ->
