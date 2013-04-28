@@ -35,6 +35,7 @@ define ['backbone',
         Soundcloud.fetchTrack(@id)
         .then (attributes) =>
           this.set attributes
+          @synced = true
           deferred.resolve(this)
 
       deferred.promise
