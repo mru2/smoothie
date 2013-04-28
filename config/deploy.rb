@@ -25,7 +25,8 @@ set :bundle_dir, "#{shared_path}/bundle"
 set :rvm_path, "/home/#{user}/.rvm"
 
 
-after 'deploy:create_symlink',  'deploy:build_assets'
+# after 'deploy:create_symlink',  'deploy:build_assets'
+after 'deploy:update_code',     'deploy:grunt'
 after 'deploy:update_code',     'deploy:additional_symlinks'
 after 'deploy:restart',         'deploy:cleanup'
 
@@ -51,6 +52,11 @@ namespace :deploy do
   task :build_assets do
     puts "Compiling assets"
     run "cd #{release_path} && RACK_ENV=#{rack_env} bundle exec rake assetpack:build"    
+  end
+
+  task :grunt do
+    puts "Building the frontend app"
+    run "cd #{release_path} && n 0.10.5 && bower install && grunt"
   end
 
  end

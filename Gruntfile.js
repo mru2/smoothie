@@ -353,7 +353,7 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('build', [
-        'clean:dist',
+        // 'clean:dist', // Commented because of conflicts on deployment with shared files 
         'useminPrepare',
         'concurrent:dist',
         'copy:js',
