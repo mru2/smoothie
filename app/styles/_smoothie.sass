@@ -1,3 +1,4 @@
+
 // Turquoises
 $turquoise: #1ABC9C
 $green-sea: #16A085
@@ -43,8 +44,6 @@ $abestos: #7F8C8D
 // Variables and mixins
 $white: $clouds
 
-$bg-gradient: 50% 20%, circle, rgba(52,73,94,0.5) 30%, rgba(0,0,0,0.0) 100%
-
 $transparent-bg: rgba(0, 0, 0, 0.6)
 $transparent-bg-hover: rgba(0, 0, 0, 0.85)
 
@@ -70,16 +69,14 @@ html,body
   height: 100%
 
 body
-  background: url('/img/bg-pattern.png')
+  background: url('/images/bg-pattern.png')
   color: $white
 
 #main-container
   overflow: hidden
 
 #wrap
-  background: -moz-radial-gradient($bg-gradient)
-  background: -webkit-radial-gradient($bg-gradient)
-  background: radial-gradient($bg-gradient)
+  background: radial-gradient(50% 20%, circle, rgba(52,73,94,0.5) 30%, rgba(0,0,0,0.0) 100%)
 
   min-height: 100%
   height: auto !important

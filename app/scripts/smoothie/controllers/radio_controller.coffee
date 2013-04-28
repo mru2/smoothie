@@ -19,11 +19,9 @@ define ['backbone',
 
       # Bootstrap the app
       initialize: (options) ->
-        console.log "Bootstraping the radio app"
-
         # Initializing the playlist
         @playlist = new Playlist [], {
-          user_id: options.user_id
+          user_id: options.userId
         }
 
         # Initializing the player
@@ -39,15 +37,11 @@ define ['backbone',
 
         tracks = [@playlist.getTrack(0), @playlist.getTrack(1)]
         When.all(tracks).then (tracks) =>
-          console.log 'tracks ready, rendering'
-
           @tracks_view = new TracksView {
             pubsub: PubSub
             currentTrack: tracks[0]
             nextTrack: tracks[1]
           }
-
-          console.log 'got tracks view', @tracks_view
 
           # Render the views
           @tracks_view.render()

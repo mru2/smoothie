@@ -1,5 +1,9 @@
+node_modules
+dist
+.tmp
 .bundle
 /tmp
 /log
 .sass-cache
-app/js/vendor/components
+app/components
+/public

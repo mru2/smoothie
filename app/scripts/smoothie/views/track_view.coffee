@@ -29,7 +29,7 @@ define ['backbone',
         @$el.css 'background-image', "url(#{@model.get('artwork_url')})" 
 
       else
-        @$el.css( 'background-image', 'url(/img/default-track-bg.png)')
+        @$el.css( 'background-image', 'url(/images/default-track-bg.png)')
             .css( 'background-color', '#F2F2F2')
             .css( 'background-size' , 'inherit')
 

@@ -1,6 +1,6 @@
 # A wrapper around the soundcloud api and the current user
 
-define  ['soundcloud_sdk', 'when'], \
+define  ['soundcloudSdk', 'when'], \
 
         (SC, When) ->
 
@@ -23,7 +23,7 @@ define  ['soundcloud_sdk', 'when'], \
       # Authenticate the SDK
       # Should be handled internally in a souncloud callback
       initialize: (opts) ->        
-        SC.accessToken(opts.access_token) if opts.access_token
+        SC.accessToken(opts.accessToken) if opts.accessToken
 
 
       # Fetch and format a track

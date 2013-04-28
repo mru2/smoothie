@@ -1,4 +1,3 @@
 {
-  "directory": "app/js/vendor/components",
-  "json": "component.json"
+    "directory": "app/components"
 }
