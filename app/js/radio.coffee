@@ -1,6 +1,10 @@
 # The JS app for the radio
 
 require.config
+
+  # Disable the timeout for now, until yeoman is fully integrated in the frontend
+  waitSeconds: 0
+
   baseUrl: "/js/"
 
   paths:
@@ -10,8 +14,6 @@ require.config
     mustache: 'vendor/components/mustache/mustache',
     when: 'vendor/components/when/when',
     soundcloud_sdk: 'vendor/soundcloud-sdk'
-
-
 
   shim:
     soundcloud_sdk:
@@ -26,13 +28,22 @@ require.config
 
 
 
-require ['jquery', 'soundcloud_sdk', 'smoothie/controllers/radio_controller'], ($, SC, RadioController) ->
+require ['jquery', 'smoothie/modules/soundcloud', 'smoothie/controllers/radio_controller'], ($, Soundcloud, RadioController) ->
+
   $ () ->
+
     # Soundcloud initialization
-    SC.accessToken(window.session.accessToken)
+    # There because authentication still done server-side
+    # When the radio becomes a full-fledged singlepage app, this should be
+    # Handled in the auth callback
+    Soundcloud.initialize {
+      access_token: window.session.accessToken
+    }
 
     # Boostraping the app
-    RadioController.bootstrap()
+    RadioController.initialize {
+      user_id: window.session.userId      
+    }
 
 
 

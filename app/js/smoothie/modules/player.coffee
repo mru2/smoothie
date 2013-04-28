@@ -1,60 +1,48 @@
 # A wrapper around the soundcloud player
 # Responsible for playing tracks audio
 
-define  ['smoothie/modules/soundcloud'], \
+define  ['when', 'smoothie/modules/soundcloud'], \
 
-        (Soundcloud) ->
-
-
-  Player = ( () -> 
-
-    {    
-
-      # Events :
-      # - player:finished : the track has finished playing
-
-      # Change the current track being played
-      setTrackId: (track_id) ->
-
-      # Pause the player
-      pause: () ->
-
-      # Unpause the player
-      play: () ->
+        (When, Soundcloud) ->
 
 
+  # Player constructor
+  Player = (opts) ->
+    # Current player track id
+    @track_id = opts.track_id
 
-      # player: null
+    # Associated SoundObject
+    @stream = null
 
-      # init: (track_id) ->
-      #   @fetch_player track_id, (player) =>
-      #     @player = player
-      #     @player.load()      
+    # Associated pubsub
+    @pubsub = opts.pubsub
 
-      # playing: () ->
-      #   @player && !@player.paused
 
-      # fetchTrack: (track_id) ->
-      #   @fetch_player track_id, (player) =>
-      #     @player.destruct() if @player
-      #     @player = player
-      #     @play()
+  # Change the current track being played
+  Player.prototype.setTrackId = (track_id) ->
+    @track_id = track_id
+    @stream.destruct() if @stream
 
-      # play: () ->
-      #   @player.play {
-      #     onfinish: () ->
-      #       Playlist.next()
-      #     }
-      #   PlayerView.render()    
 
-      # pause: () ->
-      #   @player.pause() if @player
-      #   PlayerView.render()    
+  # Pause the track
+  Player.prototype.pause = () ->
+    @stream.pause() if @stream
 
-      # fetch_player: (track_id, callback) ->
-      #   track_url = "/tracks/#{track_id}"
-      #   SC.stream track_url, (player) ->
-      #     callback(player)
+
+  # Play / Resume the track
+  Player.prototype.play = () ->
+    unless @stream
+      Soundcloud.getTrackStream(@track_id).then (stream) =>
+        @stream = stream
+
+    @stream.play {
+      onfinish: onFinished
     }
 
-  )()
+
+  # Handles the finished track
+  Player.prototype.onFinished = () ->
+    @pubsub.trigger 'player:finished'
+
+
+  Player

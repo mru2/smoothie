@@ -2,14 +2,28 @@
 # Handles the rendering of the controls, and 
 # forwards their events to the mediator
 
-define ['backbone'], \
+define ['backbone', 'underscore', 'jquery'], \
 
-        (Backbone) ->
+        (Backbone, _, $) ->
 
   ControlsView = Backbone.View.extend {
 
-    template_id: '#controls-template'
+    el: '#controls-container'
 
+    template: 
+      '<div id="controls">' +
+        '<a class="control pull-left" id="prev"><i class="icon-step-backward"></i></a>' +
+        '<% if (playing) { %>' +
+          '<a class="control" id="pause"><i class="icon-pause"></i></a>' +
+        '<% } else { %>' +
+          '<a class="control" id="play"><i class="icon-play"></i></a>' +
+        '<% } %>' +
+        '<a class="control pull-right" id="next"><i class="icon-step-forward"></i></a>' +
+      '</div>'
+
+    initialize: () ->
+      @pubsub = @options.pubsub
+      @playing = false
 
     # Events
     # - controls:play
@@ -20,10 +34,11 @@ define ['backbone'], \
 
     # Updates the playing status (paused or playing)
     setPlaying: (playing) ->
-
+      @playing = playing
 
     # Render the controls
     render: () ->
+      @$el.html( _.template @template, { playing: @playing } )
 
 
 
@@ -48,6 +63,4 @@ define ['backbone'], \
 
     # # Render
     # render: () ->
-    #   template = $(@template_id).html()
-    #   @$el.html( _.template template, { playing: Player.playing() } )
   }

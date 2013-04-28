@@ -1,22 +1,43 @@
 # Track model
 # Wraps a SoundCloud Track to make it a usable model
-# Not a backbone model (not the use right now, since it is read only)
 
-define ['smoothie/modules/soundcloud'], \
+define ['backbone',
+        'when',
+        'smoothie/modules/soundcloud'], \
 
-        (Soundcloud) ->
+        (Backbone, When, Soundcloud) ->
 
-  Track = ( () -> 
+  Track = Backbone.Model.extend { 
 
-    {
-
-      # Initialize from a soundcloud ID
-      initialize: (id) ->
-
-
-      # Get its attributes for rendering
-      attributes: () ->
-  
+    defaults: {
+      'title': '',
+      'user_permalink': '',
+      'username': '',
+      'permalink_url': '',
+      'artwork_url': ''
     }
 
-  )()
+    synced: false
+
+    # Initialize from a soundcloud track id
+    # sync() has to be called for it to be initialized
+    initialize: (track_id) ->
+      @id = track_id
+
+    # Fetch the track attributes from soundcloud
+    # Returns a promise
+    sync: () ->
+      deferred = When.defer()
+
+      if @synced
+        deferred.resolve(this)
+      else
+        Soundcloud.fetchTrack(@id)
+        .then (attributes) =>
+          this.set attributes
+          deferred.resolve(this)
+
+      deferred.promise
+
+
+  }

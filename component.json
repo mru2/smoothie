@@ -5,7 +5,6 @@
     "underscore":     "~1.4",
     "when":           "~2.0",
     "soundcloud":     "~0.1",
-    "requirejs":      "~2.1",
-    "mustache":       "~0.7"
+    "requirejs":      "~2.1"
   }
 }
