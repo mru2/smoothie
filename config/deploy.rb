@@ -26,9 +26,9 @@ set :rvm_path, "/home/#{user}/.rvm"
 
 
 # after 'deploy:create_symlink',  'deploy:build_assets'
-after 'deploy:update_code',     'deploy:grunt'
-after 'deploy:update_code',     'deploy:additional_symlinks'
-after 'deploy:restart',         'deploy:cleanup'
+after 'deploy:update_code',         'deploy:additional_symlinks'
+after 'deploy:additional_symlinks', 'deploy:grunt'
+after 'deploy:restart',             'deploy:cleanup'
 
 namespace :deploy do
  
@@ -47,6 +47,7 @@ namespace :deploy do
   task :additional_symlinks do
     puts "Adding symlinks for "
     run  "ln -s #{shared_path}/sockets #{release_path}/tmp/sockets"
+    run  "ln -s #{shared_path}/node_modules #{release_path}/node_modules"
   end
 
   task :build_assets do
@@ -56,7 +57,7 @@ namespace :deploy do
 
   task :grunt do
     puts "Building the frontend app"
-    run "cd #{release_path} && n 0.10.5 && bower install && grunt"
+    run "cd #{release_path} && n 0.10.5 && npm install && bower install && grunt"
   end
 
  end
