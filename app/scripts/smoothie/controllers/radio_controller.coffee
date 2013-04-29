@@ -85,7 +85,8 @@ define ['backbone',
       # Next : move the playlist cursor and fetches the new next track to be rendered
       playNext: () ->
         @playlist.move(1)
-        @playlist.getTrack(1).then (lastTrack) =>
+        @playlist.getTrack(1)
+        .then (lastTrack) =>
           @tracks_view.moveForward(lastTrack)
           this.updateTrack()
 
@@ -96,12 +97,12 @@ define ['backbone',
     }
 
     # Events
-    PubSub.on 'tracks:clicked_next controls:next',          controller.playNext,        controller
-    PubSub.on 'tracks:clicked_previous controls:previous',  controller.playPrevious,    controller
-    PubSub.on 'controls:play',                              controller.play,            controller
-    PubSub.on 'controls:pause',                             controller.pause,           controller
-    PubSub.on 'player:stopped',                             controller.onPlayerStopped, controller
-    PubSub.on 'player:playing',                             controller.onPlayerPlaying, controller
+    PubSub.on 'tracks:clicked_next controls:next player:finished',  controller.playNext,        controller
+    PubSub.on 'tracks:clicked_previous controls:previous',          controller.playPrevious,    controller
+    PubSub.on 'controls:play',                                      controller.play,            controller
+    PubSub.on 'controls:pause',                                     controller.pause,           controller
+    PubSub.on 'player:stopped',                                     controller.onPlayerStopped, controller
+    PubSub.on 'player:playing',                                     controller.onPlayerPlaying, controller
 
     # Returns the controller
     controller
