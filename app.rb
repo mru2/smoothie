@@ -1,5 +1,4 @@
 require 'sinatra/base'
-require 'sinatra/assetpack'
 
 require 'soundcloud_client'
 require 'user'
@@ -22,9 +21,6 @@ module Smoothie
     configure do
       set :session_secret, "session_secret" 
     end
-
-    # Assets handling
-    register Sinatra::AssetPack
 
     # Landing page
     get '/' do
