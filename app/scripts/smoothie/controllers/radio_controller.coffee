@@ -35,17 +35,15 @@ define ['backbone',
           pubsub: PubSub
         }
 
-        tracks = [@playlist.getTrack(0), @playlist.getTrack(1)]
-        When.all(tracks).then (tracks) =>
-          @tracks_view = new TracksView {
-            pubsub: PubSub
-            currentTrack: tracks[0]
-            nextTrack: tracks[1]
-          }
+        @tracks_view = new TracksView {
+          pubsub: PubSub
+          currentTrackPromise: @playlist.getTrack(0)
+          nextTrackPromise: @playlist.getTrack(1)
+        }
 
-          # Render the views
-          @tracks_view.render()
-          @controls_view.render()
+        # Render the views
+        @tracks_view.render()
+        @controls_view.render()
 
         # Returning self for method chaining
         this
@@ -77,18 +75,14 @@ define ['backbone',
       playPrevious: () ->
         return if @playlist.current_index == 0
         @playlist.move(-1)
-        @playlist.getTrack(-1)
-        .then (firstTrack) =>
-          @tracks_view.moveBackward(firstTrack)
-          this.updateTrack()
+        this.updateTrack()        
+        @tracks_view.moveBackward(@playlist.getTrack(-1))
 
       # Next : move the playlist cursor and fetches the new next track to be rendered
       playNext: () ->
         @playlist.move(1)
-        @playlist.getTrack(1)
-        .then (lastTrack) =>
-          @tracks_view.moveForward(lastTrack)
-          this.updateTrack()
+        this.updateTrack()        
+        @tracks_view.moveForward(@playlist.getTrack(1))
 
       # Update the current player track, let the player handle playing status
       updateTrack: () ->

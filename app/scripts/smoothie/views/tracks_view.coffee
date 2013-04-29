@@ -13,13 +13,13 @@ define ['backbone',
 
     initialize: () ->
       @pubsub             = @options.pubsub
-      @previousTrackView  = new TrackView({model: @options.previousTrack,  className:'track previous'}) if @options.previousTrack
-      @currentTrackView   = new TrackView({model: @options.currentTrack,   className:'track current'})  if @options.currentTrack
-      @nextTrackView      = new TrackView({model: @options.nextTrack,      className:'track next'})     if @options.nextTrack
+      @previousTrackView  = new TrackView({model: @options.previousTrackPromise,  className:'track previous'}) if @options.previousTrackPromise
+      @currentTrackView   = new TrackView({model: @options.currentTrackPromise,   className:'track current'})  if @options.currentTrackPromise
+      @nextTrackView      = new TrackView({model: @options.nextTrackPromise,      className:'track next'})     if @options.nextTrackPromise
 
 
     # Move the tracks forward and append a new one in the end
-    moveForward: (lastTrack) ->
+    moveForward: (lastTrackPromise) ->
       @previousTrackView.unbind().remove() if @previousTrackView
 
       @previousTrackView = @currentTrackView
@@ -28,12 +28,12 @@ define ['backbone',
       @currentTrackView = @nextTrackView
       @currentTrackView.$el.removeClass('next').addClass('current')
 
-      @nextTrackView = new TrackView({model: lastTrack, className: 'track next'})
+      @nextTrackView = new TrackView({model: lastTrackPromise, className: 'track next'})
       @$el.append @nextTrackView.render().el
 
 
     # Move the tracks backward and append a new one in the beginning
-    moveBackward: (firstTrack) ->
+    moveBackward: (firstTrackPromise) ->
       @nextTrackView.unbind().remove() if @nextTrackView
 
       @nextTrackView = @currentTrackView
@@ -42,7 +42,7 @@ define ['backbone',
       @currentTrackView = @previousTrackView
       @currentTrackView.$el.removeClass('previous').addClass('current')
 
-      @previousTrackView = new TrackView({model: firstTrack,  className:'track previous'})
+      @previousTrackView = new TrackView({model: firstTrackPromise,  className:'track previous'})
       @$el.prepend @previousTrackView.render().el
 
 
