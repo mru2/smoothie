@@ -1,0 +1,17 @@
+{
+  "name": "smoothie",
+
+  "version": "0.1.0",
+
+  "dependencies": {
+    "requirejs":  "~2.1.4",
+    "modernizr":  "~2.6.2",
+    "jquery":     "~2.0.0",
+    "backbone":   "~1.0",
+    "underscore": "~1.4",
+    "when":       "~2.0",
+    "soundcloud": "~0.1"
+  },
+
+  "devDependencies": {}
+}

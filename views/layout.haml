@@ -11,9 +11,10 @@
     %meta{:content => "width=device-width", :name => "viewport"}
 
     %link{:href => 'http://fonts.googleapis.com/css?family=Lato:400,700,900,400italic', :rel => 'stylesheet', :type => 'text/css'}
+    %link{:rel => "stylesheet", :href => "styles/main.css"}
 
-    = css :application, :media => :screen
-    = js  :app
+    %script{:src => "scripts/vendor/modernizr.js"}
+
 
     -# segment.io analytics 
     :javascript
@@ -44,7 +45,7 @@
 
     %footer
       %a.soundcloud-referal{:href => 'http://www.soundcloud.com', :target => :blank}
-        %img{:src => '/img/powered-by-soundcloud-white.png'}
+        %img{:src => '/images/powered-by-soundcloud-white.png'}
 
   -# Analytics identification
   :javascript

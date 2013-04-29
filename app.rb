@@ -1,5 +1,4 @@
 require 'sinatra/base'
-require 'sinatra/assetpack'
 
 require 'soundcloud_client'
 require 'user'
@@ -21,46 +20,6 @@ module Smoothie
 
     configure do
       set :session_secret, "session_secret" 
-    end
-
-    # Assets handling
-    register Sinatra::AssetPack
-
-    assets do
-      css :application, [
-        'css/normalize.css',
-        'css/bootstrap.css',
-        'css/bootstrap-responsive.css',
-        'css/font-awesome.css',
-        'css/flat-ui.css',
-        'css/smoothie.css'
-      ]
-
-      js :app, [
-        'js/vendor/jquery-1.9.0.min.js',
-        'js/vendor/modernizr-2.6.2.min.js',
-        'js/vendor/console.js'
-      ]
-
-      js :smoothie, [
-        'js/vendor/underscore-1.4.4.min.js',
-        'js/vendor/mustache.js',
-        'js/vendor/json2.js',
-        'js/vendor/backbone-1.0.0.min.js',
-
-        'js/vendor/soundcloud-sdk.js',
-
-        'js/smoothie.js',
-
-        'js/smoothie/models/track.js',
-
-        'js/smoothie/modules/player.js',
-        'js/smoothie/modules/playlist.js',
-
-        'js/smoothie/views/track_view.js',
-        'js/smoothie/views/controls_view.js',
-        'js/smoothie/views/player_view.js'
-      ]
     end
 
     # Landing page
@@ -121,11 +80,12 @@ module Smoothie
       end
 
       offset = params[:offset].to_i
+      limit = params[:limit] ? params[:limit].to_i : 10
       seed = params[:seed] && params[:seed].to_i
 
       user = Smoothie::User.new(params[:id])
       shuffler = Smoothie::Shuffler.new(user.track_ids.members, seed)
-      shuffled_tracks = shuffler.get(:offset => offset, :limit => 10)
+      shuffled_tracks = shuffler.get(:offset => offset, :limit => limit)
 
       {:seed => shuffler.seed.to_s, :tracks => shuffled_tracks}.to_json
     end

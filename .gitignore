@@ -1,4 +1,9 @@
+node_modules
+dist
+.tmp
 .bundle
 /tmp
 /log
 .sass-cache
+app/components
+/public

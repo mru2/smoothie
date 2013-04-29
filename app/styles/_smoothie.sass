@@ -1,0 +1,378 @@
+
+// Turquoises
+$turquoise: #1ABC9C
+$green-sea: #16A085
+
+// Greens
+$emerald:   #2ECC71
+$nephritis: #27AE60
+
+// Blues
+$petermann-river: #3498DB
+$belize-hole: #2980B9
+
+// Violets
+$amethyst: #9B59B6
+$wisteria: #8E44AD
+
+// Blacks
+$wet-asphalt: #34495E
+$midnight-blue: #2C3E50
+
+// Yellows
+$sun-flower: #F1C40F
+$orange: #F39C12
+
+// Oranges
+$carrot: #E67E22
+$pumpkin: #D35400
+
+// Reds
+$alizarin: #E74C3C
+$pomegranate: #C0392B
+
+// Light Greys
+$clouds: #ECF0F1
+$silver: #BDC3C7
+
+// Dark Greys
+$concrete: #95A5A6
+$abestos: #7F8C8D
+
+
+
+// Variables and mixins
+$white: $clouds
+
+$transparent-bg: rgba(0, 0, 0, 0.6)
+$transparent-bg-hover: rgba(0, 0, 0, 0.85)
+
+// @mixin player-control
+//   display: inline-block
+//   border: 3px solid $white
+//   background-color: $transparent-bg
+//   border-radius: 100%
+//   width: 1em
+//   height: 1em
+//   padding: 0.5em
+//   color: $white
+//   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25) 
+//   line-height: 1em  
+
+//   &:hover
+//     background: $transparent-bg-hover
+//     color: $emerald
+//     border-color: $emerald
+
+
+html,body
+  height: 100%
+
+body
+  background: url('/images/bg-pattern.png')
+  color: $white
+
+#main-container
+  overflow: hidden
+
+#wrap
+  background: radial-gradient(50% 20%, circle, rgba(52,73,94,0.5) 30%, rgba(0,0,0,0.0) 100%)
+
+  min-height: 100%
+  height: auto !important
+  height: 100%
+  /* Negative indent footer by it's height */
+  margin: 0 auto -3em
+
+footer
+  height: 3em
+  line-height: 3em
+  font-size: inherit
+  background-color: inherit
+
+  .soundcloud-referal
+    float: right
+    margin-top: -0.3em
+    
+// Layout
+#header-container
+  padding: 1em 0
+  border-bottom: 5px solid $turquoise
+  background-color: white
+  line-height: 3em
+
+  h3
+    font-size: 2em
+    line-height: 2em
+
+  .session
+    line-height: 4em
+    margin: 0
+    .btn
+      font-size: 1.2em
+      padding: 0.25em 0.75em
+
+
+
+// Landing page
+.landing
+  margin: 60px 0px
+  text-align: center
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25)
+  font-size: inherit
+
+  h1
+    font-size: 5em
+    line-height: 1
+    margin-bottom: 1em
+
+  p
+    font-size: 1.5em
+    line-height: 1.5em
+    margin-bottom: 1em
+
+  .btn, input
+    font-size: 1.5em
+    padding: 0.5em 1em
+    line-height: 1.5em
+
+  .lead
+    font-size: 1.5em
+    margin-bottom: 0
+    padding-bottom: 1.5em
+    
+  .btn-signup
+    margin-bottom: 1em
+    background-color: $nephritis
+    &:hover
+      background-color: $emerald
+
+  .btn-demo
+    margin-bottom: 1em
+    background-color: $pumpkin
+    &:hover
+      background-color: $carrot
+
+
+  .append
+    height: 4em
+
+    input
+      margin-bottom: 0
+      border-right-width: 0
+      border-top-right-radius: 0
+      border-bottom-right-radius: 0
+      height: 100%
+      box-sizing: border-box
+      line-height: 1em
+
+    .btn
+      height: 100%
+      box-sizing: border-box
+      border-top-left-radius: 0
+      border-bottom-left-radius: 0
+      margin-left: -5px
+
+
+// Player
+#radio
+
+  margin-top: 3em
+
+  #loader
+    position: absolute
+    top: 50%
+    left: 50%
+    margin-top: -0.5em
+    margin-left: -0.5em
+    font-size: 10em
+
+  #current-track
+    z-index: 0
+    -webkit-perspective: 1000
+    -moz-perspective: 1000
+    perspective: 1000
+    // box-shadow: 0px 0px 100px rgba($silver, 0.3)
+
+    .track
+      // z-index: -1
+      width: 100%
+      height: 100%
+      position: absolute
+      background-repeat: no-repeat
+      background-position: center center
+      background-size: cover
+      overflow: hidden
+      box-shadow: inset 0 0 1px rgba(0,0,0,0.8),inset 0 2px 0 rgba(255,255,255,0.5),inset 0 -1px 0 rgba(0,0,0,0.4)
+
+      -webkit-transition: 0.25s
+      -moz-transition: 0.25s
+      -o-transition: 0.25s
+      transition: 0.25s
+
+      &.previous, &.next
+        width: 80%
+        height: 80%
+        top: 10%
+        opacity: 0.4
+        cursor: pointer
+        .title, .artist
+          display: none
+
+        &:hover
+          opacity: 1
+          -webkit-transform: rotateY(0deg)
+          -moz-transform: rotateY(0deg)
+          
+
+      &.previous
+        right: 110%
+        -webkit-transform: rotateY(30deg)
+        -moz-transform: rotateY(30deg)
+
+      &.next
+        left: 110%
+        -webkit-transform: rotateY(-30deg)
+        -moz-transform: rotateY(-30deg)
+
+      .overlay
+        content: ""
+        width: 150%
+        height: 100%
+        position: absolute
+        top: -45%
+        left: -25%
+        display: block
+        background: rgba(255,255,255,0.1)
+        border-radius: 100%
+
+
+    // For the sliding effect
+    -webkit-transition: 0.25s
+    -moz-transition: 0.25s
+    transition: 0.25s
+
+    a
+      text-decoration: none
+      cursor: pointer
+
+    // The typo
+    .artist, .title
+      display: inline-block
+      color: $white
+      background-color: $transparent-bg
+      padding: 0px 5px
+      margin: 0.25em 0em
+      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25)
+
+      &:hover
+        background-color: $transparent-bg-hover
+        color: $emerald
+
+    .title
+      font-size: 2em
+
+    .artist
+      font-size: 1.5em
+      color: $silver
+
+
+    // Makes them responsivly squared
+    position: relative
+    width: 100%
+    margin: 0 auto
+    height: 0
+    padding-bottom: 100% /* % of width, defines aspect ratio*/
+    
+
+  #controls
+    position: absolute
+    text-align: center
+    width: 100%
+    bottom: 0
+    padding: 1em
+    box-sizing: border-box
+    -moz-box-sizing: border-box
+    background: $transparent-bg-hover
+    // background: -webkit-linear-gradient(#333, #222)
+    border-top: 1px solid rgba(255,255,255,0.2)
+    // border-top: 1px solid #444
+
+    box-shadow: 0px 0px 1em rgba(0,0,0,0.25)
+
+    -webkit-touch-callout: none
+    -webkit-user-select: none
+    -khtml-user-select: none
+    -moz-user-select: none
+    -ms-user-select: none
+    user-select: none
+
+  .control
+    text-decoration: none
+    cursor: pointer
+    text-align: center
+    color: $white
+
+    -webkit-touch-callout: none
+    -webkit-user-select: none
+    -khtml-user-select: none
+    -moz-user-select: none
+    -ms-user-select: none
+    user-select: none
+
+    &:hover
+      color: $emerald
+
+    i
+      text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.25) 
+
+    &#next, &#prev
+      font-size: 3em
+      line-height: 1.3em
+
+    &#play, &#pause
+      font-size: 4em
+      line-height: 1em
+
+
+
+// Mobile styles
+@media (max-width: 767px)
+  body
+    padding-right: 0px
+    padding-left: 0px
+
+  .container
+    padding-right: 20px
+    padding-left: 20px
+
+  #radio
+    margin-top: 0
+
+  #header-container
+    padding: 0
+    border-bottom: none
+    background-color: inherit
+    h3
+      color: $white
+    .session a
+      @extend .btn
+
+  #email-input
+    width: auto
+    display: inline-block
+
+  #current-track
+    overflow: hidden
+    -webkit-perspective: none
+    -moz-perspective: none
+
+
+// Responsive font sizes
+@media (max-width: 767px)
+  body
+    font-size: 0.8em
+
+@media (max-width: 480px)
+  body
+    font-size: 0.6em
