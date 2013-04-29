@@ -33,7 +33,8 @@ after 'deploy:restart',             'deploy:cleanup'
 namespace :deploy do
  
   task :restart do
-    run "if [ -f #{unicorn_pid} ]; then kill -USR2 `cat #{unicorn_pid}`; else cd #{current_path} && bundle exec unicorn -c #{unicorn_conf} -E #{rack_env} -D; fi"
+    deploy.stop
+    deploy.start
   end
  
   task :start do
