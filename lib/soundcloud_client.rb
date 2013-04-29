@@ -18,6 +18,10 @@ module Smoothie
       end
     end
 
+    def authorize_url
+      client.authorize_url(:scope => "non-expiring")
+    end
+
     # Get the data relevant to a track (exluding uploader details)
     def get_track(track_id)
       track_data = @client.get("/tracks/#{track_id}")

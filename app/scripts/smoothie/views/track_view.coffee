@@ -23,8 +23,8 @@ define ['backbone',
 
     # Render the track
     render: () ->
-      console.log('rendering track with model attributes', @model.attributes)
 
+      # Render a wainting background while the track is being fetched
       @$el.html('')
 
       # Waiting background
