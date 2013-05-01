@@ -49,17 +49,16 @@ define  ['when', 'smoothie/modules/soundcloud'], \
       @playing = true
 
       if @stream
-        When @stream.resume()
+        @stream.resume()
 
       else
-        Soundcloud.getTrackStream(@track_id).then (stream) =>
-          @stream = stream
+        @stream = Soundcloud.getTrackStream @track_id, {
+          onfinish:   () => @pubsub.trigger 'player:finished'
+          onplay:     () => @pubsub.trigger 'player:playing'
+          onresume:   () => @pubsub.trigger 'player:playing'
+          onstop:     () => @pubsub.trigger 'player:paused'
+          onpause:    () => @pubsub.trigger 'player:paused'
+          onsuspend:  () => @pubsub.trigger 'player:paused'
+        }
 
-          @stream.play {
-            onfinish: this.onFinished
-          }
-
-
-    # Handles the finished track
-    onFinished: () ->
-      @pubsub.trigger 'player:finished'
+        @stream.play()

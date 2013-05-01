@@ -43,16 +43,13 @@ define ['backbone',
 
 
       # Play/pause : update the player track and/or playing status
-      play: () ->
-        @player.play()
-        .then () =>
-          @player_view.setPlaying(true)
+      play: () -> @player.play()
+      pause: () -> @player.pause()
 
-      pause: () ->
-        @player.pause()
-        @player_view.setPlaying(false)
+      onPlaying: () -> @player_view.setPlaying(true)
+      onPaused: () -> @player_view.setPlaying(false)
 
-  
+        
       # Previous : plays the previous track
       playPrevious: () ->
         return if @playlist.current_index == 0
@@ -79,8 +76,8 @@ define ['backbone',
     PubSub.on 'player:previous',              controller.playPrevious,    controller
     PubSub.on 'player:play',                  controller.play,            controller
     PubSub.on 'player:pause',                 controller.pause,           controller
-    PubSub.on 'player:stopped',               controller.onPlayerStopped, controller
-    PubSub.on 'player:playing',               controller.onPlayerPlaying, controller
+    PubSub.on 'player:playing',               controller.onPlaying,       controller
+    PubSub.on 'player:paused',                controller.onPaused,        controller
 
     # Returns the controller
     controller

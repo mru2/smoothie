@@ -24,6 +24,8 @@ define  ['soundcloudSdk', 'when'], \
       # Should be handled internally in a souncloud callback
       initialize: (opts) ->        
         SC.accessToken(opts.accessToken) if opts.accessToken
+        # Load the soundmanager
+        SC.stream()
 
 
       # Fetch and format a track
@@ -36,13 +38,8 @@ define  ['soundcloudSdk', 'when'], \
         deferred.promise
 
       # Gets the audio stream associated to a track
-      getTrackStream: (track_id) ->
-        deferred = When.defer()
-
-        SC.stream "/tracks/#{track_id}", (player) ->
-          deferred.resolve( player )
-
-        deferred.promise
+      getTrackStream: (track_id, options) ->
+        SC.stream "/tracks/#{track_id}", options
 
     }
 
