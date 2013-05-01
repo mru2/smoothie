@@ -49,7 +49,7 @@ define  ['when', 'smoothie/modules/soundcloud'], \
       @playing = true
 
       if @stream
-        @stream.resume()
+        When @stream.resume()
 
       else
         Soundcloud.getTrackStream(@track_id).then (stream) =>

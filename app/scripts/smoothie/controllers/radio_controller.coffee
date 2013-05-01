@@ -4,12 +4,11 @@
 
 define ['backbone',
         'when',
-        'smoothie/views/controls_view',
-        'smoothie/views/tracks_view',
+        'smoothie/views/player_view',
         'smoothie/modules/playlist',
         'smoothie/modules/player'], \
 
-        (Backbone, When, ControlsView, TracksView, Playlist, Player) ->
+        (Backbone, When, PlayerView, Playlist, Player) ->
 
   RadioController = ( () ->
 
@@ -24,79 +23,64 @@ define ['backbone',
           user_id: options.userId
         }
 
-        # Initializing the player
-        @player = new Player {
-          pubsub: PubSub
-          track_id: @playlist.getTrack(0).id
-        }
+        @playlist.getCurrentTrack().then (track) =>
 
-        # Initializing the views
-        @controls_view = new ControlsView {
-          pubsub: PubSub
-        }
+          # Initializing the player
+          @player = new Player {
+            pubsub: PubSub
+            track_id: track.id
+          }
 
-        @tracks_view = new TracksView {
-          pubsub: PubSub
-          currentTrackPromise: @playlist.getTrack(0)
-          nextTrackPromise: @playlist.getTrack(1)
-        }
+          # Initializing the player view
+          @player_view = new PlayerView {
+            el: '#player-container'
+            model: track
+            pubsub: PubSub
+            playing: false
+          }
 
-        # Render the views
-        @tracks_view.render()
-        @controls_view.render()
-
-        # Returning self for method chaining
-        this
+          @player_view.render()
 
 
-      # Event handlers
-
-      onPlayerStopped: () ->
-        @controls_view.setPlaying(false)
-
-      onPlayerPlaying: () ->
-        @controls_view.setPlaying(true)
-
-
-      # Controls play/pause : update the player track and/or playing status
+      # Play/pause : update the player track and/or playing status
       play: () ->
-        this.updateTrack()
+        @player.play()
         .then () =>
-          @player.play()
-        .then () =>
-          @controls_view.setPlaying(true)
+          @player_view.setPlaying(true)
 
       pause: () ->
         @player.pause()
-        @controls_view.setPlaying(false)
+        @player_view.setPlaying(false)
 
   
-      # Previous : move the playlist cursor and fetches the new previous track to be rendered
+      # Previous : plays the previous track
       playPrevious: () ->
         return if @playlist.current_index == 0
         @playlist.move(-1)
-        this.updateTrack()        
-        @tracks_view.moveBackward(@playlist.getTrack(-1))
+        .then () =>
+          @playlist.getCurrentTrack()
+        .then (track) =>
+          @player.setTrackId(track.id)
+          @player_view.setTrack(track)
 
-      # Next : move the playlist cursor and fetches the new next track to be rendered
+      # Next : plays the next track
       playNext: () ->
         @playlist.move(1)
-        this.updateTrack()        
-        @tracks_view.moveForward(@playlist.getTrack(1))
-
-      # Update the current player track, let the player handle playing status
-      updateTrack: () ->
-        @playlist.getTrack(0).then (track) =>
+        .then () =>
+          @playlist.getCurrentTrack()
+        .then (track) =>
           @player.setTrackId(track.id)
+          @player_view.setTrack(track)
+
     }
 
     # Events
-    PubSub.on 'tracks:clicked_next controls:next player:finished',  controller.playNext,        controller
-    PubSub.on 'tracks:clicked_previous controls:previous',          controller.playPrevious,    controller
-    PubSub.on 'controls:play',                                      controller.play,            controller
-    PubSub.on 'controls:pause',                                     controller.pause,           controller
-    PubSub.on 'player:stopped',                                     controller.onPlayerStopped, controller
-    PubSub.on 'player:playing',                                     controller.onPlayerPlaying, controller
+    PubSub.on 'player:next player:finished',  controller.playNext,        controller
+    PubSub.on 'player:previous',              controller.playPrevious,    controller
+    PubSub.on 'player:play',                  controller.play,            controller
+    PubSub.on 'player:pause',                 controller.pause,           controller
+    PubSub.on 'player:stopped',               controller.onPlayerStopped, controller
+    PubSub.on 'player:playing',               controller.onPlayerPlaying, controller
 
     # Returns the controller
     controller

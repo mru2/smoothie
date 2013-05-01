@@ -33,20 +33,22 @@ define ['backbone', 'when', 'smoothie/models/track'], \
       @user_id = options.user_id
 
 
-    # Gets the track relative to the current position
+    # Gets the current track
     # Returns a promise which will be fulfilled with the synced track
-    getTrack: (delta) -> 
+    getCurrentTrack: () -> 
       this.fetch()
       .then () =>
-        position = @current_index + delta
-        return null if position < 0
-        @models[position].sync()
+        @models[@current_index].sync()
 
     # Moves the current position
+    # Also preloads the new current track and the next
+    # Returns a promise for when the playlist buffer is fetched
     move: (delta) ->
       @current_index += delta
-
-
+      this.fetch().then () => 
+        @models[@current_index].sync()
+        @models[@current_index+1].sync()
+        return
 
     # Privates
 

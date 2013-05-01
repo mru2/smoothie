@@ -187,14 +187,14 @@ footer
     margin-left: -0.5em
     font-size: 10em
 
-  #current-track
+  #player-container
     // square size
     height: 0
     padding-bottom: 100%
     width: 100%
     position: relative
 
-    .track
+    #player
       position: absolute
       width: 100%
       height: 100%
@@ -204,11 +204,18 @@ footer
 
       .artwork
         height: 50%
-        background-size: cover
+        // Default background: loading
         background-position: center center
+        background-repeat: no-repeat
+        background-image: url(/images/spinner.gif)
+        background-size: inherit
+        background-color: black
+
 
       .content
-        background-color: $clouds
+        // background-color: $clouds
+        background-color: #F2F2F2
+        border-top: 1px solid $silver
         height: 50%
         padding-top: 2em
         padding-left: 1em
@@ -241,6 +248,7 @@ footer
             font-size: 1.5em
             width: 1em
             height: 1em
+            line-height: 1em
             padding: 0.5em
             text-align: center
             display: inline-block
@@ -253,10 +261,13 @@ footer
             &:hover
               background-color: $emerald
 
-            &#play
+            &#play, &#pause
               font-size: 2.5em
-              padding: 0.5em 0.4em 0.5em 0.6em
               margin-right: 0.5em
+
+            &#play
+              padding: 0.5em 0.4em 0.5em 0.6em
+
 
 // Mobile styles
 @media (max-width: 767px)
