@@ -1,7 +1,7 @@
 // The JS app for the radio
 require.config({
 
-    baseUrl: '/js/',
+    baseUrl: '/scripts/',
 
     paths: {
         jquery: '../components/jquery/jquery',
