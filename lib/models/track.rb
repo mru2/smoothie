@@ -26,5 +26,13 @@ module Smoothie
       @uid
     end
 
+    def synced?
+      synced_at && !synced_at.value.nil?
+    end
+
+    def set_synced!
+      self.synced_at = Time.now
+    end
+
   end
 end

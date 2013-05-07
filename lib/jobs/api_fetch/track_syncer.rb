@@ -30,7 +30,7 @@ module Smoothie
         track_data = soundcloud.get_track(@track.id)      
 
         # Save them
-        [:uploader_id, :title, :url, :artwork, :users_count].each do |attribute|
+        [:users_count].each do |attribute|
           @track.send(:"#{attribute}=", track_data[attribute])
         end
 

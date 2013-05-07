@@ -12,19 +12,19 @@ module Smoothie
       end
 
       def run
-        begin
-          catch(:stop_job) do
-            perform unless ready?
-            manager.finished
-          end
-        rescue
-          manager.failed
+        catch(:stop_job) do
+          perform unless ready?
+          manager.finished
         end
       end
 
       def async_run
-        @async = true
-        run
+        begin
+          @async = true
+          run
+        rescue
+          manager.failed
+        end
       end
 
       def ready?
