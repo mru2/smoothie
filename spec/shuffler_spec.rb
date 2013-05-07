@@ -40,6 +40,11 @@ describe Smoothie::Shuffler do
       shuffler.get(:offset => 5, :limit => 15).last(5).should == shuffler.get(:offset => 15, :limit => 20).first(5)
     end
 
+    it "should cycle through results" do
+      shuffler.get(:offset => 105).length.should == 10
+      shuffler.get(:offset => 99).length.should == 10
+    end
+
   end
 
 end

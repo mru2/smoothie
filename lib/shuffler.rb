@@ -11,10 +11,11 @@ module Smoothie
     def get(opts = {})
       shuffle_values! unless @shuffled
 
-      offset = opts[:offset] || 0
-      limit = opts[:limit]   || 10
+      offset = opts[:offset] || 0 
+      limit  = opts[:limit]  || 10
 
-      @values[offset...(offset+limit)]
+      ranges = get_ranges(offset, offset + limit)
+      ranges.map{|range|@values[range]}.reduce(&:+)
     end
 
     private
@@ -38,5 +39,17 @@ module Smoothie
       @values[i], @values[j] = @values[j], @values[i]
     end
 
+    # Array ranges for infinite cycling
+    def get_ranges(first, last)
+      length = @values.length
+      first  = first % length
+      last   = last  % length
+
+      if last < first
+        [(first...length), (0...last)]
+      else
+        [(first...last)]
+      end
+    end
   end
 end

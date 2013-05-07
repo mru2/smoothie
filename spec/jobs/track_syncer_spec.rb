@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-require 'track_syncer'
+require 'api_fetch/track_syncer'
 
-describe Smoothie::TrackSyncer do
+describe Smoothie::ApiFetch::TrackSyncer do
 
   let(:track_id){293}
   let(:syncer){Smoothie::TrackSyncer.new('id' => track_id)}
