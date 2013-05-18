@@ -250,6 +250,23 @@ module.exports = function (grunt) {
             }
         },
         htmlmin: {
+            server: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: '<%= yeoman.app %>',
+                        src: '*.html',
+                        dest: '.tmp'
+                    },
+                    {
+                        expand: true,
+                        cwd: '<%= yeoman.app %>/templates',
+                        src: '*.html',
+                        dest: '.tmp/templates'
+                    }                    
+                ]
+            },
+
             dist: {
                 options: {
                     /*removeCommentsFromCDATA: true,
@@ -313,7 +330,8 @@ module.exports = function (grunt) {
         concurrent: {
             server: [
                 'coffee:dist',
-                'compass:server'
+                'compass:server',
+                'htmlmin:server'
             ],
             test: [
                 'coffee',

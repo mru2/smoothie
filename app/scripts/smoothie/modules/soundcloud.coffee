@@ -21,12 +21,18 @@ define  ['soundcloudSdk', 'when'], \
     {
 
       # Authenticate the SDK
-      # Should be handled internally in a souncloud callback
-      initialize: (opts) ->        
-        SC.accessToken(opts.accessToken) if opts.accessToken
-        # Load the soundmanager
-        SC.stream()
+      initialize: (opts) ->
+        SC.initialize
+          client_id: 'd082276d6bcf9390cb2b1dab9197ce0e'
+          redirect_uri: 'http://localhost:9000/sc-callback.html'
 
+      # Login a user
+      # login: (callback) ->
+      #   SC.connect(callback)
+
+      # SC.accessToken(opts.accessToken) if opts.accessToken
+      # # Load the soundmanager
+      # SC.stream()
 
       # Fetch and format a track
       fetchTrack: (track_id) ->

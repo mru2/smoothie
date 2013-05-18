@@ -8,66 +8,67 @@ require 'playlist_syncer'
 module Smoothie
   class Application < Sinatra::Base
 
-    UserSession = Struct.new(:username, :id, :access_token, :refresh_token)
-
-    enable :sessions, :logging, :dump_errors, :raise_errors, :show_exceptions
+    # UserSession = Struct.new(:username, :id, :access_token, :refresh_token)
+    # enable :sessions, :logging, :dump_errors, :raise_errors, :show_exceptions
 
     logger = ::File.open("log/sinatra.log", "a+")
-    STDOUT.reopen(logger)
-    STDERR.reopen(logger)
-
     Application.use Rack::CommonLogger, logger
 
     configure do
-      set :session_secret, "session_secret" 
+      # set :session_secret, "session_secret" 
+      set :public_folder, ENV['RACK_ENV'] == 'production' ? 'public' : '.tmp'  
     end
 
-    # Landing page
     get '/' do
-      if session[:user]
-        haml :radio
-      else
-        haml :landing
-      end
+      send_file File.join(settings.public_folder, 'index.html')
     end
 
-    # Soundcloud login
-    get '/login' do
-      # Create client object with app credentials
-      soundcloud = Smoothie::SoundcloudClient.new
+    # # Landing page
+    # get '/' do
+    #   if session[:user]
+    #     haml :radio
+    #   else
+    #     haml :landing
+    #   end
+    # end
 
-      # Redirect user to authorize URL
-      redirect soundcloud.authorize_url
-    end
+    # # Soundcloud login
+    # get '/login' do
+    #   # Create client object with app credentials
+    #   soundcloud = Smoothie::SoundcloudClient.new
 
-    # Soundcloud login callback
-    get '/login/callback' do
+    #   # Redirect user to authorize URL
+    #   redirect soundcloud.authorize_url
+    # end
 
-      # Save the user access and refresh tokens in session
-      soundcloud = Smoothie::SoundcloudClient.new
-      user_token = soundcloud.client.exchange_token :code => params[:code]
+    # # Soundcloud login callback
+    # get '/login/callback' do
 
-      current_user = Smoothie::SoundcloudClient.new(:access_token => user_token.access_token).client.get('/me')
+    #   # Save the user access and refresh tokens in session
+    #   soundcloud = Smoothie::SoundcloudClient.new
+    #   user_token = soundcloud.client.exchange_token :code => params[:code]
 
-      session[:user] = UserSession.new(
-        current_user.username,
-        current_user.id,
-        user_token.access_token, 
-        user_token.refresh_token
-      )
+    #   current_user = Smoothie::SoundcloudClient.new(:access_token => user_token.access_token).client.get('/me')
 
-      # Fetch its tracks if not already
-      Smoothie::PlaylistSyncer.new('id' => session[:user].id, 'limit' => 'all').run
+    #   session[:user] = UserSession.new(
+    #     current_user.username,
+    #     current_user.id,
+    #     user_token.access_token, 
+    #     user_token.refresh_token
+    #   )
 
-      redirect '/#'
-    end
+    #   # Fetch its tracks if not already
+    #   Smoothie::PlaylistSyncer.new('id' => session[:user].id, 'limit' => 'all').run
 
-    # Soundcloud logout
-    get '/logout' do
-      session[:user] = nil
+    #   redirect '/#'
+    # end
 
-      redirect '/'
-    end
+    # # Soundcloud logout
+    # get '/logout' do
+    #   session[:user] = nil
+
+    #   redirect '/'
+    # end
 
 
     # The playlist
@@ -90,10 +91,10 @@ module Smoothie
       {:seed => shuffler.seed.to_s, :tracks => shuffled_tracks}.to_json
     end
 
-    # 404 not found
-    not_found do
-      erb :'404', :layout => nil
-    end
+    # # 404 not found
+    # not_found do
+    #   erb :'404', :layout => nil
+    # end
 
   end
 end

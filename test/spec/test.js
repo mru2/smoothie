@@ -1,9 +1,11 @@
 /*global describe, it */
 'use strict';
 (function () {
-    describe('Give it some context', function () {
-        describe('maybe a bit more context here', function () {
-            it('should run here few assertions', function () {
+    describe('Smoothie::Player', function () {
+        describe('#setTrackId', function () {
+            it('should not touch the stream if the track id is the same', function () {
+
+              // Testing goes here
 
             });
         });
