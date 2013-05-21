@@ -75,19 +75,29 @@ module Smoothie
     get '/api/v1/tracks.json' do
       content_type :json
 
+      # Checking a user is provided
       if !params[:id]
         response.status = 400
         return
       end
 
+      user = Smoothie::User.new(params[:id])
+
+      # If the tracks have not been synced yet, do it now
+      unless user.favorites_synced?
+        Smoothie::PlaylistSyncer.new('id' => user.id, 'limit' => 'all').run
+      end
+
+      # Determine the suffler parameters
       offset = params[:offset].to_i
       limit = params[:limit] ? params[:limit].to_i : 10
       seed = params[:seed] && params[:seed].to_i
 
-      user = Smoothie::User.new(params[:id])
+      # Get the shuffled tracks
       shuffler = Smoothie::Shuffler.new(user.track_ids.members, seed)
       shuffled_tracks = shuffler.get(:offset => offset, :limit => limit)
 
+      # Return them
       {:seed => shuffler.seed.to_s, :tracks => shuffled_tracks}.to_json
     end
 

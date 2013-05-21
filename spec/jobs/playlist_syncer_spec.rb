@@ -18,8 +18,7 @@ describe Smoothie::PlaylistSyncer do
 
       user.favorites_synced?.should be_true
 
-      user.tracks.count.should                == 2
-      user.tracks.map(&:synced?).should       == [true, true]
+      user.track_ids.count.should == 2
     end
 
   end

@@ -12,13 +12,13 @@ describe Smoothie::ApiFetch::TrackSyncer do
     it "should work" do
       track = Smoothie::Track.new(track_id)
 
-      track.synced?.should          be_false
+      track.synced?.should be_false
 
       syncer.run
 
-      track.synced?.should          be_true
+      track.synced?.should be_true
 
-      track.users_count.value.should==    "966"
+      track.users_count.value.should== "985"
     end
 
   end

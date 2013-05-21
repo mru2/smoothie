@@ -18,9 +18,7 @@ describe Smoothie::ApiFetch::UserSyncer do
 
       user.synced?.should be_true
 
-      user.username.value.should      == "MrRuru"
-      user.url.value.should           == "http://soundcloud.com/mrruru"
-      user.tracks_count.value.should  == "474"
+      user.tracks_count.value.should  == "464"
     end
 
   end
