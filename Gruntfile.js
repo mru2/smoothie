@@ -250,23 +250,6 @@ module.exports = function (grunt) {
             }
         },
         htmlmin: {
-            server: {
-                files: [
-                    {
-                        expand: true,
-                        cwd: '<%= yeoman.app %>',
-                        src: '*.html',
-                        dest: '.tmp'
-                    },
-                    {
-                        expand: true,
-                        cwd: '<%= yeoman.app %>/templates',
-                        src: '*.html',
-                        dest: '.tmp/templates'
-                    }
-                ]
-            },
-
             dist: {
                 options: {
                     /*removeCommentsFromCDATA: true,
@@ -311,6 +294,18 @@ module.exports = function (grunt) {
                 }]
             },
 
+            // Copy tree to .tmp for the server
+            server: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: '<%= yeoman.app %>',
+                        src: '**',
+                        dest: '.tmp'
+                    }
+                ]
+            },
+
             dist: {
                 files: [{
                     expand: true,
@@ -331,7 +326,7 @@ module.exports = function (grunt) {
             server: [
                 'coffee:dist',
                 'compass:server',
-                'htmlmin:server'
+                'copy:server'
             ],
             test: [
                 'coffee',

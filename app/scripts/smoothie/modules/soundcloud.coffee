@@ -23,8 +23,8 @@ define  ['soundcloudSdk', 'when'], \
       # Authenticate the SDK
       initialize: (opts) ->
         SC.initialize
-          client_id: 'd082276d6bcf9390cb2b1dab9197ce0e'
-          redirect_uri: 'http://localhost:9000/sc-callback.html'
+          client_id: ENV.SC.clientId
+          redirect_uri: ENV.SC.redirectUri
 
       # Login a user
       # login: (callback) ->

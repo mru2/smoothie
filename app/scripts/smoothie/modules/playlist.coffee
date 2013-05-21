@@ -16,7 +16,7 @@ define ['backbone', 'when', 'smoothie/models/track'], \
     per_page: 20
 
     # The api base url
-    url: "/api/v1/tracks.json"
+    url: ENV.apiUrl + "/tracks.json"
 
 
     # Initialization of playlist attributes
