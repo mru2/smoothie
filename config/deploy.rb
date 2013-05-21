@@ -51,10 +51,10 @@ namespace :deploy do
     run  "ln -s #{shared_path}/node_modules #{release_path}/node_modules"
   end
 
-  task :build_assets do
-    puts "Compiling assets"
-    run "cd #{release_path} && RACK_ENV=#{rack_env} bundle exec rake assetpack:build"    
-  end
+  # task :build_assets do
+  #   puts "Compiling assets"
+  #   run "cd #{release_path} && RACK_ENV=#{rack_env} bundle exec rake assetpack:build"    
+  # end
 
   task :grunt do
     puts "Building the frontend app"

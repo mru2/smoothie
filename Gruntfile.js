@@ -263,7 +263,7 @@ module.exports = function (grunt) {
                         cwd: '<%= yeoman.app %>/templates',
                         src: '*.html',
                         dest: '.tmp/templates'
-                    }                    
+                    }
                 ]
             },
 
