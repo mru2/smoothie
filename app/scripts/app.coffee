@@ -51,6 +51,9 @@ define ['jquery', 'underscore', 'smoothie/modules/soundcloud', 'smoothie/control
     # The login logic
     login: () ->
       SC.connect () =>
+        # Fix : initialize a SC stream to load the lib
+        SC.stream('/tracks/1')
+
         SC.get '/me', (user) =>
           this.renderRadio(user.id)
   }
