@@ -317,7 +317,8 @@ module.exports = function (grunt) {
                         '.htaccess',
                         'images/{,*/}*.{webp,gif}',
                         'crossdomain.xml',
-                        'font/*'
+                        'font/*',
+                        'template/*'
                     ]
                 }]
             }
