@@ -318,7 +318,7 @@ module.exports = function (grunt) {
                         'images/{,*/}*.{webp,gif}',
                         'crossdomain.xml',
                         'font/*',
-                        'template/*'
+                        'templates/*'
                     ]
                 }]
             }
