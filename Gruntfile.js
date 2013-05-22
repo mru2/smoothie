@@ -291,6 +291,9 @@ module.exports = function (grunt) {
                     src: [
                         '{,*/}*.js',
                     ]
+                },{
+                    src: '<%= yeoman.app %>/scripts/config.prod.js',
+                    dest: 'public/scripts/config.js'
                 }]
             },
 
@@ -301,7 +304,11 @@ module.exports = function (grunt) {
                         expand: true,
                         cwd: '<%= yeoman.app %>',
                         src: '**',
-                        dest: '.tmp'
+                        dest: '.tmp',
+                    },
+                    {
+                        src: '<%= yeoman.app %>/scripts/config.dev.js',
+                        dest: '.tmp/scripts/config.js'
                     }
                 ]
             },
@@ -321,7 +328,7 @@ module.exports = function (grunt) {
                         'templates/*'
                     ]
                 }]
-            }
+            },
         },
         concurrent: {
             server: [
@@ -350,6 +357,7 @@ module.exports = function (grunt) {
             }
         }
     });
+
 
     grunt.renameTask('regarde', 'watch');
 
