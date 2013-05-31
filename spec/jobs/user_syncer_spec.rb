@@ -14,11 +14,13 @@ describe Smoothie::ApiFetch::UserSyncer do
 
       user.synced?.should be_false
 
-      syncer.run
+      VCR.use_cassette("user_syncer_#{user_id}") do
+        syncer.run
+      end
 
       user.synced?.should be_true
 
-      user.tracks_count.value.should  == "464"
+      user.tracks_count.value.should  == "468"
     end
 
   end

@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.3.4)
     capistrano (2.14.2)
       highline
       net-scp (>= 1.0.0)
@@ -13,6 +14,7 @@ GEM
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
+    crack (0.3.2)
     debugger (1.4.0)
       columnize (>= 0.3.1)
       debugger-linecache (~> 1.1.1)
@@ -86,8 +88,12 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    vcr (2.5.0)
     vegas (0.1.11)
       rack (>= 1.0.0)
+    webmock (1.11.0)
+      addressable (>= 2.2.7)
+      crack (>= 0.3.2)
 
 PLATFORMS
   ruby
@@ -106,3 +112,5 @@ DEPENDENCIES
   sinatra
   soundcloud
   unicorn
+  vcr
+  webmock

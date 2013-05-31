@@ -14,7 +14,9 @@ describe Smoothie::PlaylistSyncer do
 
       user.favorites_synced?.should be_false
 
-      syncer.run
+      VCR.use_cassette("playlist_syncer_#{user_id}") do
+        syncer.run
+      end
 
       user.favorites_synced?.should be_true
 

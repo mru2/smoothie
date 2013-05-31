@@ -1,0 +1,123 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.soundcloud.com/users/3207?client_id=d082276d6bcf9390cb2b1dab9197ce0e&format=json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - SoundCloud Ruby Wrapper 0.3.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Fri, 31 May 2013 16:15:10 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '685'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=600, public
+      Vary:
+      - Authorization, Accept, Accept-Encoding
+      X-Runtime:
+      - '43'
+      Etag:
+      - '"8e2b5f496946e835cff44694b3b46a97"'
+      Access-Control-Allow-Methods:
+      - GET, PUT, POST, DELETE
+      Access-Control-Allow-Headers:
+      - Accept, Authorization, Content-Type, Origin
+      Access-Control-Expose-Headers:
+      - Date
+      Access-Control-Allow-Origin:
+      - '*'
+      X-Cacheable:
+      - 'YES'
+      X-Varnish:
+      - 1879225940 1878594897
+      Age:
+      - '73'
+      Via:
+      - 1.1 varnish
+      X-Cache:
+      - HIT
+    body:
+      encoding: UTF-8
+      string: '{"id":3207,"kind":"user","permalink":"jwagener","username":"Johannes
+        Wagener","uri":"http://api.soundcloud.com/users/3207","permalink_url":"http://soundcloud.com/jwagener","avatar_url":"http://i1.sndcdn.com/avatars-000014428549-3at7qc-large.jpg?9d68d37","country":"Germany","full_name":"Johannes
+        Wagener","description":"\u003Cb\u003EExSoundClouder, now traveling. Still
+        hacking.\u003C/b\u003E","city":"Berlin","discogs_name":null,"myspace_name":null,"website":"http://johannes.wagener.cc","website_title":"johannes.wagener.cc","online":true,"track_count":48,"playlist_count":2,"plan":"Free","public_favorites_count":100,"followers_count":1862,"followings_count":309,"subscriptions":[]}'
+    http_version: 
+  recorded_at: Fri, 31 May 2013 16:15:10 GMT
+- request:
+    method: get
+    uri: http://api.soundcloud.com/users/3207/favorites?client_id=d082276d6bcf9390cb2b1dab9197ce0e&format=json&limit=2&offset=0
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - SoundCloud Ruby Wrapper 0.3.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Fri, 31 May 2013 16:15:10 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '3297'
+      Connection:
+      - keep-alive
+      X-Runtime:
+      - '15'
+      Etag:
+      - '"be12b1f809a6f169fa933b64e6fe1d51"'
+      Cache-Control:
+      - private, max-age=0, must-revalidate
+      Access-Control-Allow-Methods:
+      - GET, PUT, POST, DELETE
+      Access-Control-Allow-Headers:
+      - Accept, Authorization, Content-Type, Origin
+      Access-Control-Expose-Headers:
+      - Date
+      Access-Control-Allow-Origin:
+      - '*'
+      Vary:
+      - Accept-Encoding
+      X-Cacheable:
+      - NO:Cache-Control=max-age=0
+      X-Varnish:
+      - '1879228838'
+      Age:
+      - '0'
+      Via:
+      - 1.1 varnish
+      X-Cache:
+      - MISS
+    body:
+      encoding: UTF-8
+      string: '[{"kind":"track","id":61369017,"created_at":"2012/09/27 15:40:15 +0000","user_id":6266041,"duration":230970,"commentable":true,"state":"finished","original_content_size":3743980,"sharing":"public","tag_list":"","permalink":"her-tea-leaves","streamable":true,"embeddable_by":"all","downloadable":false,"purchase_url":null,"label_id":null,"purchase_title":null,"genre":"","title":"Her
+        Tea Leaves","description":"Celebrating the album \"The Creek Drank The Cradle\"
+        at 10 years!\r\n\r\nOriginally released as bonus 7\" vinyl with \"Creek.\"\r\n\r\nThanks
+        for 10 years of listening and support!","label_name":"","release":"","track_type":"","key_signature":"","isrc":"","video_url":null,"bpm":null,"release_year":null,"release_month":null,"release_day":null,"original_format":"m4a","license":"all-rights-reserved","uri":"http://api.soundcloud.com/tracks/61369017","user":{"id":6266041,"kind":"user","permalink":"ironandwine","username":"Iron
+        and Wine","uri":"http://api.soundcloud.com/users/6266041","permalink_url":"http://soundcloud.com/ironandwine","avatar_url":"http://i1.sndcdn.com/avatars-000005058248-x9q3pr-large.jpg?9d68d37"},"permalink_url":"http://soundcloud.com/ironandwine/her-tea-leaves","artwork_url":"http://i1.sndcdn.com/artworks-000031116181-e6466h-large.jpg?9d68d37","waveform_url":"http://w1.sndcdn.com/EniZok83c6Ua_m.png","stream_url":"http://api.soundcloud.com/tracks/61369017/stream","playback_count":28110,"download_count":0,"favoritings_count":451,"comment_count":35,"attachments_uri":"http://api.soundcloud.com/tracks/61369017/attachments"},{"kind":"track","id":48564678,"created_at":"2012/06/04
+        08:08:49 +0000","user_id":383419,"duration":41759,"commentable":true,"state":"finished","original_content_size":392901,"sharing":"public","tag_list":"soundcloud:source=iphone-record","permalink":"bibabutzemann-at-le-manoir-st","streamable":true,"embeddable_by":"all","downloadable":true,"purchase_url":null,"label_id":null,"purchase_title":null,"genre":null,"title":"BiBaButzemann  at
+        Le manoir st michel","description":null,"label_name":null,"release":null,"track_type":"recording","key_signature":null,"isrc":null,"video_url":null,"bpm":null,"release_year":null,"release_month":null,"release_day":null,"original_format":"m4a","license":"all-rights-reserved","uri":"http://api.soundcloud.com/tracks/48564678","user":{"id":383419,"kind":"user","permalink":"megamax","username":"MegaMax","uri":"http://api.soundcloud.com/users/383419","permalink_url":"http://soundcloud.com/megamax","avatar_url":"http://i1.sndcdn.com/avatars-000008373599-optmkb-large.jpg?9d68d37"},"created_with":{"id":124,"kind":"app","name":"SoundCloud
+        iOS","uri":"http://api.soundcloud.com/apps/124","permalink_url":"http://soundcloud.com/apps/iphone","external_url":"http://itunes.com/app/soundcloud"},"permalink_url":"http://soundcloud.com/megamax/bibabutzemann-at-le-manoir-st","artwork_url":"http://i1.sndcdn.com/artworks-000024465300-tpo0z2-large.jpg?9d68d37","waveform_url":"http://w1.sndcdn.com/0bAlcNEW9QKh_m.png","stream_url":"http://api.soundcloud.com/tracks/48564678/stream","download_url":"http://api.soundcloud.com/tracks/48564678/download","playback_count":152,"download_count":6,"favoritings_count":3,"comment_count":0,"attachments_uri":"http://api.soundcloud.com/tracks/48564678/attachments"}]'
+    http_version: 
+  recorded_at: Fri, 31 May 2013 16:15:11 GMT
+recorded_with: VCR 2.5.0

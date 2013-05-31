@@ -1,0 +1,58 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.soundcloud.com/users/2339203?client_id=d082276d6bcf9390cb2b1dab9197ce0e&format=json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - SoundCloud Ruby Wrapper 0.3.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Fri, 31 May 2013 16:15:12 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '545'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=600, public
+      Vary:
+      - Authorization, Accept, Accept-Encoding
+      X-Runtime:
+      - '105'
+      Etag:
+      - '"6582c13a49e0ebb81f832ab522b60b4a"'
+      Access-Control-Allow-Methods:
+      - GET, PUT, POST, DELETE
+      Access-Control-Allow-Headers:
+      - Accept, Authorization, Content-Type, Origin
+      Access-Control-Expose-Headers:
+      - Date
+      Access-Control-Allow-Origin:
+      - '*'
+      X-Cacheable:
+      - 'YES'
+      X-Varnish:
+      - 736998604 736364240
+      Age:
+      - '73'
+      Via:
+      - 1.1 varnish
+      X-Cache:
+      - HIT
+    body:
+      encoding: UTF-8
+      string: '{"id":2339203,"kind":"user","permalink":"mrruru","username":"MrRuru","uri":"http://api.soundcloud.com/users/2339203","permalink_url":"http://soundcloud.com/mrruru","avatar_url":"http://i1.sndcdn.com/avatars-000007564695-zfqjyz-large.jpg?9d68d37","country":"France","full_name":"","description":null,"city":"Paris","discogs_name":null,"myspace_name":null,"website":null,"website_title":null,"online":true,"track_count":10,"playlist_count":0,"plan":"Free","public_favorites_count":468,"followers_count":26,"followings_count":41,"subscriptions":[]}'
+    http_version: 
+  recorded_at: Fri, 31 May 2013 16:15:12 GMT
+recorded_with: VCR 2.5.0

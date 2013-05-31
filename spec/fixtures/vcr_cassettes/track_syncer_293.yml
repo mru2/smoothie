@@ -1,0 +1,61 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.soundcloud.com/tracks/293?client_id=d082276d6bcf9390cb2b1dab9197ce0e&format=json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - SoundCloud Ruby Wrapper 0.3.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Fri, 31 May 2013 16:15:11 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '2026'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=600, public
+      Vary:
+      - Authorization, Accept, Accept-Encoding
+      X-Runtime:
+      - '38'
+      Etag:
+      - '"cb98b52adbedf38d88a3752b03f16127"'
+      Access-Control-Allow-Methods:
+      - GET, PUT, POST, DELETE
+      Access-Control-Allow-Headers:
+      - Accept, Authorization, Content-Type, Origin
+      Access-Control-Expose-Headers:
+      - Date
+      Access-Control-Allow-Origin:
+      - '*'
+      X-Cacheable:
+      - 'YES'
+      X-Varnish:
+      - '1879237711'
+      Age:
+      - '0'
+      Via:
+      - 1.1 varnish
+      X-Cache:
+      - MISS
+    body:
+      encoding: UTF-8
+      string: '{"kind":"track","id":293,"created_at":"2007/09/22 14:45:46 +0000","user_id":183,"duration":213890,"commentable":true,"state":"finished","original_content_size":37723728,"sharing":"public","tag_list":"downtempo","permalink":"flickermood","streamable":true,"embeddable_by":"all","downloadable":true,"purchase_url":"http://sonarkollektiv.com/tracks/DE-P96-03-00042/","label_id":1771,"purchase_title":null,"genre":"Electronic","title":"Flickermood","description":"From
+        the Soulhack album,\u00a0recently featured in this ad \u003Ca href=\"https://www.dswshoes.com/tv_commercial.jsp?m=october2007\"
+        rel=\"nofollow\" target=\"_blank\"\u003Ehttps://www.dswshoes.com/tv_commercial.jsp?m=october2007\u003C/a\u003E","label_name":"sonarkollektiv","release":"SK006","track_type":"original","key_signature":"","isrc":"DE-P96-03-00042","video_url":"http://vimeo.com/3302330","bpm":74.0,"release_year":2003,"release_month":6,"release_day":2,"original_format":"aiff","license":"all-rights-reserved","uri":"http://api.soundcloud.com/tracks/293","user":{"id":183,"kind":"user","permalink":"forss","username":"Forss","uri":"http://api.soundcloud.com/users/183","permalink_url":"http://soundcloud.com/forss","avatar_url":"http://i1.sndcdn.com/avatars-000012778523-59quu3-large.jpg?9d68d37"},"label":{"id":1771,"kind":"user","permalink":"sonar-kollektiv","username":"Sonar
+        Kollektiv","uri":"http://api.soundcloud.com/users/1771","permalink_url":"http://soundcloud.com/sonar-kollektiv","avatar_url":"http://i1.sndcdn.com/avatars-000002354136-ilz13g-large.jpg?9d68d37"},"permalink_url":"http://soundcloud.com/forss/flickermood","artwork_url":"http://i1.sndcdn.com/artworks-000000001720-91c40a-large.jpg?9d68d37","waveform_url":"http://w1.sndcdn.com/cWHNerOLlkUq_m.png","stream_url":"http://api.soundcloud.com/tracks/293/stream","download_url":"http://api.soundcloud.com/tracks/293/download","playback_count":134048,"download_count":8083,"favoritings_count":990,"comment_count":356,"attachments_uri":"http://api.soundcloud.com/tracks/293/attachments"}'
+    http_version: 
+  recorded_at: Fri, 31 May 2013 16:15:11 GMT
+recorded_with: VCR 2.5.0
