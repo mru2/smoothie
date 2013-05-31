@@ -3,9 +3,9 @@ module Smoothie
 
     attr_reader :seed
 
-    def initialize(values, seed = nil)
+    def initialize(values, seed)
       @values = values
-      @seed = seed || Random.new_seed
+      @seed = seed
     end
 
     def get(opts = {})
