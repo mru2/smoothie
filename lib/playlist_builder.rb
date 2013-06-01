@@ -1,4 +1,7 @@
 # encoding: utf-8
+require 'shuffler'
+require 'playlist_syncer'
+
 
 # Class responsible for building a user's playlist from various criteria
 

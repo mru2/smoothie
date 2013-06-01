@@ -4,8 +4,8 @@ require 'shuffler'
 describe Smoothie::Shuffler do
 
   let(:values){(1..100).to_a}
-  let(:shuffler){Smoothie::Shuffler.new(values)}
   let(:seed){47654062875820368259408902495896546132}
+  let(:shuffler){Smoothie::Shuffler.new(values, seed)}
 
   describe "#shuffle" do
 
@@ -22,7 +22,11 @@ describe Smoothie::Shuffler do
 
     end
 
-    it "should be initializable with a seed" do
+    it "should handle empty arrays" do
+      Smoothie::Shuffler.new([], seed).get.should == []
+    end
+
+    it "should be consistent" do
 
       Smoothie::Shuffler.new(values, seed).get.should == Smoothie::Shuffler.new(values, seed).get
 
@@ -31,7 +35,7 @@ describe Smoothie::Shuffler do
     it "should not change the original array" do
 
       other_values = (1..10).to_a
-      Smoothie::Shuffler.new(other_values).get
+      Smoothie::Shuffler.new(other_values, seed).get
       other_values.should == (1..10).to_a
 
     end

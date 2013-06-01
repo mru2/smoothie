@@ -9,6 +9,8 @@ module Smoothie
     end
 
     def get(opts = {})
+      return @values if @values.length <= 1
+
       shuffle_values! unless @shuffled
 
       offset = opts[:offset] || 0 

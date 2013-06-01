@@ -2,8 +2,7 @@ require 'sinatra/base'
 
 require 'soundcloud_client'
 require 'user'
-require 'shuffler'
-require 'playlist_syncer'
+require 'playlist_builder'
 
 module Smoothie
   class Application < Sinatra::Base
@@ -34,7 +33,7 @@ module Smoothie
       end
 
       user     = Smoothie::User.new(params[:id])
-      playlist = UserPlaylist.new(user, params[:seed])
+      playlist = Smoothie::PlaylistBuilder.new(user, params[:seed])
 
       return {
         :seed   => playlist.seed,

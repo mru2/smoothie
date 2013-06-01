@@ -4,6 +4,8 @@ require 'track'
 module Smoothie
   class User
 
+    FAVORITES_EXPIRATION = 86400 # 1 day
+
     include Redis::Objects
 
     value :tracks_count
@@ -12,6 +14,7 @@ module Smoothie
     value :favorites_synced_at
 
     set   :track_ids
+
 
     # We want to guarantee that the uid is present
     def self.new(*args)
@@ -36,6 +39,10 @@ module Smoothie
 
     def favorites_synced?
       favorites_synced_at && !favorites_synced_at.value.nil?
+    end
+
+    def favorites_up_to_date?
+      favorites_synced? && (Time.parse(favorites_synced_at.value) > (Time.now - FAVORITES_EXPIRATION))
     end
 
     def set_favorites_synced!
