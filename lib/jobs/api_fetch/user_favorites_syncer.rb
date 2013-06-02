@@ -31,7 +31,8 @@ module Smoothie
         # Get the favorites ids
         favorite_ids = soundcloud.get_user_favorites(@user.id, @limit)
 
-        # Add them to the user favorites
+        # Add them to the user favorites (clear the old ones if all are fetched)
+        @user.track_ids.del if @limit == 'all'
         @user.track_ids << favorite_ids
 
         # Updated the synced_at time
