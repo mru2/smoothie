@@ -69,6 +69,25 @@ define ['backbone',
           @player.setTrackId(track.id)
           @player_view.setTrack(track)
 
+      # Like : like the track
+      onLike: () ->
+        @playlist.getCurrentTrack()
+        .then (track) =>
+          track.like()
+        .then (track) =>
+          @player_view.setTrack(track)
+
+      # Unlike : unlike the track and play the next
+      onUnlike: () ->
+        console.log 'on unlike'
+        @playlist.getCurrentTrack()
+        .then (track) =>
+          console.log 'unliking track', track
+          track.unlike()
+        .then () =>
+          console.log 'playing next'
+          this.playNext()
+
     }
 
     # Events
@@ -78,6 +97,9 @@ define ['backbone',
     PubSub.on 'player:pause',                 controller.pause,           controller
     PubSub.on 'player:playing',               controller.onPlaying,       controller
     PubSub.on 'player:paused',                controller.onPaused,        controller
+    PubSub.on 'player:like',                  controller.onLike,          controller
+    PubSub.on 'player:unlike',                controller.onUnlike,        controller
+
 
     # Returns the controller
     controller

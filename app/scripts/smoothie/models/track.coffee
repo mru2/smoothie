@@ -41,4 +41,16 @@ define ['backbone',
       deferred.promise
 
 
+    # Add the track to the current user favorites
+    like: () ->
+      Soundcloud.likeTrack(@id).then () =>
+        this.set 'liked', true
+        this
+
+    # Remove the track from the favorites
+    unlike: () ->
+      Soundcloud.unlikeTrack(@id).then () =>
+        this.set 'liked', false
+        this
+
   }

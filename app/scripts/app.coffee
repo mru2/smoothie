@@ -34,6 +34,9 @@ define ['jquery', 'underscore', 'smoothie/modules/soundcloud', 'smoothie/control
     # The container
     container: $('#main-container .container')
 
+    # The loading screen (default)
+    renderLoading: () ->
+      @container.html('<i id="loader" class="icon-refresh icon-spin"></i>')
 
     # The landing page
     renderLanding: () ->
@@ -51,6 +54,8 @@ define ['jquery', 'underscore', 'smoothie/modules/soundcloud', 'smoothie/control
     # The login logic
     login: () ->
       SC.connect () =>
+        this.renderLoading()
+
         # Fix : initialize a SC stream to load the lib
         SC.stream('/tracks/1')
 

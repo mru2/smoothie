@@ -14,7 +14,8 @@ define  ['soundcloudSdk', 'when'], \
         user_permalink: track.user.permalink_url,
         username: track.user.username,
         permalink_url: track.permalink_url,
-        artwork_url: track.artwork_url && track.artwork_url.replace(/-large.jpg?.*$/, '-t500x500.jpg')
+        artwork_url: track.artwork_url && track.artwork_url.replace(/-large.jpg?.*$/, '-t500x500.jpg'),
+        liked: track.user_favorite
       }
 
 
@@ -25,14 +26,6 @@ define  ['soundcloudSdk', 'when'], \
         SC.initialize
           client_id: ENV.SC.clientId
           redirect_uri: ENV.SC.redirectUri
-
-      # Login a user
-      # login: (callback) ->
-      #   SC.connect(callback)
-
-      # SC.accessToken(opts.accessToken) if opts.accessToken
-      # # Load the soundmanager
-      # SC.stream()
 
       # Fetch and format a track
       fetchTrack: (track_id) ->
@@ -46,6 +39,20 @@ define  ['soundcloudSdk', 'when'], \
       # Gets the audio stream associated to a track
       getTrackStream: (track_id, options) ->
         SC.stream "/tracks/#{track_id}", options
+
+      # Add a track to favorites
+      likeTrack: (track_id) ->
+        deferred = When.defer()
+        SC.put "/me/favorites/#{track_id}", () -> 
+          deferred.resolve()
+        deferred.promise
+
+      # Remove a track from favorites
+      unlikeTrack: (track_id) ->
+        deferred = When.defer()
+        SC.delete "/me/favorites/#{track_id}", () -> 
+          deferred.resolve()
+        deferred.promise
 
     }
 

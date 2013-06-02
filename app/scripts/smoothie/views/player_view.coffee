@@ -26,6 +26,11 @@ define ['backbone',
             ' ' + # Whitespace for spacing between prev and next controls
             '<a class="control" id="next"><i class="icon-step-forward"></i></a>' +
           '</div>' +
+          '<% if (track.liked) { %>' +
+            '<a id="unlike"><i class="icon icon-heart"></i></a>' +
+          '<% } else { %>' +
+            '<a id="like"><i class="icon icon-heart"></i></a>' +
+          '<% } %>' +
         '</div>' +
       '</div>'
 
@@ -75,16 +80,22 @@ define ['backbone',
 
     # Events and handlers
     events: {
-      "click #play":  "onClickedPlay"
-      "click #pause": "onClickedPause"
-      "click #prev":  "onClickedPrev"
-      "click #next":  "onClickedNext"
+      "click #play":    "onClickedPlay"
+      "click #pause":   "onClickedPause"
+      "click #prev":    "onClickedPrev"
+      "click #next":    "onClickedNext"
+      "click #like":    "onClickedLike"
+      "click #unlike":  "onClickedUnlike"
     }
 
-    onClickedPlay:  () -> @pubsub.trigger 'player:play'
-    onClickedPause: () -> @pubsub.trigger 'player:pause'
-    onClickedPrev:  () -> @pubsub.trigger 'player:previous'
-    onClickedNext:  () -> @pubsub.trigger 'player:next'
+    onClickedPlay:    () -> @pubsub.trigger 'player:play'
+    onClickedPause:   () -> @pubsub.trigger 'player:pause'
+    onClickedPrev:    () -> @pubsub.trigger 'player:previous'
+    onClickedNext:    () -> @pubsub.trigger 'player:next'
+    onClickedLike:    () -> @pubsub.trigger 'player:like'
+    onClickedUnlike:  () -> 
+      console.log 'on clicked unlike'
+      @pubsub.trigger 'player:unlike'
 
   }
 
