@@ -98,18 +98,3 @@ define ['backbone',
       @pubsub.trigger 'player:unlike'
 
   }
-
-
-
-
-# .artwork
-# .content
-#   %a.title
-#   %a.artist
-#   #controls
-#     %a#play.control
-#       %i.icon-play
-#     %a#prev.control
-#       %i.icon-step-backward
-#     %a#next.control
-#       %i.icon-step-forward

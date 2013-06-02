@@ -38,7 +38,7 @@ define ['backbone', 'when', 'smoothie/models/track'], \
     getCurrentTrack: () -> 
       this.fetch()
       .then () =>
-        @models[@current_index].sync()
+        this.syncModel(@current_index)
 
     # Moves the current position
     # Also preloads the new current track and the next
@@ -46,8 +46,8 @@ define ['backbone', 'when', 'smoothie/models/track'], \
     move: (delta) ->
       @current_index += delta
       this.fetch().then () => 
-        @models[@current_index].sync()
-        @models[@current_index+1].sync()
+        this.syncModel(@current_index)
+        this.syncModel(@current_index+1)
         return
 
     # Privates
@@ -77,6 +77,16 @@ define ['backbone', 'when', 'smoothie/models/track'], \
     # Check if the models are correctly buffered (already fetched around the current index)
     isBuffered: () ->
       this.size() > (@current_index + @buffer_length)
+
+
+    # Syncs a track from its index. If there is an error, pops it and retries
+    syncModel: (index) ->
+      @models[index].sync()
+      .then (track) =>
+        return track
+      .otherwise (error) =>
+        @models = @models.splice(index+1)
+        this.syncModel(index)
 
 
     # Build the url parameters, according to the seed, current user, and already buffered tracks

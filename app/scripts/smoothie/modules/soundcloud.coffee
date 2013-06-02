@@ -31,8 +31,11 @@ define  ['soundcloudSdk', 'when'], \
       fetchTrack: (track_id) ->
         deferred = When.defer()
 
-        SC.get "/tracks/#{track_id}", (track) ->
-          deferred.resolve( formatTrack(track) )
+        SC.get "/tracks/#{track_id}", (response) ->
+          if response.errors
+            deferred.reject( response.errors )
+          else
+            deferred.resolve( formatTrack(response) )
 
         deferred.promise
 
