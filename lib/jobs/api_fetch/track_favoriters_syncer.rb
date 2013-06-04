@@ -1,11 +1,11 @@
-require 'user'
-require 'api_fetch/user_syncer'
+require 'track'
+require 'api_fetch/track_syncer'
 require 'soundcloud_client'
 require 'chainable_job/base_job'
 
 module Smoothie
   module ApiFetch
-    class UserFavoritesSyncer < Smoothie::ChainableJob::BaseJob
+    class TrackFavoritersSyncer < Smoothie::ChainableJob::BaseJob
 
       @queue = :api
 
@@ -17,30 +17,30 @@ module Smoothie
         throw "limit must be defined" unless @arguments['limit']
 
         @limit = @arguments['limit']
-        @user = Smoothie::User.new(@arguments['id'])
+        @track = Smoothie::Track.new(@arguments['id'])
       end
 
 
       def ready?
-        @user.favorites_synced?
+        @track.favoriters_synced?
       end
 
 
       def perform
         # Ensure the user is synced
-        wait_for ApiFetch::UserSyncer.new('id' => @user.id)
+        wait_for ApiFetch::TrackSyncer.new('id' => @track.id)
 
         soundcloud = Smoothie::SoundcloudClient.new
 
         # Get the favorites ids
-        favorite_ids = soundcloud.get_user_favorites(@user.id, @limit)
+        favoriter_ids = soundcloud.get_track_favoriters(@track.id, @limit)
 
         # Add them to the user favorites (clear the old ones if all are fetched)
-        @user.track_ids.del if @limit == 'all'
-        @user.track_ids << favorite_ids
+        @track.user_ids.del if @limit == 'all'
+        @track.user_ids << favorite_ids
 
         # Updated the synced_at time
-        @user.set_favorites_synced!
+        @track.set_favoriters_synced!
       end
 
     end

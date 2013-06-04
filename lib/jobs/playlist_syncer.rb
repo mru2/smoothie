@@ -1,5 +1,4 @@
 require 'user'
-require 'api_fetch/user_syncer'
 require 'api_fetch/user_favorites_syncer'
 require 'chainable_job/base_job'
 
@@ -25,9 +24,6 @@ module Smoothie
 
 
     def perform
-      # Ensure the user is synced
-      wait_for ApiFetch::UserSyncer.new('id' => @user.id)
-
       # Ensure the favorites ids are synced
       wait_for ApiFetch::UserFavoritesSyncer.new('id' => @user.id, 'limit' => limit)
 

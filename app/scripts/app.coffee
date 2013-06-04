@@ -43,7 +43,6 @@ define ['jquery', 'underscore', 'smoothie/modules/soundcloud', 'smoothie/control
       $.get 'templates/landing.html', (template) =>
         @container.html(template)
 
-
     # The radio page
     renderRadio: (userId) ->
       $.get 'templates/radio.html', (template) =>
