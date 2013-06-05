@@ -32,8 +32,15 @@ define  ['soundcloudSdk', 'when'], \
         deferred = When.defer()
 
         SC.get "/tracks/#{track_id}", (response) ->
+          # Error fetching the track : reject
           if response.errors
             deferred.reject( response.errors )
+
+          # Track not streamable : reject
+          else if !response.streamable
+            deferred.reject( "Track #{track_id} not streamable" )
+
+          # Otherwise : resolve
           else
             deferred.resolve( formatTrack(response) )
 
