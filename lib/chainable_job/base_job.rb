@@ -6,16 +6,22 @@ module Smoothie
     class BaseJob
 
       attr_accessor :arguments
+      attr_accessor :force          
 
       def initialize(opts = {})
         @arguments = opts
+        @force_execution = !!@arguments.delete('force')
       end
 
       def run
         catch(:stop_job) do
-          perform unless ready?
+          perform unless is_ready?
           manager.finished
         end
+      end
+
+      def is_ready?
+        @force_execution ? false : ready?
       end
 
       def async_run
@@ -27,16 +33,12 @@ module Smoothie
         end
       end
 
-      def ready?
-        raise "#{self.class.name}#ready? must be defined"
-      end
-
       def perform
         raise "#{self.class.name}#perform must be defined"
       end
 
       def wait_for(jobs)
-        unready_jobs = [*jobs].select{|job|!job.ready?}
+        unready_jobs = [*jobs].select{|job|!job.is_ready?}
 
         unless unready_jobs.empty?
           if @async
@@ -69,6 +71,10 @@ module Smoothie
 
       def aync?
         !!@arguments['async']
+      end
+
+      def ready?
+        raise "#{self.class.name}#ready? must be defined"
       end
 
     end

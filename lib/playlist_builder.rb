@@ -34,8 +34,9 @@ module Smoothie
     def favorite_track_ids
 
       # Compute them if not present or out of date
+      # The check to do so is in the task, no need to make any checks
       unless @user.favorites_up_to_date?
-        Smoothie::PlaylistSyncer.new('id' => @user.id, 'limit' => 'all').run
+        Smoothie::PlaylistSyncer.new('id' => @user.id, 'limit' => 'all', 'force' => true).run
       end
 
       # Cache and return them

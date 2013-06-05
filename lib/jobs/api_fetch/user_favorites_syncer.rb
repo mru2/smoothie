@@ -33,7 +33,7 @@ module Smoothie
         soundcloud = Smoothie::SoundcloudClient.new
 
         # Get the favorites ids
-        favorite_ids = soundcloud.get_user_favorites(@user.id, @limit)
+        favorite_ids = soundcloud.get_user_favorites(@user.id, limit)
 
         # Add them to the user favorites (clear the old ones if all are fetched)
         @user.track_ids.del if @limit == 'all'
@@ -41,6 +41,17 @@ module Smoothie
 
         # Updated the synced_at time
         @user.set_favorites_synced!
+      end
+
+      private
+
+      # How many tracks should be fetched
+      def limit
+        if @limit == 'all'
+          @user.tracks_count.value.to_i
+        else
+          @limit.to_i
+        end
       end
 
     end
