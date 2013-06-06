@@ -13,13 +13,11 @@ module Smoothie
         super
 
         throw "id must be defined" unless @arguments['id']
-
-        @user = Smoothie::User.new(@arguments['id'])
       end
 
 
       def ready?
-        @user.synced?
+        user.synced?
       end
 
 
@@ -27,15 +25,21 @@ module Smoothie
         soundcloud = Smoothie::SoundcloudClient.new
 
         # Get the user attributes
-        user_data = soundcloud.get_user(@user.id)
+        user_data = soundcloud.get_user(user.id)
 
         # Save them
         [:tracks_count].each do |attribute|
-          @user.send(:"#{attribute}=", user_data[attribute])
+          user.send(:"#{attribute}=", user_data[attribute])
         end
 
         # Updated the synced_at time
-        @user.set_synced!
+        user.set_synced!
+      end
+
+      private
+
+      def user
+        @user ||= Smoothie::User.new(@arguments['id'])
       end
 
     end

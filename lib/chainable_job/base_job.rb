@@ -6,11 +6,9 @@ module Smoothie
     class BaseJob
 
       attr_accessor :arguments
-      attr_accessor :force          
 
       def initialize(opts = {})
         @arguments = opts
-        @force_execution = !!@arguments.delete('force')
       end
 
       def run
@@ -21,7 +19,7 @@ module Smoothie
       end
 
       def is_ready?
-        @force_execution ? false : ready?
+        force_execution? ? false : ready?
       end
 
       def async_run
@@ -67,6 +65,11 @@ module Smoothie
         @manager ||= Manager.new(self)
       end
 
+      # Equality : only class name and arguments are important here
+      def ==(job)
+        (self.class == job.class) && (self.arguments == job.arguments)
+      end
+
       private
 
       def aync?
@@ -75,6 +78,10 @@ module Smoothie
 
       def ready?
         raise "#{self.class.name}#ready? must be defined"
+      end
+
+      def force_execution?
+        !!@arguments['force']
       end
 
     end

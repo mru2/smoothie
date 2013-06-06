@@ -7,3 +7,4 @@ dist
 .sass-cache
 app/components
 /public
+spec/fixtures
