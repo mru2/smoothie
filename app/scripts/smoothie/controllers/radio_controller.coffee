@@ -33,7 +33,7 @@ define ['backbone',
 
           # Initializing the player view
           @player_view = new PlayerView {
-            el: '#player-container'
+            el: options.container
             model: track
             pubsub: PubSub
             playing: false

@@ -45,7 +45,7 @@ define ['jquery', 'underscore', 'smoothie/modules/soundcloud', 'smoothie/control
 
     # The radio page
     renderRadio: (userId) ->
-      RadioController.initialize userId: userId
+      RadioController.initialize userId: userId, container: '#main-container .container'
 
 
     # The login logic
