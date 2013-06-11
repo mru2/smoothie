@@ -11,29 +11,36 @@ define ['backbone',
   PlayerView = Backbone.View.extend {
 
     template: 
-      '<div id="player">' +
-        '<div class="artwork"></div>' +
-        '<div class="content">' + 
-          '<a class="title" href="<%= track.permalink_url %>" target="_blank"><%= track.title %></a>' +
-          '<a class="artist" href="<%= track.user_permalink %>"><%= track.username %></a>' +
-          '<div id="controls">' +
-            '<% if (playing) { %>' +
-              '<a class="control" id="pause"><i class="icon-pause"></i></a>' +
-            '<% } else { %>' +
-              '<a class="control" id="play"><i class="icon-play"></i></a>' +
-            '<% } %>' +
-            '<a class="control" id="prev"><i class="icon-step-backward"></i></a>' +
-            ' ' + # Whitespace for spacing between prev and next controls
-            '<a class="control" id="next"><i class="icon-step-forward"></i></a>' +
+      '<div id="radio">' +
+        '<div class="row">' +
+          '<div class="span6 offset3">' +
+            '<div id="player-container">' +
+              '<div id="player">' +
+                '<div class="artwork"></div>' +
+                '<div class="content">' + 
+                  '<a class="title" href="<%= track.permalink_url %>" target="_blank"><%= track.title %></a>' +
+                  '<a class="artist" href="<%= track.user_permalink %>"><%= track.username %></a>' +
+                  '<div id="controls">' +
+                    '<% if (playing) { %>' +
+                      '<a class="control" id="pause"><i class="icon-pause"></i></a>' +
+                    '<% } else { %>' +
+                      '<a class="control" id="play"><i class="icon-play"></i></a>' +
+                    '<% } %>' +
+                    '<a class="control" id="prev"><i class="icon-step-backward"></i></a>' +
+                    ' ' + # Whitespace for spacing between prev and next controls
+                    '<a class="control" id="next"><i class="icon-step-forward"></i></a>' +
+                  '</div>' +
+                  '<% if (track.liked) { %>' +
+                    '<a id="unlike"><i class="icon icon-heart"></i></a>' +
+                  '<% } else { %>' +
+                    '<a id="like"><i class="icon icon-heart"></i></a>' +
+                  '<% } %>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
           '</div>' +
-          '<% if (track.liked) { %>' +
-            '<a id="unlike"><i class="icon icon-heart"></i></a>' +
-          '<% } else { %>' +
-            '<a id="like"><i class="icon icon-heart"></i></a>' +
-          '<% } %>' +
         '</div>' +
       '</div>'
-
 
     # Constructor
     initialize: () ->

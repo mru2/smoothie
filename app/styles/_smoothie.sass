@@ -1,44 +1,5 @@
-
-// Turquoises
-$turquoise: #1ABC9C
-$green-sea: #16A085
-
-// Greens
-$emerald:   #2ECC71
-$nephritis: #27AE60
-
-// Blues
-$petermann-river: #3498DB
-$belize-hole: #2980B9
-
-// Violets
-$amethyst: #9B59B6
-$wisteria: #8E44AD
-
-// Blacks
-$wet-asphalt: #34495E
-$midnight-blue: #2C3E50
-
-// Yellows
-$sun-flower: #F1C40F
-$orange: #F39C12
-
-// Oranges
-$carrot: #E67E22
-$pumpkin: #D35400
-
-// Reds
-$alizarin: #E74C3C
-$pomegranate: #C0392B
-
-// Light Greys
-$clouds: #ECF0F1
-$silver: #BDC3C7
-
-// Dark Greys
-$concrete: #95A5A6
-$abestos: #7F8C8D
-
+@import 'colours'
+@import 'keyframes'
 
 
 // Variables and mixins
@@ -149,6 +110,8 @@ footer
     font-size: 1.5em
     margin-bottom: 0
     padding-bottom: 1.5em
+    @include animation-duration(2s)
+    @include animation-name(blurInDelayHalf)
     
   .btn-signup
     margin-bottom: 1em
@@ -156,11 +119,13 @@ footer
     &:hover
       background-color: $emerald
 
-  .btn-demo
-    margin-bottom: 1em
-    background-color: $pumpkin
-    &:hover
-      background-color: $carrot
+    @include animation-duration(3s)
+    @include animation-name(fadeInUpDelayTwoThird)
+
+    // &:hover
+      // @include animation(scale 5s ease-in, slide 2.0s ease)
+
+
 
 
   .append
