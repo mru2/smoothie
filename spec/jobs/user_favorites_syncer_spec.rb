@@ -5,8 +5,7 @@ describe Smoothie::ApiFetch::UserFavoritesSyncer do
 
   let(:user_id){2339203}
   let(:user){Smoothie::User.new(user_id)}
-  let(:limit){15}
-  let(:syncer){Smoothie::ApiFetch::UserFavoritesSyncer.new('id' => user_id, 'limit' => limit)}
+  let(:syncer){Smoothie::ApiFetch::UserFavoritesSyncer.new('id' => user_id)}
 
   describe "#run" do
 
@@ -18,33 +17,34 @@ describe Smoothie::ApiFetch::UserFavoritesSyncer do
       end
     end
 
-    it "should fetch the favorites" do
-      user.track_ids.count.should == 0
-
+    it "should fetch all the favorites" do
       VCR.use_cassette("user_favorites_syncer_#{user_id}") do
         syncer.run
       end
 
-      user.track_ids.count.should == limit
-    end
-
-    it "should be able to fetch all" do
-      syncer = Smoothie::ApiFetch::UserFavoritesSyncer.new('id' => user_id, 'limit' => 'all')
-
-      VCR.use_cassette("user_favorites_syncer_#{user_id}") do
-        syncer.run
-      end
-
-      user.track_ids.count.should_not == 0
       user.track_ids.count.should == user.tracks_count.value.to_i
     end
 
     it "should clear the existing favorites when fetching all" do
+      user.track_ids << (1..1000).to_a
+      user.track_ids.count.should == 1000
 
+      VCR.use_cassette("user_favorites_syncer_#{user_id}") do
+        syncer.run
+      end
+
+      user.track_ids.count.should == user.tracks_count.value.to_i   
     end
 
     it "should set the favorites synced at timestamp after finishing" do
+      user.favorites_synced_at = Time.now - 10*(24*3600)
+      syncer = Smoothie::ApiFetch::UserFavoritesSyncer.new('id' => user_id, 'force' => true)
 
+      VCR.use_cassette("user_favorites_syncer_#{user_id}") do
+        syncer.run
+      end
+
+      user.favorites_synced_at.value.should == Time.now.to_s
     end
 
   end
