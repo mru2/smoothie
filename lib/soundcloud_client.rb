@@ -24,6 +24,7 @@ module Smoothie
 
     # Get the data relevant to a track (exluding uploader details)
     def get_track(track_id)
+      Kernel.sleep WAIT_AFTER_REQUEST
       track_data = @client.get("/tracks/#{track_id}")
 
       return {
@@ -33,6 +34,7 @@ module Smoothie
 
     # Get a user relevant data
     def get_user(user_id)
+      Kernel.sleep WAIT_AFTER_REQUEST
       user_data = @client.get("/users/#{user_id}")
 
       return {
@@ -44,6 +46,13 @@ module Smoothie
     def get_user_favorites(user_id, limit)
       return fetch_pages_for(limit) do |limit, offset|
         @client.get("/users/#{user_id}/favorites", :limit => limit, :offset => offset).map(&:id)
+      end
+    end
+
+    # Get a track favoriters
+    def get_track_favoriters(track_id, limit)
+      return fetch_pages_for(limit) do |limit, offset|
+        @client.get("/tracks/#{track_id}/favoriters", :limit => limit, :offset => offset).map(&:id)
       end
     end
 
@@ -66,8 +75,10 @@ module Smoothie
     #     # your code here, having access to the limit and offsets for each page,
     #     # the result will be joined when returned    
     def fetch_pages_for(number, &block)
+
+      # Handling max number of records fetchable
       if number > MAX_OFFSET + MAX_PAGE_SIZE
-        raise "Cannot fetch more than #{MAX_OFFSET + MAX_PAGE_SIZE} records from the soundcloud API"
+        number = MAX_OFFSET + MAX_PAGE_SIZE
       end
 
       # First generate the offset/limit pairs for the full page requests needed
@@ -88,7 +99,11 @@ module Smoothie
       end
 
       # Lastly, call the given block for each request and merge the results
-      results = pages.map{|page| yield(page[:limit], page[:offset])}.flatten
+      results = pages.map{|page|
+        Kernel.sleep WAIT_AFTER_REQUEST
+        yield(page[:limit], page[:offset])
+      }.flatten
+      
       return results
     end
 

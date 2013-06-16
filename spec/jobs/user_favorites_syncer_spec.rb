@@ -17,15 +17,7 @@ describe Smoothie::ApiFetch::UserFavoritesSyncer do
       end
     end
 
-    it "should fetch all the favorites" do
-      VCR.use_cassette("user_favorites_syncer_#{user_id}") do
-        syncer.run
-      end
-
-      user.track_ids.count.should == user.tracks_count.value.to_i
-    end
-
-    it "should clear the existing favorites when fetching all" do
+    it "should fetch all the favorites and clear the old ones" do
       user.track_ids << (1..1000).to_a
       user.track_ids.count.should == 1000
 
@@ -33,7 +25,7 @@ describe Smoothie::ApiFetch::UserFavoritesSyncer do
         syncer.run
       end
 
-      user.track_ids.count.should == user.tracks_count.value.to_i   
+      user.track_ids.count.should == user.tracks_count.value.to_i
     end
 
     it "should set the favorites synced at timestamp after finishing" do
