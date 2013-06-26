@@ -32,20 +32,23 @@ define ['jquery', 'underscore', 'smoothie/modules/soundcloud', 'smoothie/control
   window.App = {
 
     # The container
-    container: $('#main-container .container')
+    container: '#main-container .container'
 
     # The loading screen (default)
     renderLoading: () ->
-      @container.html('<i id="loader" class="icon-refresh icon-spin"></i>')
+      $(@container).html('<i id="loader" class="icon-refresh icon-spin"></i>')
 
     # The landing page
     renderLanding: () ->
       $.get 'templates/landing.html', (template) =>
-        @container.html(template)
+        $(@container).html(template)
 
     # The radio page
     renderRadio: (userId) ->
-      RadioController.initialize userId: userId
+      RadioController.initialize { 
+        userId: userId
+        container: @container
+      }
 
 
     # The login logic

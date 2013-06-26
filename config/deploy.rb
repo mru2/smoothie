@@ -25,7 +25,6 @@ set :bundle_dir, "#{shared_path}/bundle"
 set :rvm_path, "/home/#{user}/.rvm"
 
 
-# after 'deploy:create_symlink',  'deploy:build_assets'
 after 'deploy:update_code',         'deploy:additional_symlinks'
 after 'deploy:additional_symlinks', 'deploy:grunt'
 after 'deploy:restart',             'deploy:cleanup'
@@ -50,11 +49,6 @@ namespace :deploy do
     run  "ln -s #{shared_path}/sockets #{release_path}/tmp/sockets"
     run  "ln -s #{shared_path}/node_modules #{release_path}/node_modules"
   end
-
-  # task :build_assets do
-  #   puts "Compiling assets"
-  #   run "cd #{release_path} && RACK_ENV=#{rack_env} bundle exec rake assetpack:build"    
-  # end
 
   task :grunt do
     puts "Building the frontend app"

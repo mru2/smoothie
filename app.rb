@@ -7,15 +7,12 @@ require 'playlist_builder'
 module Smoothie
   class Application < Sinatra::Base
 
-    # UserSession = Struct.new(:username, :id, :access_token, :refresh_token)
-    # enable :sessions, :logging, :dump_errors, :raise_errors, :show_exceptions
-
     logger = ::File.open("log/sinatra.log", "a+")
     Application.use Rack::CommonLogger, logger
 
     configure do
       # set :session_secret, "session_secret" 
-      set :public_folder, ENV['RACK_ENV'] == 'production' ? 'public' : '.tmp'  
+      set :public_folder, 'public'
     end
 
     get '/' do
