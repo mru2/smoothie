@@ -15,7 +15,6 @@ module Smoothie
       throw "id must be defined" unless @arguments['id']
       
       @user = Smoothie::User.new(@arguments['id'])
-      @limit = @arguments['limit'] || DEFAULT_LIMIT
     end
 
 
@@ -26,7 +25,7 @@ module Smoothie
 
     def perform
       # Ensure the favorites ids are synced
-      wait_for ApiFetch::UserFavoritesSyncer.new('id' => @user.id, 'limit' => @limit, 'force' => @force_execution)
+      wait_for ApiFetch::UserFavoritesSyncer.new('id' => @user.id, 'force' => true)
 
       # Ensure the corresponding tracks are synced
       # wait_for @user.track_ids.map{|track_id| TrackSyncer.new('id' => track_id)}

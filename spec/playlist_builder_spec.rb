@@ -30,7 +30,7 @@ describe Smoothie::PlaylistBuilder do
       playlist_syncer = mock('a playlist syncer')
       Smoothie::PlaylistSyncer.stub(:new).and_return(playlist_syncer)
 
-      Smoothie::PlaylistSyncer.should_receive(:new).with({'id' => user_id, 'limit' => 'all', 'force' => true})
+      Smoothie::PlaylistSyncer.should_receive(:new).with({'id' => user_id})
       playlist_syncer.should_receive(:run)
 
       # Hack for rest of execution, find a way to remove it

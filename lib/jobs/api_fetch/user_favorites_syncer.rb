@@ -14,9 +14,7 @@ module Smoothie
         super
 
         throw "id must be defined" unless @arguments['id']
-        throw "limit must be defined" unless @arguments['limit']
 
-        @limit = @arguments['limit']
         @user = Smoothie::User.new(@arguments['id'])
       end
 
@@ -32,26 +30,18 @@ module Smoothie
 
         soundcloud = Smoothie::SoundcloudClient.new
 
-        # Get the favorites ids
+        # Get all the favorites ids
+        limit = @user.tracks_count.value.to_i
         favorite_ids = soundcloud.get_user_favorites(@user.id, limit)
 
-        # Add them to the user favorites (clear the old ones if all are fetched)
-        @user.track_ids.del if @limit == 'all'
-        @user.track_ids << favorite_ids
+        # Set them as the user favorites
+        unless favorite_ids.empty?
+          @user.track_ids.del
+          @user.track_ids.add favorite_ids
+        end
 
         # Updated the synced_at time
         @user.set_favorites_synced!
-      end
-
-      private
-
-      # How many tracks should be fetched
-      def limit
-        if @limit == 'all'
-          @user.tracks_count.value.to_i
-        else
-          @limit.to_i
-        end
       end
 
     end

@@ -4,23 +4,19 @@ require 'playlist_syncer'
 describe Smoothie::PlaylistSyncer do
 
   let(:user_id){3207}
-  let(:syncer){Smoothie::PlaylistSyncer.new('id' => user_id, 'limit' => 2)}
+  let(:syncer){Smoothie::PlaylistSyncer.new('id' => user_id)}
 
   describe "#run" do
 
-    it "should work" do
+    it "should call the user favorites syncer" do
 
       user = Smoothie::User.new(user_id)
-
       user.favorites_synced?.should be_false
 
-      VCR.use_cassette("playlist_syncer_#{user_id}") do
-        syncer.run
-      end
+      syncer.should_receive(:wait_for).with(Smoothie::ApiFetch::UserFavoritesSyncer.new('id' => user_id, 'force' => true))
 
-      user.favorites_synced?.should be_true
+      syncer.run
 
-      user.track_ids.count.should == 2
     end
 
   end
