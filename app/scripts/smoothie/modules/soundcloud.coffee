@@ -1,8 +1,8 @@
 # A wrapper around the soundcloud api and the current user
 
-define  ['soundcloudSdk', 'when'], \
+define  ['config', 'soundcloudSdk', 'when'], \
 
-        (SC, When) ->
+        (Config, SC, When) ->
 
   Soundcloud = ( () -> 
 
@@ -24,8 +24,8 @@ define  ['soundcloudSdk', 'when'], \
       # Authenticate the SDK
       initialize: (opts) ->
         SC.initialize
-          client_id: ENV.SC.clientId
-          redirect_uri: ENV.SC.redirectUri
+          client_id: Config.SC.clientId
+          redirect_uri: Config.SC.redirectUri
 
       # Fetch and format a track
       fetchTrack: (track_id) ->

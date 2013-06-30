@@ -1,8 +1,8 @@
 # Handles the tracks collection and their fetching from the api
 
-define ['backbone', 'when', 'smoothie/models/track'], \
+define ['backbone', 'when', 'config', 'smoothie/models/track'], \
 
-       (Backbone, When, Track) ->
+       (Backbone, When, Config, Track) ->
 
   Playlist = Backbone.Collection.extend {
 
@@ -16,8 +16,7 @@ define ['backbone', 'when', 'smoothie/models/track'], \
     per_page: 20
 
     # The api base url
-    url: ENV.apiUrl + "/tracks.json"
-
+    url: Config.apiUrl + "/tracks.json"
 
     # Initialization of playlist attributes
     initialize: (models, options) -> 
