@@ -14,8 +14,8 @@ module.exports = function (grunt) {
 
         // Variables
         src:    'app',    // The application folder
-        dist:   'public', // The compiled folder
-        build:  '.tmp',   // The folder for the minified/files, before upload
+        dist:   '.tmp', // The compiled folder
+        build:  '.build',   // The folder for the minified/files, before upload
 
 
         // Watchers
@@ -190,31 +190,31 @@ module.exports = function (grunt) {
               // Files to be uploaded.
               upload: [
                 {
-                  src: '.tmp/*',
+                  src: '<%= build %>/*',
                   dest: '/'
                 },
                 {
-                  src: '.tmp/styles/*',
+                  src: '<%= build %>/styles/*',
                   dest: 'styles/'
                 },
                 {
-                  src: '.tmp/scripts/*',
+                  src: '<%= build %>/scripts/*',
                   dest: 'scripts/'
                 },
                 {
-                  src: '.tmp/images/*',
+                  src: '<%= build %>/images/*',
                   dest: 'images/'
                 },
                 {
-                  src: '.tmp/font/*',
+                  src: '<%= build %>/font/*',
                   dest: 'font/'
                 },
                 {
-                  src: '.tmp/templates/*',
+                  src: '<%= build %>/templates/*',
                   dest: 'templates/'
                 },
                 {
-                  src: '.tmp/components/requirejs/require.js',
+                  src: '<%= build %>/components/requirejs/require.js',
                   dest: 'components/requirejs/require.js'
                 }
               ]

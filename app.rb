@@ -12,7 +12,7 @@ module Smoothie
 
     configure do
       # set :session_secret, "session_secret" 
-      set :public_folder, 'public'
+      set :public_folder, '.tmp'
     end
 
     get '/' do
