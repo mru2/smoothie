@@ -172,6 +172,56 @@ module.exports = function (grunt) {
         },
 
 
+        // Upload the assets to s3
+        s3: {
+            options: {
+              key: 'AKIAIR4AYE2CPFW4QVYQ',
+              secret: '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',
+              bucket: 'smoothie.fm',
+              access: 'public-read',
+              region: 'eu-west-1'
+            },
+            build: {
+              // // These options override the defaults
+              // options: {
+              //   encodePaths: true,
+              //   maxOperations: 20
+              // },
+              // Files to be uploaded.
+              upload: [
+                {
+                  src: '.tmp/*',
+                  dest: '/'
+                },
+                {
+                  src: '.tmp/styles/*',
+                  dest: 'styles/'
+                },
+                {
+                  src: '.tmp/scripts/*',
+                  dest: 'scripts/'
+                },
+                {
+                  src: '.tmp/images/*',
+                  dest: 'images/'
+                },
+                {
+                  src: '.tmp/font/*',
+                  dest: 'font/'
+                },
+                {
+                  src: '.tmp/templates/*',
+                  dest: 'templates/'
+                },
+                {
+                  src: '.tmp/components/requirejs/require.js',
+                  dest: 'components/requirejs/require.js'
+                }
+              ]
+            }
+
+        },
+
 
         // === Building for production === //
 
@@ -264,6 +314,7 @@ module.exports = function (grunt) {
         // Compile and move the assets to the build folder
         'clean:build',
         'requirejs:compile',
-        'concurrent:build'
+        'concurrent:build',
+        's3:build'
     ]);
 };

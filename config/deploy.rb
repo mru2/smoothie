@@ -52,7 +52,7 @@ namespace :deploy do
 
   task :grunt do
     puts "Building the frontend app"
-    run "cd #{release_path} && n 0.10.5 && npm install && bower install && grunt"
+    run "cd #{release_path} && n 0.10.5 && npm install && bower install && grunt build"
   end
 
  end
