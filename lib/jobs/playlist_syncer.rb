@@ -19,7 +19,7 @@ module Smoothie
 
 
     def ready?
-      @user.synced? && @user.favorites_synced?
+      @user.favorites_up_to_date?
     end
 
 

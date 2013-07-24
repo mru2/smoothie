@@ -1,6 +1,6 @@
 ENV['RACK_ENV'] = "test"
 
-require File.join(File.expand_path(File.dirname(__FILE__)), '..', '/config/boot.rb')
+require File.join(File.expand_path(File.dirname(__FILE__)), '..', '/config/environment.rb')
 require 'vcr'
 
 VCR.configure do |conf|

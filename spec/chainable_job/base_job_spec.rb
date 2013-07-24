@@ -26,7 +26,7 @@ describe Smoothie::ChainableJob::BaseJob do
       # Simulate timeout
       sleep(2)
 
-      External.doing_job_1
+      External.doing_job_1(arguments)
 
       @ready = true
     end
@@ -64,6 +64,16 @@ describe Smoothie::ChainableJob::BaseJob do
 
   let(:job1){Job1.new}
   let(:job2){Job2.new}
+
+
+  it "should forward the force flag" do
+
+    job2.arguments['force'] = true
+    External.should_receive(:doing_job_1).with('force' => true)
+
+    job2.run
+
+  end
 
 
   describe "equality" do

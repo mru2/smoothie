@@ -36,21 +36,32 @@ module Smoothie
       end
 
       def wait_for(jobs)
+
+        # Forward the job forcing down the line unless explicitely defined
+        [*jobs].each do |job|
+          job.arguments['force'] = force_execution? unless job.arguments.has_key?('force')
+        end
+
         unready_jobs = [*jobs].select{|job|!job.is_ready?}
 
         unless unready_jobs.empty?
-          if @async
-            unready_jobs.each do |job|
-              job.manager.enqueue(self)
-            end
 
+          # Run each job
+          unready_jobs.each do |job|
+            if @async
+              job.manager.enqueue(self)
+            else
+              unready_jobs.each(&:run)
+            end
+          end
+
+          if @async
             # Remove self from the queue (keep its callbacks and dependencies though)
             manager.waiting
 
             throw :stop_job # Halt the execution of the current worker
-          else
-            unready_jobs.each(&:run)
           end
+
         end
       end
 

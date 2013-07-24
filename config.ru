@@ -1,4 +1,4 @@
-require './config/boot'
+require './config/environment'
 require 'app'
 require 'resque/server'
 
