@@ -8,6 +8,7 @@ require.config
     mustache: "../components/mustache/mustache"
     when: "../components/when/when"
     soundcloudSdk: "//connect.soundcloud.com/sdk"
+    jqueryCookie: "../components/jquery.cookie/jquery.cookie"
 
   shim:
     soundcloudSdk:
@@ -20,9 +21,11 @@ require.config
       deps: ["underscore", "jquery"]
       exports: "Backbone"
 
+    jqueryCookie: ['jquery']
 
 
-define ['jquery', 'underscore', 'smoothie/modules/soundcloud', 'smoothie/controllers/radio_controller'], \
+
+define ['jquery', 'underscore', 'smoothie/modules/soundcloud', 'smoothie/controllers/radio_controller', 'jqueryCookie'], \
 
        ($, _, Soundcloud, RadioController) ->
 
@@ -44,27 +47,33 @@ define ['jquery', 'underscore', 'smoothie/modules/soundcloud', 'smoothie/control
         $(@container).html(template)
 
     # The radio page
-    renderRadio: (userId) ->
-      RadioController.initialize { 
-        userId: userId
-        container: @container
-      }
+    renderRadio: () ->
+      # Fix : initialize a SC stream to load the lib
+      SC.stream('/tracks/1')
 
+      SC.get '/me', (user) =>
+        RadioController.initialize { 
+          userId: user.id
+          container: @container
+        }
 
     # The login logic
     login: () ->
       SC.connect () =>
-        this.renderLoading()
+        $.cookie('sc_token', SC.accessToken())
+        this.renderRadio()
 
-        # Fix : initialize a SC stream to load the lib
-        SC.stream('/tracks/1')
-
-        SC.get '/me', (user) =>
-          this.renderRadio(user.id)
   }
 
   $ ->
 
     Soundcloud.initialize()
 
-    App.renderLanding()
+    # To persist the login on refresh
+    if $.cookie('sc_token')
+      SC.accessToken($.cookie('sc_token'))
+      App.renderRadio()
+
+    # Default landing
+    else
+      App.renderLanding()
