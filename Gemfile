@@ -21,6 +21,7 @@ end
 gem 'soundcloud'
 gem 'redis-objects'
 gem 'resque', '~> 1.0'
+gem 'resque-pool'
 
 gem 'capistrano'
 gem 'rvm-capistrano'
