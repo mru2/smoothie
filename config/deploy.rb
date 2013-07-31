@@ -26,7 +26,7 @@ set :rvm_path, "/home/#{user}/.rvm"
 
 
 after 'deploy:update_code',         'deploy:additional_symlinks'
-after 'deploy:additional_symlinks', 'deploy:grunt'
+# after 'deploy:additional_symlinks', 'deploy:grunt'
 after 'deploy:restart',             'deploy:cleanup'
 after 'deploy:restart',             'resque:restart'
 
@@ -51,10 +51,10 @@ namespace :deploy do
     run  "ln -s #{shared_path}/node_modules #{release_path}/node_modules"
   end
 
-  task :grunt do
-    puts "Building the frontend app"
-    run "cd #{release_path} && n 0.10.5 && npm install && bower install && grunt build"
-  end
+  # task :grunt do
+  #   puts "Building the frontend app"
+  #   run "cd #{release_path} && n 0.10.5 && npm install && bower install && grunt build"
+  # end
 
 end
 
@@ -66,12 +66,12 @@ namespace :resque do
 
   task :stop do
     pid = "#{current_path}/tmp/pids/resque-pool.pid"
-    sudo "kill -2 `cat #{pid}`"
+    run "kill -2 `cat #{pid}`"
   end
 
   task :restart do
     pid = "#{current_path}/tmp/pids/resque-pool.pid"
-    sudo "kill -1 `cat #{pid}`"    
+    run "kill -1 `cat #{pid}`"    
   end
 
 end
