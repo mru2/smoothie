@@ -4,6 +4,7 @@ require 'track'
 module Smoothie
   class User
 
+    EXPIRATION = 86400 # 1 day
     FAVORITES_EXPIRATION = 86400 # 1 day
 
     include Redis::Objects
@@ -29,13 +30,19 @@ module Smoothie
       @uid
     end
 
+
     def synced?
       synced_at && !synced_at.value.nil?
+    end
+
+    def up_to_date?
+      synced? && (Time.parse(synced_at.value) > (Time.now - EXPIRATION))
     end
 
     def set_synced!
       self.synced_at = Time.now
     end
+
 
     def favorites_synced?
       favorites_synced_at && !favorites_synced_at.value.nil?

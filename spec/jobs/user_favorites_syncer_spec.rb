@@ -30,7 +30,7 @@ describe Smoothie::ApiFetch::UserFavoritesSyncer do
 
     it "should set the favorites synced at timestamp after finishing" do
       user.favorites_synced_at = Time.now - 10*(24*3600)
-      syncer = Smoothie::ApiFetch::UserFavoritesSyncer.new('id' => user_id, 'force' => true)
+      syncer = Smoothie::ApiFetch::UserFavoritesSyncer.new('id' => user_id)
 
       VCR.use_cassette("user_favorites_syncer_#{user_id}") do
         syncer.run

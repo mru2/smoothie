@@ -25,7 +25,7 @@ module Smoothie
 
     def perform
       # Ensure the favorites ids are synced
-      wait_for ApiFetch::UserFavoritesSyncer.new('id' => @user.id, 'force' => true)
+      wait_for ApiFetch::UserFavoritesSyncer.new('id' => @user.id)
 
       # Ensure the corresponding tracks are synced
       # wait_for @user.track_ids.map{|track_id| TrackSyncer.new('id' => track_id)}

@@ -18,7 +18,7 @@ module Smoothie
 
 
       def ready?
-        @track.synced?
+        @track.up_to_date?
       end
 
 

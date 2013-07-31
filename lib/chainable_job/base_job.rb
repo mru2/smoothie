@@ -13,14 +13,14 @@ module Smoothie
 
       def run
         catch(:stop_job) do
-          perform unless is_ready?
+          perform unless ready?
           manager.finished
         end
       end
 
-      def is_ready?
-        force_execution? ? false : ready?
-      end
+      # def is_ready?
+      #   force_execution? ? false : ready?
+      # end
 
       def async_run
         begin
@@ -37,12 +37,12 @@ module Smoothie
 
       def wait_for(jobs)
 
-        # Forward the job forcing down the line unless explicitely defined
-        [*jobs].each do |job|
-          job.arguments['force'] = force_execution? unless job.arguments.has_key?('force')
-        end
+        # # Forward the job forcing down the line unless explicitely defined
+        # [*jobs].each do |job|
+        #   job.arguments['force'] = force_execution? unless job.arguments.has_key?('force')
+        # end
 
-        unready_jobs = [*jobs].select{|job|!job.is_ready?}
+        unready_jobs = [*jobs].select{|job|!job.ready?}
 
         unless unready_jobs.empty?
 
@@ -91,9 +91,9 @@ module Smoothie
         raise "#{self.class.name}#ready? must be defined"
       end
 
-      def force_execution?
-        !!@arguments['force']
-      end
+      # def force_execution?
+      #   !!@arguments['force']
+      # end
 
     end
 
