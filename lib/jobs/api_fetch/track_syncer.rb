@@ -27,7 +27,7 @@ module Smoothie
         soundcloud = Smoothie::SoundcloudClient.new
 
         # Get the track attributes
-        track_data = soundcloud.get_track(@track.id)      
+        track_data = soundcloud.get_track(@track.id)
 
         # Save them
         [:users_count].each do |attribute|
