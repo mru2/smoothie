@@ -6,7 +6,7 @@ module Smoothie
 
     EXPIRATION = 86400 # 1 day
     FAVORITES_EXPIRATION = 86400 # 1 day
-    TRACKS_GRAPH_EXPIRATION = 86400 # 1 day
+    TRACKS_GRAPH_EXPIRATION = 604800 # 1 week
 
     include Redis::Objects
 
