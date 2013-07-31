@@ -28,6 +28,7 @@ set :rvm_path, "/home/#{user}/.rvm"
 after 'deploy:update_code',         'deploy:additional_symlinks'
 after 'deploy:additional_symlinks', 'deploy:grunt'
 after 'deploy:restart',             'deploy:cleanup'
+after 'deploy:restart',             'resque:restart'
 
 namespace :deploy do
  
@@ -55,4 +56,22 @@ namespace :deploy do
     run "cd #{release_path} && n 0.10.5 && npm install && bower install && grunt build"
   end
 
- end
+end
+
+namespace :resque do
+
+  task :start do
+    run "cd #{current_path}; bundle exec resque-pool --daemon --environment #{rack_env} start"
+  end
+
+  task :stop do
+    pid = "#{current_path}/tmp/pids/resque-pool.pid"
+    sudo "kill -2 `cat #{pid}`"
+  end
+
+  task :restart do
+    pid = "#{current_path}/tmp/pids/resque-pool.pid"
+    sudo "kill -1 `cat #{pid}`"    
+  end
+
+end
