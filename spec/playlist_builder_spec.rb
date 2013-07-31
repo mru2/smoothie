@@ -31,7 +31,7 @@ describe Smoothie::PlaylistBuilder do
       Smoothie::PlaylistSyncer.stub(:new).and_return(playlist_syncer)
 
       Smoothie::PlaylistSyncer.should_receive(:new).with({'id' => user_id})
-      playlist_syncer.should_receive(:run)
+      playlist_syncer.should_receive(:async_run)
 
       # Hack for rest of execution, find a way to remove it
       user.stub_chain(:track_ids, :members).and_return([])
