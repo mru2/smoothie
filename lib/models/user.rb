@@ -4,8 +4,8 @@ require 'track'
 module Smoothie
   class User
 
-    EXPIRATION = 86400 # 1 day
-    FAVORITES_EXPIRATION = 86400 # 1 day
+    EXPIRATION = 604800 # 1 week
+    FAVORITES_EXPIRATION = 604800 # 1 week
     TRACKS_GRAPH_EXPIRATION = 604800 # 1 week
 
     include Redis::Objects
