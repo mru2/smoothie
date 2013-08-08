@@ -5,9 +5,10 @@ require 'chainable_job/base_job'
 module Smoothie
   class PlaylistSyncer < Smoothie::ChainableJob::BaseJob
 
-    @queue = :default
+    @queue = :api
 
-    DEFAULT_LIMIT = 20
+    EXPIRATION = 86400 # 1 day
+
 
     def initialize(opts = {})
       super
@@ -19,16 +20,18 @@ module Smoothie
 
 
     def ready?
-      @user.favorites_up_to_date?
+      @user.favorites_synced?(EXPIRATION)
     end
 
 
     def perform
-      # Ensure the favorites ids are synced
-      wait_for ApiFetch::UserFavoritesSyncer.new('id' => @user.id, 'force' => true)
 
-      # Ensure the corresponding tracks are synced
-      # wait_for @user.track_ids.map{|track_id| TrackSyncer.new('id' => track_id)}
+      # Sync the user (to get the new track limit)
+      @user.sync!
+
+      # Sync its favorites
+      @user.sync_favorites!(:overwrite => true)
+
     end
 
   end

@@ -1,4 +1,5 @@
 require 'track'
+require 'soundcloud_client'
 
 # A track model
 module Smoothie
@@ -21,31 +22,63 @@ module Smoothie
       (args == [nil]) ? nil : super
     end
 
+
     def initialize(uid)
       @uid = uid
     end
+
 
     def id
       @uid
     end
 
-    def synced?
-      synced_at && !synced_at.value.nil?
+
+    def synced?(expiration = nil)
+      # Not synced ?
+      return false if synced_at.value.nil?
+
+      # Expired ?
+      !( expiration && ( Time.parse(synced_at.value) < (Time.now - expiration) ) )
     end
 
-    def set_synced!
+
+    def sync!
+      soundcloud = Smoothie::SoundcloudClient.new
+
+      # Get the user attributes
+      user_data = soundcloud.get_user(id)
+
+      # Save them
+      self.tracks_count = user_data.public_favorites_count
+
+      # Updated the synced_at time
       self.synced_at = Time.now
     end
 
-    def favorites_synced?
-      favorites_synced_at && !favorites_synced_at.value.nil?
+
+
+    def favorites_synced?(expiration = nil)
+      # Not synced ?
+      return false if favorites_synced_at.value.nil?
+
+      # Expired ?
+      !( expiration && ( Time.parse(favorites_synced_at.value) < (Time.now - expiration) ) )
     end
 
-    def favorites_up_to_date?
-      favorites_synced? && (Time.parse(favorites_synced_at.value) > (Time.now - FAVORITES_EXPIRATION))
-    end
 
-    def set_favorites_synced!
+    def sync_favorites!(opts = {})
+      limit     = opts[:limit]     || self.tracks_count.value.to_i
+      overwrite = opts[:overwrite] || false
+
+      soundcloud = Smoothie::SoundcloudClient.new
+      favorites_ids = soundcloud.get_user_favorites(id, limit)
+
+      if overwrite
+        track_ids.del
+      end
+
+      track_ids.add favorites_ids
+
       self.favorites_synced_at = Time.now
     end
 

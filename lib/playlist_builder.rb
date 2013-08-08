@@ -33,11 +33,8 @@ module Smoothie
     # The pool of favorite tracks on which the shuffle is made
     def favorite_track_ids
 
-      # Compute them if not present or out of date
-      # The check to do so is in the task, no need to make any checks
-      unless @user.favorites_up_to_date?
-        Smoothie::PlaylistSyncer.new('id' => @user.id).run
-      end
+      # Recompute them if not present or out of date
+      Smoothie::PlaylistSyncer.new('id' => @user.id).async_run
 
       # Cache and return them
       @favorite_track_ids ||= @user.track_ids.members 

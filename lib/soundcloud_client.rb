@@ -36,10 +36,6 @@ module Smoothie
     def get_user(user_id)
       Kernel.sleep WAIT_AFTER_REQUEST
       user_data = @client.get("/users/#{user_id}")
-
-      return {
-        :tracks_count  => user_data.public_favorites_count
-      }
     end
 
     # Get a user favorites
