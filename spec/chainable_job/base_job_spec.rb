@@ -66,14 +66,14 @@ describe Smoothie::ChainableJob::BaseJob do
   let(:job2){Job2.new}
 
 
-  it "should forward the force flag" do
+  # it "should forward the force flag" do
 
-    job2.arguments['force'] = true
-    External.should_receive(:doing_job_1).with('force' => true)
+  #   job2.arguments['force'] = true
+  #   External.should_receive(:doing_job_1).with('force' => true)
 
-    job2.run
+  #   job2.run
 
-  end
+  # end
 
 
   describe "equality" do

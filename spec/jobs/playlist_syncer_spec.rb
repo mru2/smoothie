@@ -13,7 +13,7 @@ describe Smoothie::PlaylistSyncer do
       user = Smoothie::User.new(user_id)
       user.favorites_synced?.should be_false
 
-      syncer.should_receive(:wait_for).with(Smoothie::ApiFetch::UserFavoritesSyncer.new('id' => user_id, 'force' => true))
+      syncer.should_receive(:wait_for).with(Smoothie::ApiFetch::UserFavoritesSyncer.new('id' => user_id))
 
       syncer.run
 

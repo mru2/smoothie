@@ -5,7 +5,9 @@ require 'soundcloud_client'
 module Smoothie
   class User
 
-    FAVORITES_EXPIRATION = 86400 # 1 day
+    EXPIRATION = 604800 # 1 week
+    FAVORITES_EXPIRATION = 604800 # 1 week
+    TRACKS_GRAPH_EXPIRATION = 604800 # 1 week
 
     include Redis::Objects
 
@@ -13,6 +15,7 @@ module Smoothie
 
     value :synced_at
     value :favorites_synced_at
+    value :tracks_graph_synced_at
 
     set   :track_ids
 
@@ -54,7 +57,7 @@ module Smoothie
       # Updated the synced_at time
       self.synced_at = Time.now
     end
-
+    
 
 
     def favorites_synced?(expiration = nil)
@@ -80,6 +83,19 @@ module Smoothie
       track_ids.add favorites_ids
 
       self.favorites_synced_at = Time.now
+    end
+
+
+    def tracks_graph_synced?
+      tracks_graph_synced_at && !tracks_graph_synced_at.value.nil?
+    end
+
+    def tracks_graph_up_to_date?
+      tracks_graph_synced? && (Time.parse(tracks_graph_synced_at.value) > (Time.now - TRACKS_GRAPH_EXPIRATION))
+    end
+
+    def set_track_graph_synced!
+      self.tracks_graph_synced_at = Time.now
     end
 
   end

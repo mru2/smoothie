@@ -17,7 +17,7 @@ module Smoothie
 
 
       def ready?
-        user.synced?
+        user.up_to_date?
       end
 
 

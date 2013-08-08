@@ -23,6 +23,7 @@ module Smoothie
         raise "#{self.class.name}#perform must be defined"
       end
 
+
       # Resque
       def self.perform(opts = {})
         new(opts).run
