@@ -1,49 +1,49 @@
-require 'track'
-require 'api_fetch/track_syncer'
-require 'soundcloud_client'
-require 'chainable_job/base_job'
+# require 'track'
+# require 'api_fetch/track_syncer'
+# require 'soundcloud_client'
+# require 'chainable_job/base_job'
 
-module Smoothie
-  module ApiFetch
-    class TrackFavoritersSyncer < Smoothie::ChainableJob::BaseJob
+# module Smoothie
+#   module ApiFetch
+#     class TrackFavoritersSyncer < Smoothie::ChainableJob::BaseJob
 
-      @queue = :api
-
-
-      def initialize(opts = {})
-        super
-
-        throw "id must be defined" unless @arguments['id']
-
-        @track = Smoothie::Track.new(@arguments['id'])
-      end
+#       @queue = :api
 
 
-      def ready?
-        @track.favoriters_up_to_date?
-      end
+#       def initialize(opts = {})
+#         super
+
+#         throw "id must be defined" unless @arguments['id']
+
+#         @track = Smoothie::Track.new(@arguments['id'])
+#       end
 
 
-      def perform
-        # Ensure the track is synced
-        wait_for ApiFetch::TrackSyncer.new('id' => @track.id)
+#       def ready?
+#         @track.favoriters_up_to_date?
+#       end
 
-        soundcloud = Smoothie::SoundcloudClient.new
 
-        # Get the favoriters ids
-        limit = @track.users_count.value.to_i
-        favoriter_ids = soundcloud.get_track_favoriters(@track.id, limit)
+#       def perform
+#         # Ensure the track is synced
+#         wait_for ApiFetch::TrackSyncer.new('id' => @track.id)
 
-        # Save them
-        unless favoriter_ids.empty?
-          @track.user_ids.del
-          @track.user_ids << favoriter_ids
-        end
+#         soundcloud = Smoothie::SoundcloudClient.new
 
-        # Updated the synced_at time
-        @track.set_favoriters_synced!
-      end
+#         # Get the favoriters ids
+#         limit = @track.users_count.value.to_i
+#         favoriter_ids = soundcloud.get_track_favoriters(@track.id, limit)
 
-    end
-  end
-end
+#         # Save them
+#         unless favoriter_ids.empty?
+#           @track.user_ids.del
+#           @track.user_ids << favoriter_ids
+#         end
+
+#         # Updated the synced_at time
+#         @track.set_favoriters_synced!
+#       end
+
+#     end
+#   end
+# end

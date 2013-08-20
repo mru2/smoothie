@@ -1,43 +1,43 @@
-require 'track'
-require 'soundcloud_client'
-require 'chainable_job/base_job'
+# require 'track'
+# require 'soundcloud_client'
+# require 'chainable_job/base_job'
 
-module Smoothie
-  module ApiFetch
-    class TrackSyncer < Smoothie::ChainableJob::BaseJob
+# module Smoothie
+#   module ApiFetch
+#     class TrackSyncer < Smoothie::ChainableJob::BaseJob
 
-      @queue = :api
-
-
-      def initialize(opts = {})
-        super
-
-        throw "id must be defined" unless @arguments['id']
-        @track = Smoothie::Track.new(@arguments['id'])
-      end
+#       @queue = :api
 
 
-      def ready?
-        @track.up_to_date?
-      end
+#       def initialize(opts = {})
+#         super
+
+#         throw "id must be defined" unless @arguments['id']
+#         @track = Smoothie::Track.new(@arguments['id'])
+#       end
 
 
-      def perform
-        # Core fetching
-        soundcloud = Smoothie::SoundcloudClient.new
+#       def ready?
+#         @track.up_to_date?
+#       end
 
-        # Get the track attributes
-        track_data = soundcloud.get_track(@track.id)
 
-        # Save them
-        [:users_count].each do |attribute|
-          @track.send(:"#{attribute}=", track_data[attribute])
-        end
+#       def perform
+#         # Core fetching
+#         soundcloud = Smoothie::SoundcloudClient.new
 
-        # Updating synced_at time
-        @track.set_synced!
-      end
+#         # Get the track attributes
+#         track_data = soundcloud.get_track(@track.id)
 
-    end
-  end
-end
+#         # Save them
+#         [:users_count].each do |attribute|
+#           @track.send(:"#{attribute}=", track_data[attribute])
+#         end
+
+#         # Updating synced_at time
+#         @track.set_synced!
+#       end
+
+#     end
+#   end
+# end

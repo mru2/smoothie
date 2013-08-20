@@ -6,16 +6,37 @@ describe Smoothie::User do
   let(:user_id){1}
   let(:user){Smoothie::User.new(user_id)}
 
-  describe "#favorites_up_to_date?" do
+  describe "#synced?" do
 
-    it "should be true for favorites synced up to the day before" do
-      user.favorites_up_to_date?.should be_false
+    describe "without arguments" do
 
-      user.favorites_synced_at = Time.now - Smoothie::User::FAVORITES_EXPIRATION - 60
-      user.favorites_up_to_date?.should be_false
+      it "should be false for unsynced users" do
+        user.synced?.should be_false
+      end
 
-      user.favorites_synced_at = Time.now - Smoothie::User::FAVORITES_EXPIRATION + 60
-      user.favorites_up_to_date?.should be_true
+      it "should be true for synced users, whatever their value" do
+        user.synced_at = Time.new(0)
+        user.synced?.should be_true        
+      end
+
+    end
+
+
+    describe "with arguments" do
+
+      let(:delay){Smoothie::User::EXPIRATION}
+
+      it "should be false for unsynced users" do
+        user.synced?(delay).should be_false
+      end
+
+      it "should be true for users synced after the given delay" do
+        user.synced_at = Time.now - delay
+
+        user.synced?(delay-1).should be_false
+        user.synced?(delay+1).should be_true
+      end
+
     end
 
   end

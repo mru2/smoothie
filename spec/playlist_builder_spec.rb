@@ -3,7 +3,8 @@ require 'playlist_builder'
 
 describe Smoothie::PlaylistBuilder do
 
-  let(:user){mock('a user')}
+  let(:user_id){1234}
+  let(:user){Smoothie::User.new(user_id)}
   let(:seed){123456}
   let(:playlist_builder){Smoothie::PlaylistBuilder.new(user, seed)}
 
@@ -11,7 +12,6 @@ describe Smoothie::PlaylistBuilder do
 
     it "should return a shuffle of the users favorites" do
 
-      user.stub(:favorites_up_to_date?).and_return(true)
       user.stub_chain(:track_ids, :members).and_return((1..100).to_a)
 
       res = playlist_builder.track_ids
@@ -20,12 +20,7 @@ describe Smoothie::PlaylistBuilder do
 
     end
      
-    it "should run the syncing if the favorites are not up to date" do
-
-      user_id = 1234
-
-      user.stub(:favorites_up_to_date?).and_return(false)
-      user.stub(:id).and_return(user_id)
+    it "should try to run the syncing" do
 
       playlist_syncer = mock('a playlist syncer')
       Smoothie::PlaylistSyncer.stub(:new).and_return(playlist_syncer)

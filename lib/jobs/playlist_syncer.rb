@@ -1,9 +1,8 @@
+require 'base_job'
 require 'user'
-require 'api_fetch/user_favorites_syncer'
-require 'chainable_job/base_job'
 
 module Smoothie
-  class PlaylistSyncer < Smoothie::ChainableJob::BaseJob
+  class PlaylistSyncer < Smoothie::BaseJob
 
     @queue = :api
 

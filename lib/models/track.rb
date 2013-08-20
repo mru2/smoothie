@@ -31,31 +31,31 @@ module Smoothie
     end
 
 
-    def synced?
-      synced_at && !synced_at.value.nil?
-    end
+    # def synced?
+    #   synced_at && !synced_at.value.nil?
+    # end
 
-    def up_to_date?
-      synced? && (Time.parse(synced_at.value) > (Time.now - EXPIRATION))
-    end
+    # def up_to_date?
+    #   synced? && (Time.parse(synced_at.value) > (Time.now - EXPIRATION))
+    # end
 
-    def set_synced!
-      self.synced_at = Time.now
-    end
+    # def set_synced!
+    #   self.synced_at = Time.now
+    # end
 
 
 
-    def favoriters_synced?
-      favoriters_synced_at && !favoriters_synced_at.value.nil?
-    end
+    # def favoriters_synced?
+    #   favoriters_synced_at && !favoriters_synced_at.value.nil?
+    # end
 
-    def favoriters_up_to_date?
-      favoriters_synced? && (Time.parse(favoriters_synced_at.value) > (Time.now - FAVORITES_EXPIRATION))
-    end
+    # def favoriters_up_to_date?
+    #   favoriters_synced? && (Time.parse(favoriters_synced_at.value) > (Time.now - FAVORITES_EXPIRATION))
+    # end
 
-    def set_favoriters_synced!
-      self.favoriters_synced_at = Time.now
-    end
+    # def set_favoriters_synced!
+    #   self.favoriters_synced_at = Time.now
+    # end
 
   end
 end

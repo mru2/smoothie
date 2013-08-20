@@ -8,16 +8,16 @@ describe Smoothie::PlaylistSyncer do
 
   describe "#run" do
 
-    it "should call the user favorites syncer" do
+    # it "should call the user favorites syncer" do
 
-      user = Smoothie::User.new(user_id)
-      user.favorites_synced?.should be_false
+    #   user = Smoothie::User.new(user_id)
+    #   user.favorites_synced?.should be_false
 
-      syncer.should_receive(:wait_for).with(Smoothie::ApiFetch::UserFavoritesSyncer.new('id' => user_id))
+    #   syncer.should_receive(:wait_for).with(Smoothie::ApiFetch::UserFavoritesSyncer.new('id' => user_id))
 
-      syncer.run
+    #   syncer.run
 
-    end
+    # end
 
   end
  

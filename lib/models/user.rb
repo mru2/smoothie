@@ -86,17 +86,17 @@ module Smoothie
     end
 
 
-    def tracks_graph_synced?
-      tracks_graph_synced_at && !tracks_graph_synced_at.value.nil?
-    end
+    # def tracks_graph_synced?
+    #   tracks_graph_synced_at && !tracks_graph_synced_at.value.nil?
+    # end
 
-    def tracks_graph_up_to_date?
-      tracks_graph_synced? && (Time.parse(tracks_graph_synced_at.value) > (Time.now - TRACKS_GRAPH_EXPIRATION))
-    end
+    # def tracks_graph_up_to_date?
+    #   tracks_graph_synced? && (Time.parse(tracks_graph_synced_at.value) > (Time.now - TRACKS_GRAPH_EXPIRATION))
+    # end
 
-    def set_track_graph_synced!
-      self.tracks_graph_synced_at = Time.now
-    end
+    # def set_track_graph_synced!
+    #   self.tracks_graph_synced_at = Time.now
+    # end
 
   end
 end
