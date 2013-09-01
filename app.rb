@@ -3,6 +3,7 @@ require 'sinatra/base'
 require 'soundcloud_client'
 require 'user'
 require 'playlist_builder'
+require 'recommender'
 
 module Smoothie
   class Application < Sinatra::Base
@@ -36,6 +37,21 @@ module Smoothie
         :seed   => playlist.seed.to_s,
         :tracks => playlist.track_ids(:limit => params[:limit], :offset => params[:offset])
       }.to_json
+    end
+
+    # The recommended tracks
+    get '/api/v1/recommended_tracks.json' do
+      content_type :json
+
+      # Checking a user is provided
+      if !params[:id]
+        response.status = 400
+        return
+      end
+
+      user = Smoothie::User.new(params[:id])
+      return Smoothie::Recommender.new(user).recommended_tracks.to_json
+
     end
 
   end
