@@ -26,10 +26,6 @@ module Smoothie
     def get_track(track_id)
       Kernel.sleep WAIT_AFTER_REQUEST
       track_data = @client.get("/tracks/#{track_id}")
-
-      return {
-        :users_count  => track_data.favoritings_count
-      }
     end
 
     # Get a user relevant data

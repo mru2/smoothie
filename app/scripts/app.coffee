@@ -52,7 +52,7 @@ define ['jquery', 'underscore', 'smoothie/modules/soundcloud', 'smoothie/control
       SC.stream('/tracks/1')
 
       SC.get '/me', (user) =>
-        RadioController.initialize { 
+        @radio = RadioController.initialize { 
           userId: user.id
           container: @container
         }

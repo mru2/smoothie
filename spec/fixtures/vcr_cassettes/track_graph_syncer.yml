@@ -1,0 +1,619 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.soundcloud.com/users/3207?client_id=d082276d6bcf9390cb2b1dab9197ce0e&format=json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - SoundCloud Ruby Wrapper 0.3.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Sun, 01 Sep 2013 09:39:16 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '685'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=600, public
+      Vary:
+      - Authorization, Accept, Accept-Encoding
+      X-Runtime:
+      - '18'
+      Etag:
+      - '"4c5ce028e08e20e9847ffd7145ff4c26"'
+      Access-Control-Allow-Methods:
+      - GET, PUT, POST, DELETE
+      Access-Control-Allow-Headers:
+      - Accept, Authorization, Content-Type, Origin
+      Access-Control-Expose-Headers:
+      - Date
+      Access-Control-Allow-Origin:
+      - '*'
+      X-Cacheable:
+      - 'YES'
+      X-Varnish:
+      - '2394023622'
+      Age:
+      - '0'
+      Via:
+      - 1.1 varnish
+      X-Cache:
+      - MISS
+    body:
+      encoding: UTF-8
+      string: '{"id":3207,"kind":"user","permalink":"jwagener","username":"Johannes
+        Wagener","uri":"http://api.soundcloud.com/users/3207","permalink_url":"http://soundcloud.com/jwagener","avatar_url":"http://i1.sndcdn.com/avatars-000014428549-3at7qc-large.jpg?0769104","country":"Germany","full_name":"Johannes
+        Wagener","description":"\u003Cb\u003EExSoundClouder, now traveling. Still
+        hacking.\u003C/b\u003E","city":"Berlin","discogs_name":null,"myspace_name":null,"website":"http://johannes.wagener.cc","website_title":"johannes.wagener.cc","online":true,"track_count":55,"playlist_count":2,"plan":"Free","public_favorites_count":101,"followers_count":1945,"followings_count":310,"subscriptions":[]}'
+    http_version: 
+  recorded_at: Sun, 01 Sep 2013 09:39:16 GMT
+- request:
+    method: get
+    uri: http://api.soundcloud.com/users/3207/favorites?client_id=d082276d6bcf9390cb2b1dab9197ce0e&format=json&limit=2&offset=0
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - SoundCloud Ruby Wrapper 0.3.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Sun, 01 Sep 2013 09:39:16 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '3520'
+      Connection:
+      - keep-alive
+      X-Runtime:
+      - '43'
+      Etag:
+      - '"3b189b84ba99c153788f920ad0b3f225"'
+      Cache-Control:
+      - private, max-age=0, must-revalidate
+      Access-Control-Allow-Methods:
+      - GET, PUT, POST, DELETE
+      Access-Control-Allow-Headers:
+      - Accept, Authorization, Content-Type, Origin
+      Access-Control-Expose-Headers:
+      - Date
+      Access-Control-Allow-Origin:
+      - '*'
+      Vary:
+      - Accept-Encoding
+      X-Cacheable:
+      - NO:Cache-Control=max-age=0
+      X-Varnish:
+      - '1244503460'
+      Age:
+      - '0'
+      Via:
+      - 1.1 varnish
+      X-Cache:
+      - MISS
+    body:
+      encoding: UTF-8
+      string: '[{"kind":"track","id":46192720,"created_at":"2012/05/12 23:27:41 +0000","user_id":5389544,"duration":90757,"commentable":true,"state":"finished","original_content_size":15998600,"sharing":"public","tag_list":"","permalink":"foley-moley-virtual-3d-audio","streamable":true,"embeddable_by":"all","downloadable":false,"purchase_url":null,"label_id":null,"purchase_title":null,"genre":"","title":"Foley
+        Moley (Virtual 3D Audio)","description":"Stereo headphones required.\r\n\r\nThis
+        is a track composed entirely of sounds from around my house. The sounds were
+        recorded using U87 and NT1-A condensers through a Sound Devices 702, and sequenced
+        in Ableton Live.\r\n\r\nThe recording is made using a moving custom dummy
+        head fitted with silicon ears and binaural microphones, while the sounds are
+        routed through 4 studio monitors that are positioned around the room. I wanted
+        to create an immersive experience with this piece, and hope to release a video
+        for it on YouTube in the future.","label_name":"","release":"","track_type":"original","key_signature":"","isrc":"","video_url":null,"bpm":null,"release_year":null,"release_month":null,"release_day":null,"original_format":"wav","license":"all-rights-reserved","uri":"http://api.soundcloud.com/tracks/46192720","user":{"id":5389544,"kind":"user","permalink":"pogomix","username":"PogoMix","uri":"http://api.soundcloud.com/users/5389544","permalink_url":"http://soundcloud.com/pogomix","avatar_url":"http://i1.sndcdn.com/avatars-000051346225-h5gscf-large.jpg?0769104"},"permalink_url":"http://soundcloud.com/pogomix/foley-moley-virtual-3d-audio","artwork_url":"http://i1.sndcdn.com/artworks-000023236663-h9sgn8-large.jpg?0769104","waveform_url":"http://w1.sndcdn.com/aBSymzIGUp74_m.png","stream_url":"http://api.soundcloud.com/tracks/46192720/stream","playback_count":44900,"download_count":0,"favoritings_count":722,"comment_count":87,"attachments_uri":"http://api.soundcloud.com/tracks/46192720/attachments"},{"kind":"track","id":61369017,"created_at":"2012/09/27
+        15:40:15 +0000","user_id":6266041,"duration":230970,"commentable":true,"state":"finished","original_content_size":3743980,"sharing":"public","tag_list":"","permalink":"her-tea-leaves","streamable":true,"embeddable_by":"all","downloadable":false,"purchase_url":null,"label_id":null,"purchase_title":null,"genre":"","title":"Her
+        Tea Leaves","description":"Celebrating the album \"The Creek Drank The Cradle\"
+        at 10 years!\r\n\r\nOriginally released as bonus 7\" vinyl with \"Creek.\"\r\n\r\nThanks
+        for 10 years of listening and support!","label_name":"","release":"","track_type":"","key_signature":"","isrc":"","video_url":null,"bpm":null,"release_year":null,"release_month":null,"release_day":null,"original_format":"m4a","license":"all-rights-reserved","uri":"http://api.soundcloud.com/tracks/61369017","user":{"id":6266041,"kind":"user","permalink":"ironandwine","username":"Iron
+        and Wine","uri":"http://api.soundcloud.com/users/6266041","permalink_url":"http://soundcloud.com/ironandwine","avatar_url":"http://i1.sndcdn.com/avatars-000005058248-x9q3pr-large.jpg?0769104"},"permalink_url":"http://soundcloud.com/ironandwine/her-tea-leaves","artwork_url":"http://i1.sndcdn.com/artworks-000031116181-e6466h-large.jpg?0769104","waveform_url":"http://w1.sndcdn.com/EniZok83c6Ua_m.png","stream_url":"http://api.soundcloud.com/tracks/61369017/stream","playback_count":35769,"download_count":0,"favoritings_count":571,"comment_count":43,"attachments_uri":"http://api.soundcloud.com/tracks/61369017/attachments"}]'
+    http_version: 
+  recorded_at: Sun, 01 Sep 2013 09:39:16 GMT
+- request:
+    method: get
+    uri: http://api.soundcloud.com/tracks/46192720?client_id=d082276d6bcf9390cb2b1dab9197ce0e&format=json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - SoundCloud Ruby Wrapper 0.3.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Sun, 01 Sep 2013 09:39:16 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '1956'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=600, public
+      Vary:
+      - Authorization, Accept, Accept-Encoding
+      X-Runtime:
+      - '8'
+      Etag:
+      - '"98bb7caa2adc6657c01f7b1ae47de7be"'
+      Access-Control-Allow-Methods:
+      - GET, PUT, POST, DELETE
+      Access-Control-Allow-Headers:
+      - Accept, Authorization, Content-Type, Origin
+      Access-Control-Expose-Headers:
+      - Date
+      Access-Control-Allow-Origin:
+      - '*'
+      X-Cacheable:
+      - 'YES'
+      X-Varnish:
+      - '2394025174'
+      Age:
+      - '0'
+      Via:
+      - 1.1 varnish
+      X-Cache:
+      - MISS
+    body:
+      encoding: UTF-8
+      string: '{"kind":"track","id":46192720,"created_at":"2012/05/12 23:27:41 +0000","user_id":5389544,"duration":90757,"commentable":true,"state":"finished","original_content_size":15998600,"sharing":"public","tag_list":"","permalink":"foley-moley-virtual-3d-audio","streamable":true,"embeddable_by":"all","downloadable":false,"purchase_url":null,"label_id":null,"purchase_title":null,"genre":"","title":"Foley
+        Moley (Virtual 3D Audio)","description":"Stereo headphones required.\r\n\r\nThis
+        is a track composed entirely of sounds from around my house. The sounds were
+        recorded using U87 and NT1-A condensers through a Sound Devices 702, and sequenced
+        in Ableton Live.\r\n\r\nThe recording is made using a moving custom dummy
+        head fitted with silicon ears and binaural microphones, while the sounds are
+        routed through 4 studio monitors that are positioned around the room. I wanted
+        to create an immersive experience with this piece, and hope to release a video
+        for it on YouTube in the future.","label_name":"","release":"","track_type":"original","key_signature":"","isrc":"","video_url":null,"bpm":null,"release_year":null,"release_month":null,"release_day":null,"original_format":"wav","license":"all-rights-reserved","uri":"http://api.soundcloud.com/tracks/46192720","user":{"id":5389544,"kind":"user","permalink":"pogomix","username":"PogoMix","uri":"http://api.soundcloud.com/users/5389544","permalink_url":"http://soundcloud.com/pogomix","avatar_url":"http://i1.sndcdn.com/avatars-000051346225-h5gscf-large.jpg?0769104"},"permalink_url":"http://soundcloud.com/pogomix/foley-moley-virtual-3d-audio","artwork_url":"http://i1.sndcdn.com/artworks-000023236663-h9sgn8-large.jpg?0769104","waveform_url":"http://w1.sndcdn.com/aBSymzIGUp74_m.png","stream_url":"http://api.soundcloud.com/tracks/46192720/stream","playback_count":44900,"download_count":0,"favoritings_count":722,"comment_count":87,"attachments_uri":"http://api.soundcloud.com/tracks/46192720/attachments"}'
+    http_version: 
+  recorded_at: Sun, 01 Sep 2013 09:39:16 GMT
+- request:
+    method: get
+    uri: http://api.soundcloud.com/tracks/46192720/favoriters?client_id=d082276d6bcf9390cb2b1dab9197ce0e&format=json&limit=2&offset=0
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - SoundCloud Ruby Wrapper 0.3.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Sun, 01 Sep 2013 09:39:17 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '1111'
+      Connection:
+      - keep-alive
+      X-Runtime:
+      - '168'
+      Etag:
+      - '"8b14b746b0f057deb1b8531d879a17c4"'
+      Cache-Control:
+      - private, max-age=0, must-revalidate
+      Access-Control-Allow-Methods:
+      - GET, PUT, POST, DELETE
+      Access-Control-Allow-Headers:
+      - Accept, Authorization, Content-Type, Origin
+      Access-Control-Expose-Headers:
+      - Date
+      Access-Control-Allow-Origin:
+      - '*'
+      Vary:
+      - Accept-Encoding
+      X-Cacheable:
+      - NO:Cache-Control=max-age=0
+      X-Varnish:
+      - '1244504980'
+      Age:
+      - '0'
+      Via:
+      - 1.1 varnish
+      X-Cache:
+      - MISS
+    body:
+      encoding: UTF-8
+      string: '[{"id":6330373,"kind":"user","permalink":"alexandraka","username":"Alexandraka","uri":"http://api.soundcloud.com/users/6330373","permalink_url":"http://soundcloud.com/alexandraka","avatar_url":"http://i1.sndcdn.com/avatars-000050081050-wu18oe-large.jpg?0769104","country":"Netherlands","full_name":"Alexandra
+        A","description":null,"city":"Breda","discogs_name":null,"myspace_name":null,"website":null,"website_title":null,"online":true,"track_count":0,"playlist_count":0,"plan":"Free","public_favorites_count":30,"followers_count":0,"followings_count":9,"subscriptions":[]},{"id":31150765,"kind":"user","permalink":"mhmd43","username":"MHMD43","uri":"http://api.soundcloud.com/users/31150765","permalink_url":"http://soundcloud.com/mhmd43","avatar_url":"http://i1.sndcdn.com/avatars-000029294024-smq1m2-large.jpg?0769104","country":null,"full_name":"","description":null,"city":null,"discogs_name":null,"myspace_name":null,"website":null,"website_title":null,"online":true,"track_count":0,"playlist_count":0,"plan":"Free","public_favorites_count":95,"followers_count":5,"followings_count":2,"subscriptions":[]}]'
+    http_version: 
+  recorded_at: Sun, 01 Sep 2013 09:39:17 GMT
+- request:
+    method: get
+    uri: http://api.soundcloud.com/tracks/61369017?client_id=d082276d6bcf9390cb2b1dab9197ce0e&format=json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - SoundCloud Ruby Wrapper 0.3.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Sun, 01 Sep 2013 09:39:17 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '1561'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=600, public
+      Vary:
+      - Authorization, Accept, Accept-Encoding
+      X-Runtime:
+      - '20'
+      Etag:
+      - '"7fb4eeb213397ac3e4e6f8a4025e5cfc"'
+      Access-Control-Allow-Methods:
+      - GET, PUT, POST, DELETE
+      Access-Control-Allow-Headers:
+      - Accept, Authorization, Content-Type, Origin
+      Access-Control-Expose-Headers:
+      - Date
+      Access-Control-Allow-Origin:
+      - '*'
+      X-Cacheable:
+      - 'YES'
+      X-Varnish:
+      - '2394027909'
+      Age:
+      - '0'
+      Via:
+      - 1.1 varnish
+      X-Cache:
+      - MISS
+    body:
+      encoding: UTF-8
+      string: '{"kind":"track","id":61369017,"created_at":"2012/09/27 15:40:15 +0000","user_id":6266041,"duration":230970,"commentable":true,"state":"finished","original_content_size":3743980,"sharing":"public","tag_list":"","permalink":"her-tea-leaves","streamable":true,"embeddable_by":"all","downloadable":false,"purchase_url":null,"label_id":null,"purchase_title":null,"genre":"","title":"Her
+        Tea Leaves","description":"Celebrating the album \"The Creek Drank The Cradle\"
+        at 10 years!\r\n\r\nOriginally released as bonus 7\" vinyl with \"Creek.\"\r\n\r\nThanks
+        for 10 years of listening and support!","label_name":"","release":"","track_type":"","key_signature":"","isrc":"","video_url":null,"bpm":null,"release_year":null,"release_month":null,"release_day":null,"original_format":"m4a","license":"all-rights-reserved","uri":"http://api.soundcloud.com/tracks/61369017","user":{"id":6266041,"kind":"user","permalink":"ironandwine","username":"Iron
+        and Wine","uri":"http://api.soundcloud.com/users/6266041","permalink_url":"http://soundcloud.com/ironandwine","avatar_url":"http://i1.sndcdn.com/avatars-000005058248-x9q3pr-large.jpg?0769104"},"permalink_url":"http://soundcloud.com/ironandwine/her-tea-leaves","artwork_url":"http://i1.sndcdn.com/artworks-000031116181-e6466h-large.jpg?0769104","waveform_url":"http://w1.sndcdn.com/EniZok83c6Ua_m.png","stream_url":"http://api.soundcloud.com/tracks/61369017/stream","playback_count":35769,"download_count":0,"favoritings_count":571,"comment_count":43,"attachments_uri":"http://api.soundcloud.com/tracks/61369017/attachments"}'
+    http_version: 
+  recorded_at: Sun, 01 Sep 2013 09:39:17 GMT
+- request:
+    method: get
+    uri: http://api.soundcloud.com/tracks/61369017/favoriters?client_id=d082276d6bcf9390cb2b1dab9197ce0e&format=json&limit=2&offset=0
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - SoundCloud Ruby Wrapper 0.3.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Sun, 01 Sep 2013 09:39:17 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '1166'
+      Connection:
+      - keep-alive
+      X-Runtime:
+      - '215'
+      Etag:
+      - '"ab464c5f9f284a4e0d5e674aa6544ee0"'
+      Cache-Control:
+      - private, max-age=0, must-revalidate
+      Access-Control-Allow-Methods:
+      - GET, PUT, POST, DELETE
+      Access-Control-Allow-Headers:
+      - Accept, Authorization, Content-Type, Origin
+      Access-Control-Expose-Headers:
+      - Date
+      Access-Control-Allow-Origin:
+      - '*'
+      Vary:
+      - Accept-Encoding
+      X-Cacheable:
+      - NO:Cache-Control=max-age=0
+      X-Varnish:
+      - '1244507847'
+      Age:
+      - '0'
+      Via:
+      - 1.1 varnish
+      X-Cache:
+      - MISS
+    body:
+      encoding: UTF-8
+      string: '[{"id":44246413,"kind":"user","permalink":"louis-benjamin-dubuis","username":"Louis-Benjamin
+        Dubuis","uri":"http://api.soundcloud.com/users/44246413","permalink_url":"http://soundcloud.com/louis-benjamin-dubuis","avatar_url":"http://i1.sndcdn.com/avatars-000041250783-cmcb1w-large.jpg?0769104","country":null,"full_name":"Louis-Benjamin
+        Dubuis","description":null,"city":null,"discogs_name":null,"myspace_name":null,"website":null,"website_title":null,"online":true,"track_count":0,"playlist_count":0,"plan":"Free","public_favorites_count":69,"followers_count":12,"followings_count":73,"subscriptions":[]},{"id":33070066,"kind":"user","permalink":"chanel-kim","username":"pizzaurass","uri":"http://api.soundcloud.com/users/33070066","permalink_url":"http://soundcloud.com/chanel-kim","avatar_url":"http://i1.sndcdn.com/avatars-000049356585-8yysbs-large.jpg?0769104","country":null,"full_name":"Chanel
+        Kim","description":null,"city":null,"discogs_name":null,"myspace_name":null,"website":null,"website_title":null,"online":true,"track_count":0,"playlist_count":0,"plan":"Free","public_favorites_count":102,"followers_count":5,"followings_count":3,"subscriptions":[]}]'
+    http_version: 
+  recorded_at: Sun, 01 Sep 2013 09:39:17 GMT
+- request:
+    method: get
+    uri: http://api.soundcloud.com/users/33070066?client_id=d082276d6bcf9390cb2b1dab9197ce0e&format=json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - SoundCloud Ruby Wrapper 0.3.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Sun, 01 Sep 2013 11:17:45 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '560'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=600, public
+      Vary:
+      - Authorization, Accept, Accept-Encoding
+      X-Runtime:
+      - '35'
+      Etag:
+      - '"3af50e9baaf7394776bf4a95c3aa4a81"'
+      Access-Control-Allow-Methods:
+      - GET, PUT, POST, DELETE
+      Access-Control-Allow-Headers:
+      - Accept, Authorization, Content-Type, Origin
+      Access-Control-Expose-Headers:
+      - Date
+      Access-Control-Allow-Origin:
+      - '*'
+      X-Cacheable:
+      - 'YES'
+      X-Varnish:
+      - '2426813831'
+      Age:
+      - '0'
+      Via:
+      - 1.1 varnish
+      X-Cache:
+      - MISS
+    body:
+      encoding: UTF-8
+      string: '{"id":33070066,"kind":"user","permalink":"chanel-kim","username":"pizzaurass","uri":"http://api.soundcloud.com/users/33070066","permalink_url":"http://soundcloud.com/chanel-kim","avatar_url":"http://i1.sndcdn.com/avatars-000049356585-8yysbs-large.jpg?0769104","country":null,"full_name":"Chanel
+        Kim","description":null,"city":null,"discogs_name":null,"myspace_name":null,"website":null,"website_title":null,"online":false,"track_count":0,"playlist_count":0,"plan":"Free","public_favorites_count":102,"followers_count":5,"followings_count":3,"subscriptions":[]}'
+    http_version: 
+  recorded_at: Sun, 01 Sep 2013 11:17:45 GMT
+- request:
+    method: get
+    uri: http://api.soundcloud.com/users/33070066/favorites?client_id=d082276d6bcf9390cb2b1dab9197ce0e&format=json&limit=2&offset=0
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - SoundCloud Ruby Wrapper 0.3.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Sun, 01 Sep 2013 11:23:40 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '3078'
+      Connection:
+      - keep-alive
+      X-Runtime:
+      - '39'
+      Etag:
+      - '"2271c3adc6131bdcbc7678112747ac19"'
+      Cache-Control:
+      - private, max-age=0, must-revalidate
+      Access-Control-Allow-Methods:
+      - GET, PUT, POST, DELETE
+      Access-Control-Allow-Headers:
+      - Accept, Authorization, Content-Type, Origin
+      Access-Control-Expose-Headers:
+      - Date
+      Access-Control-Allow-Origin:
+      - '*'
+      Vary:
+      - Accept-Encoding
+      X-Cacheable:
+      - NO:Cache-Control=max-age=0
+      X-Varnish:
+      - '1279318926'
+      Age:
+      - '0'
+      Via:
+      - 1.1 varnish
+      X-Cache:
+      - MISS
+    body:
+      encoding: UTF-8
+      string: '[{"kind":"track","id":108004902,"created_at":"2013/08/30 13:42:41 +0000","user_id":42596949,"duration":197241,"commentable":true,"state":"finished","original_content_size":7892031,"sharing":"public","tag_list":"Arctic
+        Monkeys AM Stop The World I Wanna Get Off With You","permalink":"arctic-monkeys-stop-the-world","streamable":true,"embeddable_by":"all","downloadable":false,"purchase_url":null,"label_id":null,"purchase_title":null,"genre":"","title":"Arctic
+        Monkeys - Stop The World I Wanna Get Off With You","description":"","label_name":"","release":"","track_type":"","key_signature":"","isrc":"","video_url":null,"bpm":null,"release_year":null,"release_month":null,"release_day":null,"original_format":"mp3","license":"all-rights-reserved","uri":"http://api.soundcloud.com/tracks/108004902","user":{"id":42596949,"kind":"user","permalink":"indoorsoutdoors","username":"Indoors
+        Outdoors","uri":"http://api.soundcloud.com/users/42596949","permalink_url":"http://soundcloud.com/indoorsoutdoors","avatar_url":"http://i1.sndcdn.com/avatars-000050505595-fcloee-large.jpg?0769104"},"permalink_url":"http://soundcloud.com/indoorsoutdoors/arctic-monkeys-stop-the-world","artwork_url":"http://i1.sndcdn.com/artworks-000056575128-icyb87-large.jpg?0769104","waveform_url":"http://w1.sndcdn.com/a0YRpmwqRNPM_m.png","stream_url":"http://api.soundcloud.com/tracks/108004902/stream","playback_count":1421,"download_count":0,"favoritings_count":90,"comment_count":0,"attachments_uri":"http://api.soundcloud.com/tracks/108004902/attachments"},{"kind":"track","id":101093992,"created_at":"2013/07/15
+        03:35:00 +0000","user_id":34820958,"duration":242125,"commentable":true,"state":"finished","original_content_size":9683102,"sharing":"public","tag_list":"lana
+        del rey lanadelrey demos musicas download","permalink":"tv-in-black-white","streamable":true,"embeddable_by":"all","downloadable":true,"purchase_url":null,"label_id":null,"purchase_title":null,"genre":"","title":"TV
+        In Black \u0026 White","description":"","label_name":"","release":"","track_type":"demo","key_signature":"","isrc":"","video_url":null,"bpm":null,"release_year":null,"release_month":null,"release_day":null,"original_format":"mp3","license":"all-rights-reserved","uri":"http://api.soundcloud.com/tracks/101093992","user":{"id":34820958,"kind":"user","permalink":"leticia-bitencourt","username":"Leticia
+        Bitencourt","uri":"http://api.soundcloud.com/users/34820958","permalink_url":"http://soundcloud.com/leticia-bitencourt","avatar_url":"http://i1.sndcdn.com/avatars-000043033178-stojh3-large.jpg?0769104"},"permalink_url":"http://soundcloud.com/leticia-bitencourt/tv-in-black-white","artwork_url":"http://i1.sndcdn.com/artworks-000052945698-zt7h3b-large.jpg?0769104","waveform_url":"http://w1.sndcdn.com/H2xE3fmrFtKx_m.png","stream_url":"http://api.soundcloud.com/tracks/101093992/stream","download_url":"http://api.soundcloud.com/tracks/101093992/download","playback_count":2347,"download_count":38,"favoritings_count":37,"comment_count":0,"attachments_uri":"http://api.soundcloud.com/tracks/101093992/attachments"}]'
+    http_version: 
+  recorded_at: Sun, 01 Sep 2013 11:23:40 GMT
+- request:
+    method: get
+    uri: http://api.soundcloud.com/users/44246413?client_id=d082276d6bcf9390cb2b1dab9197ce0e&format=json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - SoundCloud Ruby Wrapper 0.3.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Sun, 01 Sep 2013 11:23:40 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '605'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=600, public
+      Vary:
+      - Authorization, Accept, Accept-Encoding
+      X-Runtime:
+      - '26'
+      Etag:
+      - '"d47d48e72d5c40a7ba3c96c3ea90b786"'
+      Access-Control-Allow-Methods:
+      - GET, PUT, POST, DELETE
+      Access-Control-Allow-Headers:
+      - Accept, Authorization, Content-Type, Origin
+      Access-Control-Expose-Headers:
+      - Date
+      Access-Control-Allow-Origin:
+      - '*'
+      X-Cacheable:
+      - 'YES'
+      X-Varnish:
+      - '1279319875'
+      Age:
+      - '0'
+      Via:
+      - 1.1 varnish
+      X-Cache:
+      - MISS
+    body:
+      encoding: UTF-8
+      string: '{"id":44246413,"kind":"user","permalink":"louis-benjamin-dubuis","username":"Louis-Benjamin
+        Dubuis","uri":"http://api.soundcloud.com/users/44246413","permalink_url":"http://soundcloud.com/louis-benjamin-dubuis","avatar_url":"http://i1.sndcdn.com/avatars-000041250783-cmcb1w-large.jpg?0769104","country":null,"full_name":"Louis-Benjamin
+        Dubuis","description":null,"city":null,"discogs_name":null,"myspace_name":null,"website":null,"website_title":null,"online":false,"track_count":0,"playlist_count":0,"plan":"Free","public_favorites_count":69,"followers_count":12,"followings_count":73,"subscriptions":[]}'
+    http_version: 
+  recorded_at: Sun, 01 Sep 2013 11:23:40 GMT
+- request:
+    method: get
+    uri: http://api.soundcloud.com/users/44246413/favorites?client_id=d082276d6bcf9390cb2b1dab9197ce0e&format=json&limit=2&offset=0
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - SoundCloud Ruby Wrapper 0.3.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Sun, 01 Sep 2013 11:23:40 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '4376'
+      Connection:
+      - keep-alive
+      X-Runtime:
+      - '34'
+      Etag:
+      - '"771aae67e02d13323d793b57b9b4cabc"'
+      Cache-Control:
+      - private, max-age=0, must-revalidate
+      Access-Control-Allow-Methods:
+      - GET, PUT, POST, DELETE
+      Access-Control-Allow-Headers:
+      - Accept, Authorization, Content-Type, Origin
+      Access-Control-Expose-Headers:
+      - Date
+      Access-Control-Allow-Origin:
+      - '*'
+      Vary:
+      - Accept-Encoding
+      X-Cacheable:
+      - NO:Cache-Control=max-age=0
+      X-Varnish:
+      - '2428846230'
+      Age:
+      - '0'
+      Via:
+      - 1.1 varnish
+      X-Cache:
+      - MISS
+    body:
+      encoding: UTF-8
+      string: '[{"kind":"track","id":22655869,"created_at":"2011/09/05 16:58:21 +0000","user_id":350045,"duration":213658,"commentable":true,"state":"finished","original_content_size":4272642,"sharing":"public","tag_list":"minimal
+        folk piano silverlining live 80s \"james vincent mcmorrow\" \"believe recordings\"
+        \"steve winwood\" \"higher love\"","permalink":"higher-love","streamable":true,"embeddable_by":"all","downloadable":false,"purchase_url":"https://itunes.apple.com/gb/album/silver-lining/id438472185","label_id":null,"purchase_title":"Buy
+        on iTunes","genre":"Minimal","title":"Higher Love","description":"Cover of
+        Higher Love by Steve Winwood, recorded live for \"Silver Lining'' Charity
+        album, recorded by students at the Sound Training College in Dublin. http://www.facebook.com/soundtrainingrecords","label_name":"","release":"","track_type":"other","key_signature":"","isrc":"","video_url":"http://www.youtube.com/watch?v=HjgSmoilwV4","bpm":null,"release_year":null,"release_month":null,"release_day":null,"original_format":"mp3","license":"all-rights-reserved","uri":"http://api.soundcloud.com/tracks/22655869","user":{"id":350045,"kind":"user","permalink":"jvmcmorrow","username":"James
+        Vincent McMorrow","uri":"http://api.soundcloud.com/users/350045","permalink_url":"http://soundcloud.com/jvmcmorrow","avatar_url":"http://i1.sndcdn.com/avatars-000044741333-ve3kka-large.jpg?0769104"},"permalink_url":"http://soundcloud.com/jvmcmorrow/higher-love","artwork_url":null,"waveform_url":"http://w1.sndcdn.com/kLI3nBdNmI8Q_m.png","stream_url":"http://api.soundcloud.com/tracks/22655869/stream","playback_count":202270,"download_count":0,"favoritings_count":1671,"comment_count":82,"attachments_uri":"http://api.soundcloud.com/tracks/22655869/attachments"},{"kind":"track","id":98521054,"created_at":"2013/06/26
+        11:52:51 +0000","user_id":42992,"duration":445010,"commentable":true,"state":"finished","original_content_size":6233308,"sharing":"public","tag_list":"blue
+        mondays sometimes riva starr rmx snatch! records house deephouse","permalink":"blue-mondays-sometimes-riva","streamable":true,"embeddable_by":"all","downloadable":false,"purchase_url":"http://www.beatport.com/release/snatch040/1108627","label_id":null,"purchase_title":null,"genre":"Deep
+        House","title":"Blue Mondays - Sometimes (Riva Starr Rmx) [Snatch! Records]","description":"BUY
+        @ Beatport http://www.beatport.com/release/snatch040/1108627\r\n\r\nSome selected
+        feedbacks:\r\n\r\n-Maya Jane Coles \"Brilliant release. Love all tracks here
+        thanks\"\r\n-Joris Voorn \"Riva mix for me!\"\r\n-Nic Fanciulli \"Nice! N\"\r\n-Davide
+        Squillace \"support.\"\r\n-Rainer Weichhold \"mega support for Riva''s remix.
+        great version. great signing\"\r\n-Andy George (BBC Radio1) \"Riva remix is
+        wicked as is Pirupa!\"\r\n-Anja Schneider \"like !\"\r\n-Mihalis Safras \"the
+        boys for presidents!\"\r\n-Makossa \"good stuff !\"\r\n-Diesel (X-Press2)
+        \"Riva starr and orig are killers!! Big ups from X-Press 2!!\r\n-AFFKT \"Amazing
+        tracks! looking forward to play it. \"\r\n-Seamus Haji \"Cool. Will D/L \u0026
+        listen properly. Thanks\"\r\n-Emerson Todd \"loving the Riva remix \"\r\n-Ramon
+        Tapia \"nice mixxes will try em all \"\r\n-Gary Beck \"cool stuff! Like Riva
+        mix and Pirupa versions here :)\"\r\n-Wehbba \"super hot release, love both
+        remixes a lot, but originals are really good too.\"","label_name":"Snatch!
+        Records","release":"","track_type":"remix","key_signature":"","isrc":"","video_url":"http://www.youtube.com/watch?v=M-oFwscMUWk","bpm":null,"release_year":null,"release_month":null,"release_day":null,"original_format":"mp3","license":"all-rights-reserved","uri":"http://api.soundcloud.com/tracks/98521054","user":{"id":42992,"kind":"user","permalink":"rivastarr","username":"Riva
+        Starr","uri":"http://api.soundcloud.com/users/42992","permalink_url":"http://soundcloud.com/rivastarr","avatar_url":"http://i1.sndcdn.com/avatars-000042479197-zzhtoo-large.jpg?0769104"},"permalink_url":"http://soundcloud.com/rivastarr/blue-mondays-sometimes-riva","artwork_url":"http://i1.sndcdn.com/artworks-000051526019-rlvx9b-large.jpg?0769104","waveform_url":"http://w1.sndcdn.com/dZZKr3mvpGQZ_m.png","stream_url":"http://api.soundcloud.com/tracks/98521054/stream","playback_count":40496,"download_count":0,"favoritings_count":341,"comment_count":27,"attachments_uri":"http://api.soundcloud.com/tracks/98521054/attachments"}]'
+    http_version: 
+  recorded_at: Sun, 01 Sep 2013 11:23:40 GMT
+recorded_with: VCR 2.5.0

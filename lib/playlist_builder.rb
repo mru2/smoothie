@@ -1,6 +1,7 @@
 # encoding: utf-8
 require 'shuffler'
 require 'playlist_syncer'
+require 'track_graph_syncer'
 
 
 # Class responsible for building a user's playlist from various criteria
@@ -35,6 +36,9 @@ module Smoothie
 
       # Recompute them if not present or out of date
       Smoothie::PlaylistSyncer.new('id' => @user.id).async_run
+
+      # Also recompute the track graph if out of date
+      Smoothie::TrackGraphSyncer.new('id' => @user.id).async_run
 
       # Cache and return them
       @favorite_track_ids ||= @user.track_ids.members 

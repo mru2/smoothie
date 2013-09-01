@@ -15,8 +15,12 @@ define ['backbone', 'when', 'config', 'smoothie/models/track'], \
     # The number of tracks to fetch with each request
     per_page: 20
 
+    # The current offset (server-side ; tracked separately, because models can be deleted independantly)
+    currentOffset: 0
+
     # The api base url
     url: Config.apiUrl + "/tracks.json"
+
 
     # Initialization of playlist attributes
     initialize: (models, options) -> 
@@ -68,6 +72,9 @@ define ['backbone', 'when', 'config', 'smoothie/models/track'], \
           this.add response.tracks.map (id) ->
             parseInt(id)
 
+          # Update the offset
+          @currentOffset += response.tracks.length
+
           deferred.resolve()
 
       deferred.promise
@@ -92,7 +99,7 @@ define ['backbone', 'when', 'config', 'smoothie/models/track'], \
     urlParams: () ->
       params = {
         id: @user_id,
-        offset: this.size(),
+        offset: @currentOffset,
         limit: @per_page
       }
       params.seed = @seed if @seed

@@ -12,7 +12,7 @@ module Smoothie
 
     configure do
       # set :session_secret, "session_secret" 
-      set :public_folder, '.tmp'
+      set :public_folder, 'public'
     end
 
     get '/' do
@@ -33,7 +33,7 @@ module Smoothie
       playlist = Smoothie::PlaylistBuilder.new(user, params[:seed])
 
       return {
-        :seed   => playlist.seed,
+        :seed   => playlist.seed.to_s,
         :tracks => playlist.track_ids(:limit => params[:limit], :offset => params[:offset])
       }.to_json
     end

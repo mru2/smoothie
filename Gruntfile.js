@@ -14,7 +14,7 @@ module.exports = function (grunt) {
 
         // Variables
         src:    'app',    // The application folder
-        dist:   '.tmp', // The compiled folder
+        dist:   'public', // The compiled folder
         build:  '.build',   // The folder for the minified/files, before upload
 
 

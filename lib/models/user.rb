@@ -15,7 +15,7 @@ module Smoothie
 
     value :synced_at
     value :favorites_synced_at
-    value :tracks_graph_synced_at
+    value :track_graph_synced_at
 
     set   :track_ids
 
@@ -83,20 +83,18 @@ module Smoothie
       track_ids.add favorites_ids
 
       self.favorites_synced_at = Time.now
+
+      favorites_ids
     end
 
 
-    # def tracks_graph_synced?
-    #   tracks_graph_synced_at && !tracks_graph_synced_at.value.nil?
-    # end
+    def track_graph_synced?(expiration = nil)
+      # Not synced ?
+      return false if track_graph_synced_at.value.nil?
 
-    # def tracks_graph_up_to_date?
-    #   tracks_graph_synced? && (Time.parse(tracks_graph_synced_at.value) > (Time.now - TRACKS_GRAPH_EXPIRATION))
-    # end
-
-    # def set_track_graph_synced!
-    #   self.tracks_graph_synced_at = Time.now
-    # end
+      # Expired ?
+      !( expiration && ( Time.parse(track_graph_synced_at.value) < (Time.now - expiration) ) )
+    end
 
   end
 end

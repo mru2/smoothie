@@ -41,6 +41,8 @@ define ['backbone',
 
           @player_view.render()
 
+        this
+
 
       # Play/pause : update the player track and/or playing status
       play: () -> @player.play()
