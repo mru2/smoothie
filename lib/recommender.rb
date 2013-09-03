@@ -1,53 +1,74 @@
 # Responsible for computing track recommendations for users
 module Smoothie
-	class Recommender
+	module Recommender
 
-    def initialize(user, opts={})
-      @user           = user
-      @my_track_ids   = @user.track_ids.members
-      @my_tracks      = @my_track_ids.map{|track_id|Smoothie::Track.new(track_id)}
-      @my_friends     = @my_tracks.map{|track|track.user_ids.members}
-                        .flatten.uniq.reject{|user_id|user_id == @user.id}
-                        .map{|user_id|Smoothie::User.new(user_id)}
-                        .select{|user|(user.track_ids.members & @my_track_ids).count > 1}
-      @track_graph    = @my_friends.map{|user|user.track_ids.members}
-                        .flatten.uniq.reject{|track_id|@my_track_ids.include? track_id}
-                        .map{|track_id|Smoothie::Track.new(track_id)}
+    User = Struct.new(:score, :common_tracks_count, :track_ids)
+    Track = Struct.new(:score, :user_ids)
 
-      @users_scores   = {}
+    class Engine
+      attr_reader :users, :tracks
+
+      def initialize(user, opts={})
+        @user      = user
+        @track_ids = SortedSet.new @user.track_ids.members
+
+        @users = {}
+        @tracks = {}
+
+        initialize_graph!
+        score_users!
+        score_tracks!
+      end
+
+
+      def initialize_graph!
+        all_user_ids = SortedSet.new
+
+        @track_ids.each do |track_id|
+          all_user_ids.merge Smoothie::Track.new(track_id).user_ids.members
+        end
+
+        all_user_ids.each do |user_id|
+
+          next if user_id == @user.id
+
+          common_tracks_count = 0
+          track_ids = Smoothie::User.new(user_id).track_ids.members.reject{|track_id|@track_ids.include?(track_id) && true.tap{common_tracks_count += 1}}
+
+          @users[user_id] = Smoothie::Recommender::User.new(0, common_tracks_count, SortedSet.new(track_ids))
+
+          track_ids.each do |track_id|
+            @tracks[track_id] ||= Smoothie::Recommender::Track.new(0, SortedSet.new())
+            @tracks[track_id].user_ids << user_id
+          end
+        end
+      end
+
+
+      def score_users!
+        @users.each do |user_id, user|
+          total_tracks_count = Smoothie::User.new(user_id).tracks_count.value.to_i
+          if total_tracks_count
+            user.score = user.common_tracks_count * 1.0 / total_tracks_count
+          else
+            user.score = 0
+          end
+        end
+      end
+
+
+      def score_tracks!
+        @tracks.each do |track_id, track|
+          track.score = track.user_ids.map{|user_id|@users[user_id].score}.inject(:+)
+        end
+      end
+
+
+      def recommended_tracks
+        sorted_tracks = @tracks.sort_by{|k,v|-v.score}
+        return sorted_tracks.first(50).map{|t|[t.first, t.last.score]}
+      end
+
     end
-
-    def recommended_tracks
-
-      # Get all the related tracks
-      track_scores = Hash[@track_graph.map{|track|[track, get_track_score(track)]}]
-
-      sorted_track_scores = track_scores.sort_by{|k,v|-v}
-
-      return sorted_track_scores.first(50).map{|t|[t.first.id, t.last]}
-
-    end
-
-
-    private
-
-    def get_track_score(track)
-
-      # Get the number of users who have the track
-      track_users = @my_friends.select{|u|u.track_ids.include? track.id}
-
-      track_users.map{|user|get_user_score(user)}.reduce(&:+)
-
-    end
-
-    def get_user_score(user)
-      # Returns the number of tracks in common divided by the track count
-      return @users_scores[user.id] if @users_scores[user.id]
-
-      score = (user.track_ids.members & @my_track_ids).count * 1.0 / (user.tracks_count.value.to_i)
-      @users_scores[user.id] = score
-      return score
-    end
-
   end
 end

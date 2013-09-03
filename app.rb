@@ -50,7 +50,7 @@ module Smoothie
       end
 
       user = Smoothie::User.new(params[:id])
-      return Smoothie::Recommender.new(user).recommended_tracks.to_json
+      return Smoothie::Recommender::Engine.new(user).recommended_tracks.to_json
 
     end
 
