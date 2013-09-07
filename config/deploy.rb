@@ -70,8 +70,8 @@ namespace :resque do
   end
 
   task :restart do
-    pid = "#{current_path}/tmp/pids/resque-pool.pid"
-    run "kill -1 `cat #{pid}`"    
+    resque.stop
+    resque.start
   end
 
 end
