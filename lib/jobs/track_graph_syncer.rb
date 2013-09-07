@@ -1,47 +1,21 @@
 # Fetches a users's track graph (favorite tracks of users who favorited the same tracks as the first one)
 # Need to sync the tracks / users until the last level, to get their favorites / favoriters count
 
-
-# Track favoriters:
-# min: 1
-# max: 79054
-
-# mean : 2709
-# median : 551
-# deviation : 7138
-
-# User occurences:
-# min : 1
-# max : 139
-
-# mean : 1.6
-# median : 1
-
-# 27% > 1
-# 2% > 5
-# 0.4% > 10
-# 0.04% > 20
-
-
-# User tracks ratio
-# *only > 20 common (178)*
-# mean : 1.78%
-# median : 1.28%
-# deviation: 1.44%
-
-
-
 require 'base_job'
 require 'user'
 require 'track'
+require 'set'
   
 module Smoothie
   class TrackGraphSyncer < Smoothie::BaseJob
 
-    @queue = :default
+    include Resque::Plugins::UniqueJob
+
+    @queue = :api
 
     DEFAULT_LIMIT = 200
     EXPIRATION = 86400 # 1 day
+
 
     def initialize(opts = {})
       super
@@ -49,7 +23,11 @@ module Smoothie
       throw "id must be defined" unless @arguments['id']
       
       @user = Smoothie::User.new(@arguments['id'])
+
+      @user_graph = {}  # Key : user_id ; value : common tracks count
+      @track_graph = {} # Key : track_id ; value : common users count
     end
+
 
     def ready?
       @user.track_graph_synced?(EXPIRATION)
@@ -60,75 +38,79 @@ module Smoothie
     # Complexity : NxLxL -- N : size of user playlist -- L : limit size
     def perform
 
-      # First resync the user
+      # 1. Resync the user and get its last favorites
       @user.sync!
+      last_favorites = @user.sync_favorites!(:limit => DEFAULT_LIMIT)
 
 
-      # Then sync its last favorites
-      new_favorites = @user.sync_favorites!(:limit => DEFAULT_LIMIT)
+      # 2. Sync its last favorites (filling the @users graph)
+      last_favorites.each do |track_id|
+        sync_track!(track_id)
+      end
 
-      new_favorites.each do |track_id|
+
+      # 3. Select the top users (the ones with most tracks in common)
+      top_users = @user_graph.sort_by{|k,v| -v}.first(DEFAULT_LIMIT).map(&:first)
+
+
+      # 4. Sync them (filling the @tracks graph)
+      top_users.each do |user_id|
+        sync_user!(user_id)
+      end
+
+
+      # 5. Select the top tracks (most liked by the top users)
+      top_tracks = @track_graph.sort_by{|k,v| -v}.first(DEFAULT_LIMIT).map(&:first)
+
+
+      # 6. Sync them (for their user count)
+      top_tracks.each do |track_id|
         track = Smoothie::Track.new(track_id)
-
-        # Sync its favorites details
         track.sync!
-
-        # Sync its favoriters
-        track.sync_favoriters!(:limit => DEFAULT_LIMIT)
       end
-
-
-      # Select the top users
-      top_favoriters = select_top_users(DEFAULT_LIMIT)
-
-      top_favoriters.each do |user|
-        # Sync the user details
-        user.sync!
-
-        # Sync their favorites
-        user.sync_favorites!(:limit => DEFAULT_LIMIT)
-      end
-
-
-      # Set the track graph synced
-      @user.track_graph_synced_at = Time.now
 
     end
 
 
     private
 
-    # Select the users most likely to have interesting tracks
-    # Since they are not synced, we just have to select the ones with the
-    # most tracks in common with the current user
-    def select_top_users(limit)
+    # Sync a user's favorite, and store its details
+    def sync_track!(track_id)
 
-      # Count the tracks in common
-      # Hash {user_id => common tracks count}
-      common_tracks_count = Hash[all_users.map{|user|[user.id, 0]}]
+      track = Smoothie::Track.new(track_id)
 
-      all_users.each do |user|
-        common_tracks_count[user.id] = count_common_tracks(user)
+      # Sync the track and its favoriters
+      track.sync!
+      favoriters_ids = track.sync_favoriters!(:limit => DEFAULT_LIMIT)
+
+      # Store the favoriters in the graph
+      favoriters_ids.each do |user_id|
+        next if user_id == @user.id
+
+        @user_graph[user_id] ||= 0
+        @user_graph[user_id] += 1
+
       end
-
-      # Return the top users
-      common_tracks_count.sort_by{|k,v|v}.last(limit).map(&:first).map{|user_id|Smoothie::User.new(user_id)}
-
     end
 
 
-    # All the other users in the graph
-    def all_users
-      @all_users ||=  @user
-                      .track_ids.members.map{|track_id| Smoothie::Track.new(track_id)}
-                      .map{|track|track.user_ids.members}
-                      .flatten.uniq.reject{|user_id| user_id == @user.id}
-                      .map{|user_id|Smoothie::User.new(user_id)}
-    end
+    # Sync an interesting user and its favorites
+    def sync_user!(user_id)
 
+      user = Smoothie::User.new(user_id)
 
-    def count_common_tracks(user)
-      (user.track_ids.members & @user.track_ids.members).count
+      # Sync the user and its favorites
+      user.sync!
+      favorites_ids = user.sync_favorites!(:limit => DEFAULT_LIMIT)
+
+      # Store the track in the graph
+      favorites_ids.each do |track_id|
+        next if @user.track_ids.include? track_id
+
+        @track_graph[track_id] ||= 0
+        @track_graph[track_id] += 1
+
+      end
     end
 
   end

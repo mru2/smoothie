@@ -4,6 +4,8 @@ require 'user'
 module Smoothie
   class PlaylistSyncer < Smoothie::BaseJob
 
+    include Resque::Plugins::UniqueJob
+
     @queue = :api
 
     EXPIRATION = 86400 # 1 day

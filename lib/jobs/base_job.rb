@@ -1,5 +1,6 @@
 module Smoothie
   class BaseJob
+    include Resque::Plugins::UniqueJob
 
     attr_accessor :arguments
 
