@@ -47,7 +47,7 @@ module Smoothie
 
       # Find the users with the most common tracks
       def sync_users!(track)
-        track_score = 1.to_f / track.users_count.value.to_i
+        track_score = 1.to_f / Math.sqrt(track.users_count.value.to_i)
 
         user_ids = track.user_ids.members
 
@@ -76,7 +76,7 @@ module Smoothie
         track_users_count = track.users_count.value.to_i
 
         @tracks[track.id]       ||= Smoothie::RecommenderEngine::Track.new(track_users_count, 0)
-        @tracks[track.id].score += user_score
+        @tracks[track.id].score += user_score / Math.sqrt(track_users_count)
       end
 
 
