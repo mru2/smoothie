@@ -19,8 +19,7 @@ define ['backbone', 'when', 'config', 'smoothie/models/track'], \
     currentOffset: 0
 
     # The api base url
-    url: Config.apiUrl + "/tracks.json"
-
+    url: Config.apiUrl + "/recommended_tracks.json"
 
     # Initialization of playlist attributes
     initialize: (models, options) -> 

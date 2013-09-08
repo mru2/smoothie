@@ -52,7 +52,9 @@ module Smoothie
       user = Smoothie::User.new(params[:id])
       Smoothie::Recommender.new('id' => user.id).async_run
 
-      return (user.recommendations.revrangebyscore 1000, 0, :limit => (params[:limit] || 20), :offset => params[:offset] || 0).to_json
+      return {
+        :tracks => (user.recommendations.revrangebyscore 1000, 0, :limit => (params[:limit] || 20), :offset => params[:offset] || 0)
+      }.to_json
     end
 
   end
