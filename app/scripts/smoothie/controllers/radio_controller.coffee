@@ -18,10 +18,20 @@ define ['backbone',
 
       # Bootstrap the app
       initialize: (options) ->
-        # Initializing the playlist
-        @playlist = new Playlist [], {
-          user_id: options.userId
+        # Initializing the playlists
+        @tracksPlaylist = new Playlist [], {
+          user_id: options.userId,
+          endpoint: '/tracks.json'
         }
+
+        @recommendationPlaylist = new Playlist [], {
+          user_id: options.userId,
+          endpoint: '/recommended_tracks.json'
+        }
+
+        # By default, use the tracks playlist
+        @playlist = @tracksPlaylist
+
 
         @playlist.getCurrentTrack().then (track) =>
 
@@ -81,14 +91,23 @@ define ['backbone',
 
       # Unlike : unlike the track and play the next
       onUnlike: () ->
-        console.log 'on unlike'
         @playlist.getCurrentTrack()
         .then (track) =>
-          console.log 'unliking track', track
           track.unlike()
         .then () =>
-          console.log 'playing next'
           this.playNext()
+
+      # Switch the playlist
+      switchPlaylist: () ->
+        if @playlist == @tracksPlaylist
+          @playlist = @recommendationPlaylist
+        else
+          @playlist = @tracksPlaylist
+
+        @playlist.getCurrentTrack()
+        .then (track) =>
+          @player.setTrackId(track.id)
+          @player_view.setTrack(track)
 
     }
 
@@ -101,6 +120,7 @@ define ['backbone',
     PubSub.on 'player:paused',                controller.onPaused,        controller
     PubSub.on 'player:like',                  controller.onLike,          controller
     PubSub.on 'player:unlike',                controller.onUnlike,        controller
+    PubSub.on 'player:toggle_playlist',       controller.switchPlaylist,  controller
 
 
     # Returns the controller

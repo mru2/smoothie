@@ -18,9 +18,6 @@ define ['backbone', 'when', 'config', 'smoothie/models/track'], \
     # The current offset (server-side ; tracked separately, because models can be deleted independantly)
     currentOffset: 0
 
-    # The api base url
-    url: Config.apiUrl + "/recommended_tracks.json"
-
     # Initialization of playlist attributes
     initialize: (models, options) -> 
 
@@ -33,6 +30,9 @@ define ['backbone', 'when', 'config', 'smoothie/models/track'], \
 
       # The playlist's owner
       @user_id = options.user_id
+
+      # The url to fetch
+      @url = Config.apiUrl + options.endpoint
 
 
     # Gets the current track

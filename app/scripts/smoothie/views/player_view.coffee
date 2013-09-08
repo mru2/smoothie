@@ -14,6 +14,7 @@ define ['backbone',
       '<div id="radio">' +
         '<div class="row">' +
           '<div class="span6 offset3">' +
+            '<a id="togglePlaylist">Toggle playlist</a>' +
             '<div id="player-container">' +
               '<div id="player">' +
                 '<div class="artwork"></div>' +
@@ -87,21 +88,21 @@ define ['backbone',
 
     # Events and handlers
     events: {
-      "click #play":    "onClickedPlay"
-      "click #pause":   "onClickedPause"
-      "click #prev":    "onClickedPrev"
-      "click #next":    "onClickedNext"
-      "click #like":    "onClickedLike"
-      "click #unlike":  "onClickedUnlike"
+      "click #play":            "onClickedPlay"
+      "click #pause":           "onClickedPause"
+      "click #prev":            "onClickedPrev"
+      "click #next":            "onClickedNext"
+      "click #like":            "onClickedLike"
+      "click #unlike":          "onClickedUnlike"
+      "click #togglePlaylist" : "onClickedTogglePlaylist"
     }
 
-    onClickedPlay:    () -> @pubsub.trigger 'player:play'
-    onClickedPause:   () -> @pubsub.trigger 'player:pause'
-    onClickedPrev:    () -> @pubsub.trigger 'player:previous'
-    onClickedNext:    () -> @pubsub.trigger 'player:next'
-    onClickedLike:    () -> @pubsub.trigger 'player:like'
-    onClickedUnlike:  () -> 
-      console.log 'on clicked unlike'
-      @pubsub.trigger 'player:unlike'
+    onClickedPlay:            () -> @pubsub.trigger 'player:play'
+    onClickedPause:           () -> @pubsub.trigger 'player:pause'
+    onClickedPrev:            () -> @pubsub.trigger 'player:previous'
+    onClickedNext:            () -> @pubsub.trigger 'player:next'
+    onClickedLike:            () -> @pubsub.trigger 'player:like'
+    onClickedUnlike:          () -> @pubsub.trigger 'player:unlike'
+    onClickedTogglePlaylist:  () -> @pubsub.trigger 'player:toggle_playlist'
 
   }
