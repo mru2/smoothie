@@ -72,10 +72,11 @@ module Smoothie
 
 
       def add_track!(track, user_score)
-        track_users_count = track.users_count.value.to_i
+        # Trying to no favorize recommendations with low favoriters count
+        # track_users_count = track.users_count.value.to_i
 
         @tracks[track.id]       ||= Smoothie::RecommenderEngine::Track.new(track_users_count, 0)
-        @tracks[track.id].score += user_score / track_users_count
+        @tracks[track.id].score += user_score
       end
 
 
