@@ -76,7 +76,7 @@ module Smoothie
         user_ids.del
       end
 
-      user_ids.add favoriters_ids
+      user_ids.add favoriters_ids unless favoriters_ids.empty?
 
       self.favoriters_synced_at = Time.now
 

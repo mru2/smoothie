@@ -1,5 +1,6 @@
 require 'track'
 require 'soundcloud_client'
+require 'recommender_engine'
 
 # A track model
 module Smoothie
@@ -17,8 +18,9 @@ module Smoothie
     value :favorites_synced_at
     value :track_graph_synced_at
 
-    set   :track_ids
-
+    set         :track_ids
+    sorted_set  :recommendations
+    value       :recommendations_computed_at
 
     # We want to guarantee that the uid is present
     def self.new(*args)
@@ -80,7 +82,7 @@ module Smoothie
         track_ids.del
       end
 
-      track_ids.add favorites_ids
+      track_ids.add favorites_ids unless favorites_ids.empty?
 
       self.favorites_synced_at = Time.now
 
@@ -95,6 +97,31 @@ module Smoothie
       # Expired ?
       !( expiration && ( Time.parse(track_graph_synced_at.value) < (Time.now - expiration) ) )
     end
+
+
+    # Compute the recommendations
+    def compute_recommendations!
+      recommender = Smoothie::RecommenderEngine::Engine.new(self)
+      recommended_tracks = recommender.recommended_tracks
+
+      self.recommendations.del
+      recommended_tracks.each do |track|
+        self.recommendations.add track.first, track.last
+      end
+
+      self.recommendations_computed_at = Time.now
+
+      recommended_tracks
+    end
+
+    def recommendations_computed?(expiration = nil)
+      # Not synced ?
+      return false if recommendations_computed_at.value.nil?
+
+      # Expired ?
+      !( expiration && ( Time.parse(recommendations_computed_at.value) < (Time.now - expiration) ) )
+    end
+
 
   end
 end

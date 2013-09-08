@@ -3,7 +3,7 @@ require 'sinatra/base'
 require 'soundcloud_client'
 require 'user'
 require 'playlist_builder'
-require 'recommender'
+require 'jobs/recommender'
 
 module Smoothie
   class Application < Sinatra::Base
@@ -50,8 +50,9 @@ module Smoothie
       end
 
       user = Smoothie::User.new(params[:id])
-      return Smoothie::Recommender::Engine.new(user).recommended_tracks.to_json
+      Smoothie::Recommender.new('id' => user.id).async_run
 
+      return (user.recommendations.revrangebyscore 1, 0, :limit => 50).to_json
     end
 
   end

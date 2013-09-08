@@ -5,6 +5,7 @@ gem 'sinatra'
 group :development do
   gem 'shotgun'
   gem 'debugger'
+  gem 'ruby-prof'
 end
 
 group :test do
