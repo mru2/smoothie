@@ -50,14 +50,21 @@ module Smoothie
     def sync!
       soundcloud = Smoothie::SoundcloudClient.new
 
-      # Get the user attributes
-      user_data = soundcloud.get_user(id)
+      begin
 
-      # Save them
-      self.tracks_count = user_data.public_favorites_count
+        # Get the user attributes
+        user_data = soundcloud.get_user(id)
 
-      # Updated the synced_at time
-      self.synced_at = Time.now
+        # Save them
+        self.tracks_count = user_data.public_favorites_count
+
+        # Updated the synced_at time
+        self.synced_at = Time.now
+
+      rescue Soundcloud::ResponseError => e
+
+      end
+
     end
     
 
@@ -76,15 +83,24 @@ module Smoothie
       overwrite = opts[:overwrite] || false
 
       soundcloud = Smoothie::SoundcloudClient.new
-      favorites_ids = soundcloud.get_user_favorites(id, limit)
 
-      if overwrite
-        track_ids.del
+      begin
+
+        favorites_ids = soundcloud.get_user_favorites(id, limit)
+
+        if overwrite
+          track_ids.del
+        end
+
+        track_ids.add favorites_ids unless favorites_ids.empty?
+
+        self.favorites_synced_at = Time.now
+
+      rescue Soundcloud::ResponseError => e
+
+        favorites_ids = []
+
       end
-
-      track_ids.add favorites_ids unless favorites_ids.empty?
-
-      self.favorites_synced_at = Time.now
 
       favorites_ids
     end
