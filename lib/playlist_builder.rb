@@ -37,9 +37,6 @@ module Smoothie
       # Recompute them if not present or out of date
       Smoothie::PlaylistSyncer.new('id' => @user.id).async_run
 
-      # Also recompute the track graph if out of date
-      Smoothie::TrackGraphSyncer.new('id' => @user.id).async_run
-
       # Cache and return them
       @favorite_track_ids ||= @user.track_ids.members 
     end

@@ -8,7 +8,7 @@ module Smoothie
 
     @queue = :default
 
-    EXPIRATION = 600 # 10 minutes
+    EXPIRATION = 3600 # 1 hour
 
 
     def initialize(opts = {})

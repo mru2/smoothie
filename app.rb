@@ -50,6 +50,8 @@ module Smoothie
       end
 
       user = Smoothie::User.new(params[:id])
+
+      Smoothie::TrackGraphSyncer.new('id' => user.id).async_run
       Smoothie::Recommender.new('id' => user.id).async_run
 
       return {
