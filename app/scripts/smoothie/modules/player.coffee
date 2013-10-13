@@ -53,12 +53,19 @@ define  ['when', 'smoothie/modules/soundcloud'], \
 
       else
         @stream = Soundcloud.getTrackStream @track_id, {
-          onfinish:   () => @pubsub.trigger 'player:finished'
-          onplay:     () => @pubsub.trigger 'player:playing'
-          onresume:   () => @pubsub.trigger 'player:playing'
-          onstop:     () => @pubsub.trigger 'player:paused'
-          onpause:    () => @pubsub.trigger 'player:paused'
-          onsuspend:  () => @pubsub.trigger 'player:paused'
+          onfinish:     () => @pubsub.trigger 'player:finished'
+          onplay:       () => @pubsub.trigger 'player:playing'
+          onresume:     () => @pubsub.trigger 'player:playing'
+          onstop:       () => @pubsub.trigger 'player:paused'
+          onpause:      () => @pubsub.trigger 'player:paused'
+          onsuspend:    () => @pubsub.trigger 'player:paused'
+          whileplaying: (e) => 
+            if @stream.loaded
+              position = @stream.position / @stream.duration
+            else
+              position = @stream.position / @stream.durationEstimate
+
+            @pubsub.trigger 'player:timeUpdate', position
         }
 
         @stream.play()

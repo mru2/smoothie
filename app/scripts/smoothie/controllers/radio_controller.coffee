@@ -33,23 +33,63 @@ define ['backbone',
         @playlist = @tracksPlaylist
 
 
-        @playlist.getCurrentTrack().then (track) =>
+        # Initializing the player
+        @player = new Player {
+          pubsub: PubSub
+        }
 
-          # Initializing the player
-          @player = new Player {
-            pubsub: PubSub
-            track_id: track.id
-          }
 
-          # Initializing the player view
-          @player_view = new PlayerView {
-            el: options.container
-            model: track
-            pubsub: PubSub
-            playing: false
-          }
+        # Initializing the player view
+        @player_view = new PlayerView {
+          el: options.container
+          pubsub: PubSub
+          playing: false
+        }
 
-          @player_view.render()
+
+        # Get the first track
+        @playlist.getCurrentTrack().then ( 
+          # On success
+          (track) =>
+            @player.setTrackId(track.id)
+            @player_view.setTrack(track)
+            @player_view.render()
+          ), 
+
+          # On failure
+          (
+            (error) =>
+              if error == 'no tracks'
+                @player_view.renderNoTracks()
+              else
+                @player_view.renderError()
+          )
+
+
+        #   # On success
+        #   (track) =>
+        #     # Initializing the player
+        #     @player = new Player {
+        #       pubsub: PubSub
+        #       track_id: track.id
+        #     }
+
+        #     # Initializing the player view
+        #     @player_view = new PlayerView {
+        #       el: options.container
+        #       model: track
+        #       pubsub: PubSub
+        #       playing: false
+        #     }
+
+        #     @player_view.render()
+        #   ), 
+
+        #   # On failure
+        #   (
+        #     () =>
+        #       console.log 'no track'
+        #   )
 
         this
 
@@ -60,6 +100,7 @@ define ['backbone',
 
       onPlaying: () -> @player_view.setPlaying(true)
       onPaused: () -> @player_view.setPlaying(false)
+      setPosition: (position) ->  @player_view.setPosition(position)
 
         
       # Previous : plays the previous track
@@ -121,7 +162,7 @@ define ['backbone',
     PubSub.on 'player:like',                  controller.onLike,          controller
     PubSub.on 'player:unlike',                controller.onUnlike,        controller
     PubSub.on 'player:toggle_playlist',       controller.switchPlaylist,  controller
-
+    PubSub.on 'player:timeUpdate',            controller.setPosition, controller
 
     # Returns the controller
     controller

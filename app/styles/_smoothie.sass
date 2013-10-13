@@ -187,7 +187,6 @@ footer
       .content
         // background-color: $clouds
         background-color: $clouds
-        border-top: 1px solid $silver
         height: 50%
         padding-top: 2em
         padding-left: 1em
@@ -262,6 +261,22 @@ footer
             &#play
               padding: 0.5em 0.4em 0.5em 0.6em
 
+#togglePlaylist
+  margin-top: 1em
+  float: right
+
+#player-bar
+  height: 3px
+  background: $clouds
+  border-top: 1px solid $silver
+
+  & > span
+    height: 100%
+    display: block
+    width: 0
+    background-color: $turquoise
+    margin-top: -1px
+    transition: width 0.3s
 
 // Mobile styles
 @media (max-width: 767px)

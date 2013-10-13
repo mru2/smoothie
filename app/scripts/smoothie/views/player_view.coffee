@@ -14,10 +14,12 @@ define ['backbone',
       '<div id="radio">' +
         '<div class="row">' +
           '<div class="span6 offset3">' +
-            '<a id="togglePlaylist">Toggle playlist</a>' +
             '<div id="player-container">' +
               '<div id="player">' +
                 '<div class="artwork"></div>' +
+                '<div id="player-bar">' + 
+                  '<span></span>' +
+                '</div>' +
                 '<div class="content">' + 
                   '<a class="title" href="<%= track.permalink_url %>" target="_blank"><%= track.title %></a>' +
                   '<a class="artist" href="<%= track.user_permalink %>"><%= track.username %></a>' +
@@ -39,9 +41,22 @@ define ['backbone',
                 '</div>' +
               '</div>' +
             '</div>' +
+            '<a id="togglePlaylist" class="btn btn-primary">Toggle playlist</a>' +
           '</div>' +
         '</div>' +
       '</div>'
+
+    noTracksTemplate: 
+      '<div class="landing">' +
+        '<h1>Your tracks are being fetched...</h1>' +
+        '<p>Please reload the page in a couple of minutes.</p>' +
+      '</div>'
+
+    errorTemplate: 
+      '<div class="landing">' +
+        '<h1>An error occured...</h1>' +
+      '</div>'
+
 
     # Constructor
     initialize: () ->
@@ -66,6 +81,11 @@ define ['backbone',
       this.render()
 
 
+    # Update the track position
+    setPosition: (position) ->
+      @$el.find('#player-bar span').css('width', (position*100) + '%')
+
+
     # Rendering
     render: () ->
       # Render the template with the current track and playing status
@@ -85,6 +105,11 @@ define ['backbone',
         artwork.css( 'background-image', 'url(/images/default-track-bg.png)')
                .css( 'background-color', '#F2F2F2')
 
+    renderNoTracks: () ->
+      @$el.html(@noTracksTemplate)
+
+    renderError: () ->
+      @$el.html(@errorTemplate)
 
     # Events and handlers
     events: {

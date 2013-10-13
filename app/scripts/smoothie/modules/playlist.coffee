@@ -64,6 +64,11 @@ define ['backbone', 'when', 'config', 'smoothie/models/track'], \
         deferred.resolve()
       else
         $.getJSON @url, this.urlParams(), (response) =>
+
+          # If no tracks, fail with an error code
+          if response.tracks.length == 0
+            deferred.reject 'no tracks'
+
           # Updates the seed
           @seed = response.seed
 
@@ -86,11 +91,12 @@ define ['backbone', 'when', 'config', 'smoothie/models/track'], \
 
     # Syncs a track from its index. If there is an error, pops it and retries
     syncModel: (index) ->
-      @models[index].sync()
+      modelToSync = @models[index]
+      modelToSync.sync()
       .then (track) =>
         return track
       .otherwise (error) =>
-        @models = @models.splice(index+1)
+        @models.remove(modelToSync)
         this.syncModel(index)
 
 
