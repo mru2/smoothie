@@ -118,7 +118,7 @@ module Smoothie
     # Compute the recommendations
     def compute_recommendations!
       recommender = Smoothie::RecommenderEngine::Engine.new(self)
-      recommended_tracks = recommender.recommended_tracks
+      recommended_tracks = recommender.top_tracks(1000)
 
       self.recommendations.del
       recommended_tracks.each do |track|
