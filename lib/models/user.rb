@@ -122,7 +122,7 @@ module Smoothie
 
       self.recommendations.del
       recommended_tracks.each do |track|
-        self.recommendations.add track.first, track.last
+        self.recommendations.add track[:id], track[:score]
       end
 
       self.recommendations_computed_at = Time.now
