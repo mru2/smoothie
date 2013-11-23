@@ -8,6 +8,12 @@ $white: $clouds
 $transparent-bg: rgba(0, 0, 0, 0.6)
 $transparent-bg-hover: rgba(0, 0, 0, 0.85)
 
+$green: #00B48F
+$white: #EFEFEF
+$black: #2A2B2F
+$gray:  #4C4C46
+$red:   #C4513F
+
 // @mixin player-control
 //   display: inline-block
 //   border: 3px solid $white
@@ -30,8 +36,12 @@ html,body
   height: 100%
 
 body
-  background: url('/images/bg-pattern.png')
-  color: $white
+  // background: url('/images/bg-pattern.png')
+  // color: $white
+  background: #D0D0D0
+  color: #2A2B2F
+  font-family: 'Shanti'
+  -webkit-font-smoothing: antialiased
 
 #main-container
   overflow: hidden
@@ -46,7 +56,7 @@ body
     
 
 #wrap
-  background: -webkit-radial-gradient(50% 20%, circle, rgba(52,73,94,0.5) 30%, rgba(0,0,0,0.0) 100%)
+  // background: -webkit-radial-gradient(50% 20%, circle, rgba(52,73,94,0.5) 30%, rgba(0,0,0,0.0) 100%)
 
   min-height: 100%
   height: auto !important
@@ -67,8 +77,8 @@ footer
 // Layout
 #header-container
   padding: 1em 0
-  border-bottom: 5px solid $turquoise
-  background-color: white
+  // border-bottom: 5px solid $turquoise
+  // background-color: white
   line-height: 3em
 
   h3
@@ -122,199 +132,127 @@ footer
     @include animation-duration(3s)
     @include animation-name(fadeInUpDelayTwoThird)
 
-    // &:hover
-      // @include animation(scale 5s ease-in, slide 2.0s ease)
 
 
+#player
+  overflow: hidden
+  border-radius: 10px
+  position: relative
+  margin: 10px auto
+  height: 300px
+  width: 700px
+  box-shadow: 0px 5px 10px rgba(0,0,0,0.4)
 
+  .artwork
+    position: absolute
+    top: 0
+    right: 0
+    height: 300px
+    width: 300px
 
-  .append
-    height: 4em
+    // Default background: loading
+    background-position: center center
+    background-repeat: no-repeat
+    background-image: url(/images/spinner.gif)
+    background-size: inherit
+    background-color: black
 
-    input
-      margin-bottom: 0
-      border-right-width: 0
-      border-top-right-radius: 0
-      border-bottom-right-radius: 0
-      height: 100%
-      box-sizing: border-box
-      line-height: 1em
+  .details
+    background-color: $black
+    position: absolute
+    top: 0
+    left: 0
+    box-sizing: border-box
+    height: 300px
+    width: 400px
+    color: $white
 
-    .btn
-      height: 100%
-      box-sizing: border-box
-      border-top-left-radius: 0
-      border-bottom-left-radius: 0
-      margin-left: -5px
+  .topleft
+    left: 15px
+    top: 15px
+    position: absolute
+    line-height: 1
 
+  .bottomright
+    right: 15px
+    bottom: 15px
+    position: absolute
+    line-height: 1
 
-// Player
-#radio
+  .info
+    margin-right: 60px
+    margin-left: 60px
+    margin-top: 85px
+    text-align: center
 
-  margin-top: 3em
-  margin-bottom: 1em
-
-
-  #player-container
-    // square size
-    height: 0
-    padding-bottom: 100%
-    width: 100%
-    position: relative
-
-    #player
-      position: absolute
-      width: 100%
-      height: 100%
-      border-radius: 1em
-      overflow: hidden
-      box-shadow: 0px 0px 20px rgba(0,0,0,0.4)
-
-      .artwork
-        height: 50%
-        // Default background: loading
-        background-position: center center
-        background-repeat: no-repeat
-        background-image: url(/images/spinner.gif)
-        background-size: inherit
-        background-color: black
-
-        // Fix for overflowing background images and border radius on chrome
-        border-top-left-radius: 1em
-        border-top-right-radius: 1em
-
-
-      .content
-        // background-color: $clouds
-        background-color: $clouds
-        height: 50%
-        padding-top: 2em
-        padding-left: 1em
-        padding-right: 1em
-        -webkit-font-smoothing: antialiased
-
-        a
-          text-decoration: none
-          &:hover
-            color: $emerald
-
-        .title, .artist
-          display: block
-          color: $abestos
-          line-height: 1.5em
-
-
-        .title
-          font-size: 1.5em
-          margin-bottom: 0.5em
-          font-weight: 600
-          line-height: 1.2em
-
-        #like, #unlike
-          bottom: 1em
-          right: 1.5em
-          position: absolute
-          cursor: pointer
-
-          &>i
-            font-size: 3em
-
-        #like
-          color: $silver
-
-        #unlike:hover
-          color: $silver          
-
-        #unlike
-          color: $pomegranate
-        
-        #like:hover
-          color: $pomegranate
-            
-
-        #controls
-          position: absolute
-          bottom: 1em
-
-          .control
-
-            font-size: 1.5em
-            width: 1em
-            height: 1em
-            line-height: 1em
-            padding: 0.5em
-            text-align: center
-            display: inline-block
-            cursor: pointer
-
-            color: $clouds
-            border-radius: 100%
-            background-color: #333
-
-            &:hover
-              background-color: $emerald
-
-            &#play, &#pause
-              font-size: 2.5em
-              margin-right: 0.5em
-
-            &#play
-              padding: 0.5em 0.4em 0.5em 0.6em
-
-#togglePlaylist
-  margin-top: 1em
-  float: right
-
-#player-bar
-  height: 3px
-  background: $clouds
-  border-top: 1px solid $silver
-
-  & > span
-    height: 100%
+  .title
     display: block
-    width: 0
-    background-color: $turquoise
-    margin-top: -1px
-    transition: width 0.3s
-
-// Mobile styles
-@media (max-width: 767px)
-  body
-    padding-right: 0px
-    padding-left: 0px
-
-  .container
-    padding-right: 20px
-    padding-left: 20px
-
-  #radio
-    margin-top: 0
-
-  #header-container
-    padding: 0
-    border-bottom: none
-    background-color: inherit
-    h3
-      color: $white
-    .session a
-      @extend .btn
-
-  #email-input
-    width: auto
-    display: inline-block
-
-  #current-track
+    white-space: nowrap
+    text-overflow: ellipsis
     overflow: hidden
-    -webkit-perspective: none
-    -moz-perspective: none
+    height: 26px
+    line-height: 1
+    font-size: 24px
+    color: $white
 
+  .artist
+    display: block
+    margin-bottom: 10px
+    margin-top: 10px
+    color: $white
+    font-size: 12px
 
-// Responsive font sizes
-@media (max-width: 767px)
-  body
-    font-size: 0.8em
+  .controls 
+    margin-top: 17px
+    margin-bottom: 23px
+    height: 32px
 
-@media (max-width: 480px)
-  body
-    font-size: 0.6em
+  .control
+    display: inline-block
+    cursor: pointer
+    color: $white
+
+    &:hover
+      color: $green
+      text-decoration: none
+
+  #prev, #next
+    vertical-align: top
+    line-height: 32px
+    font-size: 20px
+
+  #play, #pause
+    margin-right: 20px
+    margin-left: 20px
+    line-height: 32px
+    font-size: 32px
+
+  #player-bar
+    background: $white
+    border-radius: 5px
+    height: 6px
+    overflow: hidden
+    margin: 0px 30px
+
+    & > span
+      height: 100%
+      display: block
+      width: 0
+      background-color: $turquoise
+      transition: width 0.3s
+
+  #like, #unlike
+    font-size: 24px
+
+  #unlike, #like:hover
+    color: $red
+
+  #unlike:hover, #like
+    color: $gray
+
+  #togglePlaylist
+    color: $gray
+    opacity: 0
+    font-size: 24px
+    &:hover
+      opacity: 1

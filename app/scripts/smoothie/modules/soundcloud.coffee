@@ -14,7 +14,7 @@ define  ['config', 'soundcloudSdk', 'when'], \
         user_permalink: track.user.permalink_url,
         username: track.user.username,
         permalink_url: track.permalink_url,
-        artwork_url: track.artwork_url && track.artwork_url.replace(/-large.jpg?.*$/, '-t500x500.jpg'),
+        artwork_url: track.artwork_url && track.artwork_url.replace(/-large.jpg?.*$/, '-t300x300.jpg'),
         liked: track.user_favorite
       }
 

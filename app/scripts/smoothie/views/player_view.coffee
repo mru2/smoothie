@@ -11,40 +11,47 @@ define ['backbone',
   PlayerView = Backbone.View.extend {
 
     template: 
-      '<div id="radio">' +
-        '<div class="row">' +
-          '<div class="span6 offset3">' +
-            '<div id="player-container">' +
-              '<div id="player">' +
-                '<div class="artwork"></div>' +
-                '<div id="player-bar">' + 
-                  '<span></span>' +
-                '</div>' +
-                '<div class="content">' + 
-                  '<a class="title" href="<%= track.permalink_url %>" target="_blank"><%= track.title %></a>' +
-                  '<a class="artist" href="<%= track.user_permalink %>"><%= track.username %></a>' +
-                  '<div id="controls">' +
-                    '<% if (playing) { %>' +
-                      '<a class="control" id="pause"><i class="icon-pause"></i></a>' +
-                    '<% } else { %>' +
-                      '<a class="control" id="play"><i class="icon-play"></i></a>' +
-                    '<% } %>' +
-                    '<a class="control" id="prev"><i class="icon-step-backward"></i></a>' +
-                    ' ' + # Whitespace for spacing between prev and next controls
-                    '<a class="control" id="next"><i class="icon-step-forward"></i></a>' +
-                  '</div>' +
-                  '<% if (track.liked) { %>' +
-                    '<a id="unlike"><i class="icon icon-heart"></i></a>' +
-                  '<% } else { %>' +
-                    '<a id="like"><i class="icon icon-heart"></i></a>' +
-                  '<% } %>' +
-                '</div>' +
-              '</div>' +
-            '</div>' +
-            '<a id="togglePlaylist" class="btn btn-primary">Toggle playlist</a>' +
-          '</div>' +
-        '</div>' +
-      '</div>'
+      '<div id="player">
+        <div class="details">
+
+          <div class="topleft">
+            <a class="control" id="togglePlaylist"><i class="icon-undo"></i></a>
+          </div>
+
+          <div class="info">
+
+            <a class="title" href="<%= track.permalink_url %>" target="_blank"><%= track.title %></a>
+
+            <a class="artist" href="<%= track.user_permalink %>" target="_blank"><%= track.username %></a>
+
+            <div class="controls">
+              <a class="control" id="prev"><i class="icon-backward"></i></a>
+              <% if (playing) { %>
+                <a class="control" id="pause"><i class="icon-pause"></i></a>
+              <% } else { %>
+                <a class="control" id="play"><i class="icon-play"></i></a>
+              <% } %>
+              <a class="control" id="next"><i class="icon-forward"></i></a>
+            </div>
+
+            <div id="player-bar"><span></span></div>
+
+          </div>
+
+          <div class="bottomright">
+            <% if (track.liked) { %>
+              <a id="unlike" class="control"><i class="icon icon-heart"></i></a>
+            <% } else { %>
+              <a id="like" class="control"><i class="icon icon-heart"></i></a>
+            <% } %>
+          </div>
+        </div>
+
+        <div class="artwork">
+
+        </div>
+      </div>'
+
 
     noTracksTemplate: 
       '<div class="landing">' +
