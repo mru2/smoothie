@@ -19,5 +19,5 @@ end
 Encoding.default_external = 'utf-8'
 
 if ENV['RACK_ENV'] == 'development' || ENV['RACK_ENV'] == 'test'
-  require 'debugger'
+  require 'pry'
 end

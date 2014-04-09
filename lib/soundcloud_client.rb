@@ -1,6 +1,7 @@
 require 'soundcloud'
+require 'singleton'
 
-module Smoothie
+module Smoothie  
   class SoundcloudClient
 
     # The constants for the max page size and max offset for api queries
@@ -11,11 +12,7 @@ module Smoothie
     attr_reader :client
 
     def initialize(opts = {})
-      if opts[:access_token]
-        @client = Soundcloud.new( opts )
-      else
-        @client = Soundcloud.new( default_client_params.merge(opts) )
-      end
+      @client = Soundcloud.new( opts )
     end
 
     def authorize_url
@@ -25,19 +22,23 @@ module Smoothie
     # Get the data relevant to a track (exluding uploader details)
     def get_track(track_id)
       Kernel.sleep WAIT_AFTER_REQUEST
-      track_data = @client.get("/tracks/#{track_id}")
+      @client.get("/tracks/#{track_id}")
     end
 
-    # Get a user relevant data
+    # Get a user relevant data, and its favorites
     def get_user(user_id)
       Kernel.sleep WAIT_AFTER_REQUEST
-      user_data = @client.get("/users/#{user_id}")
+      user = @client.get("/users/#{user_id}")
+      Kernel.sleep WAIT_AFTER_REQUEST
+      likes = @client.get("/users/#{user_id}/favorites", :limit => MAX_PAGE_SIZE).map!(&:id)
+
+      return [user, likes]
     end
 
     # Get a user favorites
     def get_user_favorites(user_id, limit)
       return fetch_pages_for(limit) do |limit, offset|
-        @client.get("/users/#{user_id}/favorites", :limit => limit, :offset => offset).map(&:id)
+        
       end
     end
 
@@ -50,15 +51,6 @@ module Smoothie
 
 
     private
-
-    def default_client_params
-      params = YAML.load_file(File.join(ENV['APP_ROOT'], 'config', 'soundcloud.yml'))[ENV["RACK_ENV"]]
-
-      # Symbolizing keys
-      params.keys.each{|key|params[key.to_sym] = params.delete(key)}
-
-      return params
-    end
 
 
     # Generates the limit/offset pairs to get an arbitrary number of records

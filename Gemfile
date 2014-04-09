@@ -1,29 +1,29 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 gem 'sinatra'
 
 group :development do
   gem 'shotgun'
-  gem 'debugger'
-  gem 'ruby-prof'
 end
 
 group :test do
   gem 'rspec'
-  gem 'debugger'
   gem 'webmock'
   gem 'vcr'
+end
+
+group :development, :test do
+  gem 'pry'
+  gem 'ruby-prof'
 end
 
 group :production do
   gem 'unicorn'
 end
 
+gem 'redis'
 gem 'soundcloud'
-gem 'redis-objects'
-gem 'resque', '~> 1.0'
-gem 'resque-loner'
-gem 'resque-pool'
+# gem 'neography'
 
 gem 'capistrano'
 gem 'rvm-capistrano'
