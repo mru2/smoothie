@@ -8,3 +8,4 @@ dist
 .sass-cache
 app/components
 /public
+.vagrant

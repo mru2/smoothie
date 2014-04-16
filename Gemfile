@@ -23,7 +23,7 @@ end
 
 gem 'redis'
 gem 'soundcloud'
-# gem 'neography'
+gem 'neography'
 
 gem 'capistrano'
 gem 'rvm-capistrano'
