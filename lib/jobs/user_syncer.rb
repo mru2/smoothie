@@ -2,7 +2,7 @@ require 'worker'
 
 module Smoothie::Jobs
 
-  class UserSyncer
+  class UserLikesSyncer
 
     DEFAULT_DELAY = 86400 # 1 day
     MAX_DELAY = 2592000 # 1 month
@@ -25,6 +25,7 @@ module Smoothie::Jobs
         user, likes = $soundcloud.get_user(user_id)
 
         # TODO : Save it on neo4j (user + likes)
+        # Favorites return also data, no need(?) for first sync
 
         # Check the likes delta for the next sync
         former_likes = $redis.get(likes_key).to_i

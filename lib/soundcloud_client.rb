@@ -22,7 +22,9 @@ module Smoothie
     # Get the data relevant to a track (exluding uploader details)
     def get_track(track_id)
       Kernel.sleep WAIT_AFTER_REQUEST
-      @client.get("/tracks/#{track_id}")
+      track = @client.get("/tracks/#{track_id}")
+      Kernel.sleep WAIT_AFTER_REQUEST
+      likers = @client.get("/tracks/#{track_id}/favoriters", :limit => MAX_PAGE_SIZE)
     end
 
     # Get a user relevant data, and its favorites
@@ -30,7 +32,7 @@ module Smoothie
       Kernel.sleep WAIT_AFTER_REQUEST
       user = @client.get("/users/#{user_id}")
       Kernel.sleep WAIT_AFTER_REQUEST
-      likes = @client.get("/users/#{user_id}/favorites", :limit => MAX_PAGE_SIZE).map!(&:id)
+      likes = @client.get("/users/#{user_id}/favorites", :limit => MAX_PAGE_SIZE)
 
       return [user, likes]
     end
