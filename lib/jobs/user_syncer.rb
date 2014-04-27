@@ -2,7 +2,7 @@ require 'worker'
 
 module Smoothie::Jobs
 
-  class UserLikesSyncer
+  class UserSyncer
 
     DEFAULT_DELAY = 86400 # 1 day
     MAX_DELAY = 2592000 # 1 month
@@ -18,20 +18,27 @@ module Smoothie::Jobs
         likes_key = base_key + "likes"
         delay_key = base_key + "delay"
 
+
+        # Get the track
+        user = Smoothie::User.find(user_id)
+        raise "No track found for #{user_id}" unless user
+
+
         # Check if already synced
         return if $redis.exists sync_key
 
-        # Get the attrs on soundcloud
-        user, likes = $soundcloud.get_user(user_id)
 
-        # TODO : Save it on neo4j (user + likes)
-        # Favorites return also data, no need(?) for first sync
+        # Get the likes on soundcloud
+        likes = $soundcloud.get_user_likes(user_id)
+        tracks = likes.map{|soundcloud| Smoothie::Track.from_soundcloud(soundcloud)}
+        user.add_tracks(tracks)
+
 
         # Check the likes delta for the next sync
         former_likes = $redis.get(likes_key).to_i
         former_delay = $redis.get(delay_key).to_i
-        next_delay = get_next_delay(former_delay, former_likes, user.public_favorites_count)
-        $redis.set likes_key, user.public_favorites_count
+        next_delay = get_next_delay(former_delay, former_likes, user.attributes[:likes])
+        $redis.set likes_key, user.attributes[:likes]
         $redis.set delay_key, next_delay
 
         # Set the synced flag
@@ -39,8 +46,8 @@ module Smoothie::Jobs
         $redis.expire sync_key, next_delay
 
         # Enqueue the likes
-        likes.each do |track_id|
-          Smoothie::Jobs::Worker.enqueue :track, track_id
+        likes.each do |track|
+          Smoothie::Jobs::Worker.enqueue :track, track.id
         end
 
       end

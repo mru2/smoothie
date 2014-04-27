@@ -2,33 +2,30 @@
 # Also querying
 module Smoothie
 
-  class Track
+  class User
 
-    # Sample : 146063305
+    # Sample : 2324041
 
     attr_reader :id
     attr_accessor :attributes
 
     # Neo4j index
-    if $neo.get_schema_index('Track').empty?
-      $neo.create_schema_index('Track', ['id'])
+    if $neo.get_schema_index('User').empty?
+      $neo.create_schema_index('User', ['id'])
     end
 
     def self.from_soundcloud(soundcloud)
       new(soundcloud.id, 
-        :title      => soundcloud.title,
-        :artist     => soundcloud.user.username,
-        :duration   => soundcloud.duration,
-        :likers     => soundcloud.favoritings_count,
-        :created_at => Time.parse(soundcloud.created_at).to_i
+        :username   => soundcloud.username,
+        :likes      => soundcloud.public_favorites_count
       )
     end
 
-    def self.find(track_id)
-      track = new(track_id)
-      if track.node
-        track.attributes = track.node['data'].inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
-        track
+    def self.find(user_id)
+      user = new(user_id)
+      if user.node
+        user.attributes = user.node['data'].inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
+        user
       else
         nil
       end
@@ -44,7 +41,7 @@ module Smoothie
     def save
       if self.node.nil?
         node = $neo.create_node(attributes.merge(:id => id, :name => self.to_s))
-        $neo.set_label(node, 'Track')
+        $neo.set_label(node, 'User')
         @node = node
       else
         $neo.set_node_properties self.node, attributes.merge(:name => self.to_s)
@@ -56,7 +53,7 @@ module Smoothie
       return @node if @node
 
       # TODO : better query maybe?
-      res = $neo.execute_query("MATCH (t:Track) WHERE t.id = #{id} RETURN t")
+      res = $neo.execute_query("MATCH (u:User) WHERE u.id = #{id} RETURN u")
       if res['data'].empty?
         @node = nil
       else
@@ -66,19 +63,19 @@ module Smoothie
       @node
     end
 
-    def add_users(users)
-      users.each do |user|
+    def add_tracks(tracks)
+      tracks.each do |track|
         # Save it
-        user.save
+        track.save
 
         # Add the relationship
-        $neo.create_relationship('likes', user.node, node)
+        $neo.create_relationship('likes', node, track.node)
       end
     end
 
     def to_s
-      s = "Track ##{id}"
-      s += " : #{attributes[:artist]} - #{attributes[:title]}" unless attributes.empty?
+      s = "User ##{id}"
+      s += " : #{attributes[:username]}" unless attributes.empty?
       s
     end
 

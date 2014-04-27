@@ -43,16 +43,19 @@ module Smoothie::Jobs
         # Job is type:id
         job = $redis.zrevrange 'smoothie:jobs:queue', 0 , 1
         return nil if job.empty?
+        $redis.zrem 'smoothie:jobs:queue', job
 
         classname, id = job.first.split(':')
 
-        if classname == 'UserSyncer'
-          worker = UserSyncer
-        elsif  classname == 'TrackSyncer'
-          worker = TrackSyncer
+        if classname == 'user'
+          worker = Smoothie::Jobs::UserSyncer
+        elsif  classname == 'track'
+          worker = Smoothie::Jobs::TrackSyncer
+        else
+          raise "Unknown classname : #{classname}"
         end
           
-        {:class => :worker, :id => id.to_i}
+        {:class => worker, :id => id.to_i}
       end
 
     end
